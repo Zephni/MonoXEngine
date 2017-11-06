@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+
+<MainSettings>
+  <Directories>
+    <Content>Content</Content>
+    <Scenes>Scenes</Scenes>
+  </Directories>
+  <Initiation>
+    <StartupScene>SplashScreen</StartupScene>
+  </Initiation>
+</MainSettings>
