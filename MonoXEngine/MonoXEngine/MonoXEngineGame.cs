@@ -30,10 +30,18 @@ namespace MonoXEngine
         public Dictionary<string, Dictionary<string, string>> MainSettings { get; private set; }
 
         /// <summary>
-        /// ScebeManager
+        /// SceneManager
         /// </summary>
         public SceneManager SceneManager;
 
+        /// <summary>
+        /// RenderViewportTexture
+        /// </summary>
+        public RenderViewportTexture RenderViewportTexture;
+
+        /// <summary>
+        /// Get content manager
+        /// </summary>
         public static ContentManager ContentManager{
             get {return MonoXEngineGame.Instance.Content;}
         }
@@ -71,6 +79,7 @@ namespace MonoXEngine
         protected override void Initialize()
         {
             this.SceneManager = new SceneManager();
+            this.RenderViewportTexture = new RenderViewportTexture(GraphicsDevice);
             base.Initialize();
         }
 
@@ -93,13 +102,12 @@ namespace MonoXEngine
 
         protected override void Draw(GameTime gameTime)
         {
-            this.Graphics.GraphicsDevice.Clear(Color.White);
-
-            this.SpriteBatch.Begin();
-
-            this.SceneManager.CurrentScene.Draw(gameTime, this.SpriteBatch);
-
-            this.SpriteBatch.End();
+            this.RenderViewportTexture.CaptureAndRender(GraphicsDevice, SpriteBatch, () => {
+                this.Graphics.GraphicsDevice.Clear(Color.White);
+                this.SpriteBatch.Begin();
+                this.SceneManager.CurrentScene.Draw(gameTime, this.SpriteBatch);
+                this.SpriteBatch.End();
+            });
 
             base.Draw(gameTime);
         }
