@@ -6,9 +6,20 @@
     <Content>Content</Content>
     <Scenes>Scenes</Scenes>
   </Directories>
+
+  <Resolution>
+    <X>640</X>
+    <Y>480</Y>
+  </Resolution>
   
   <Initiation>
     <StartupScene>SplashScreen</StartupScene>
   </Initiation>
+
+  <Layers>
+    <Background></Background>
+    <Main></Main>
+    <Foreground></Foreground>
+  </Layers>
 
 </MainSettings>

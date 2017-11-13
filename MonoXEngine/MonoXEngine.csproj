@@ -49,6 +49,7 @@
     <Compile Include="MonoXEngine\RenderViewportTexture.cs" />
     <Compile Include="MonoXEngine\Scene.cs" />
     <Compile Include="MonoXEngine\SceneManager.cs" />
+    <Compile Include="MonoXEngine\SpriteBatchLayer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenes\SplashScreen.cs" />

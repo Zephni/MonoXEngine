@@ -15,7 +15,7 @@ namespace MonoXEngine.EntityComponents
 
         public void LoadTexture(string file)
         {
-            this.Texture2D = MonoXEngineGame.ContentManager.Load<Texture2D>(file);
+            this.Texture2D = MonoXEngineGame.Instance.Content.Load<Texture2D>(file);
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)

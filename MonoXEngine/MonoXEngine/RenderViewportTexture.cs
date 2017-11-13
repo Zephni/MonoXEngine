@@ -12,16 +12,20 @@ namespace MonoXEngine
     {
         public RenderTarget2D RenderTarget;
 
-        public RenderViewportTexture(GraphicsDevice graphicsDevice)
+        private SpriteBatch spriteBatch;
+
+        public RenderViewportTexture(GraphicsDevice graphicsDevice, int XResolution, int YResolution)
         {
             this.RenderTarget = new RenderTarget2D(
                graphicsDevice,
-               256,
-               248,
+               XResolution,
+               YResolution,
                false,
                graphicsDevice.PresentationParameters.BackBufferFormat,
                DepthFormat.Depth24
             );
+
+            this.spriteBatch = new SpriteBatch(graphicsDevice);
         }
 
         private void BeginCapture(GraphicsDevice graphicsDevice)
@@ -35,7 +39,7 @@ namespace MonoXEngine
             graphicsDevice.SetRenderTarget(null);
         }
 
-        private void RenderToViewport(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch)
+        private void RenderToViewport(GraphicsDevice graphicsDevice)
         {
             graphicsDevice.Clear(Color.Black);
 
@@ -43,17 +47,17 @@ namespace MonoXEngine
                SamplerState.LinearClamp, DepthStencilState.Default,
                RasterizerState.CullNone);
 
-            spriteBatch.Draw(this.RenderTarget, new Rectangle(0, 0, graphicsDevice.PresentationParameters.BackBufferWidth, graphicsDevice.PresentationParameters.BackBufferHeight), Color.Red);
+            spriteBatch.Draw(this.RenderTarget, new Rectangle(0, 0, graphicsDevice.PresentationParameters.BackBufferWidth, graphicsDevice.PresentationParameters.BackBufferHeight), Color.White);
 
             spriteBatch.End();
         }
 
-        public void CaptureAndRender(GraphicsDevice graphicsDevice, SpriteBatch spriteBatch, Action drawCalls)
+        public void CaptureAndRender(GraphicsDevice graphicsDevice, Dictionary<string, SpriteBatchLayer> SpriteBatchLayers, Action drawCalls)
         {
             this.BeginCapture(graphicsDevice);
             drawCalls();
             this.EndCapture(graphicsDevice);
-            this.RenderToViewport(graphicsDevice, spriteBatch);
+            this.RenderToViewport(graphicsDevice);
         }
     }
 }

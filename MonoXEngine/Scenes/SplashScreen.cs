@@ -11,7 +11,7 @@ namespace MonoXEngine.Scenes
             Entity entity = new Entity();
             entity.AddComponent<Drawable>().LoadTexture("Test");
 
-            this.Entities.Add(entity);
+            MonoXEngineGame.Instance.SpriteBatchLayers["Main"].Entities.Add(entity);
         }
 
         public override void Update(GameTime gameTime)

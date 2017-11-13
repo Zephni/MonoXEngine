@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Xml;
@@ -20,14 +21,9 @@ namespace MonoXEngine
         private GraphicsDeviceManager Graphics;
 
         /// <summary>
-        /// SpriteBatch
-        /// </summary>
-        private SpriteBatch SpriteBatch;
-
-        /// <summary>
         /// Two level string dictionary that represents MainSettings.xml data
         /// </summary>
-        public Dictionary<string, Dictionary<string, string>> MainSettings { get; private set; }
+        public Dictionary<string, Dictionary<string, object>> MainSettings { get; private set; }
 
         /// <summary>
         /// SceneManager
@@ -40,10 +36,13 @@ namespace MonoXEngine
         public RenderViewportTexture RenderViewportTexture;
 
         /// <summary>
-        /// Get content manager
+        /// SpriteBatchLayers
         /// </summary>
-        public static ContentManager ContentManager{
-            get {return MonoXEngineGame.Instance.Content;}
+        public Dictionary<string, SpriteBatchLayer> SpriteBatchLayers;
+
+        public T GetSetting<T>(string Key, string Key2)
+        {
+            return (T)Convert.ChangeType(this.MainSettings[Key][Key2], typeof(T));
         }
 
         /// <summary>
@@ -56,14 +55,14 @@ namespace MonoXEngine
             MonoXEngineGame.Instance = this;
 
             // Pass MainSettings
-            this.MainSettings = new Dictionary<string, Dictionary<string, string>>();
+            this.MainSettings = new Dictionary<string, Dictionary<string, object>>();
 
             XmlDocument mainSettingsDocument = new XmlDocument();
             mainSettingsDocument.Load(@"MainSettings.xml");
 
             foreach(XmlNode node in mainSettingsDocument.SelectSingleNode("MainSettings").ChildNodes)
             {
-                this.MainSettings.Add(node.Name, new Dictionary<string, string>());
+                this.MainSettings.Add(node.Name, new Dictionary<string, object>());
 
                 foreach(XmlNode node2 in node.ChildNodes)
                     this.MainSettings[node.Name].Add(node2.Name, node2.InnerText);
@@ -73,20 +72,31 @@ namespace MonoXEngine
             this.Graphics = new GraphicsDeviceManager(this);
 
             // Content RootDirectory
-            Content.RootDirectory = this.MainSettings["Directories"]["Content"];
+            Content.RootDirectory = this.GetSetting<string>("Directories", "Content");
+
+            // SpriteBatchLayers
+            this.SpriteBatchLayers = new Dictionary<string, SpriteBatchLayer>();
         }
 
         protected override void Initialize()
         {
             this.SceneManager = new SceneManager();
-            this.RenderViewportTexture = new RenderViewportTexture(GraphicsDevice);
+
+            int XResolution = this.GetSetting<int>("Resolution", "X");
+            int YResolution = this.GetSetting<int>("Resolution", "Y");
+            this.RenderViewportTexture = new RenderViewportTexture(GraphicsDevice, XResolution, YResolution);
+
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            this.SpriteBatch = new SpriteBatch(GraphicsDevice);
-            this.SceneManager.LoadScene(this.MainSettings["Initiation"]["StartupScene"]);
+            foreach(KeyValuePair<string, object> Layer in this.MainSettings["Layers"])
+            {
+                this.SpriteBatchLayers.Add(Layer.Key, new SpriteBatchLayer(GraphicsDevice));
+            }
+            
+            this.SceneManager.LoadScene(this.GetSetting<string>("Initiation", "StartupScene"));
             base.LoadContent();
         }
 
@@ -101,12 +111,10 @@ namespace MonoXEngine
         }
 
         protected override void Draw(GameTime gameTime)
-        {
-            this.RenderViewportTexture.CaptureAndRender(GraphicsDevice, SpriteBatch, () => {
-                this.Graphics.GraphicsDevice.Clear(Color.White);
-                this.SpriteBatch.Begin();
-                this.SceneManager.CurrentScene.Draw(gameTime, this.SpriteBatch);
-                this.SpriteBatch.End();
+        {            
+            this.RenderViewportTexture.CaptureAndRender(GraphicsDevice, this.SpriteBatchLayers, () => {
+                foreach (KeyValuePair<string, SpriteBatchLayer> SpriteBatchLayer in SpriteBatchLayers)
+                    SpriteBatchLayer.Value.Draw(gameTime);
             });
 
             base.Draw(gameTime);
