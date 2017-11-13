@@ -16,6 +16,10 @@
     <StartupScene>SplashScreen</StartupScene>
   </Initiation>
 
+  <Defaults>
+    <Layer>Main</Layer>
+  </Defaults>
+
   <Layers>
     <Background></Background>
     <Main></Main>

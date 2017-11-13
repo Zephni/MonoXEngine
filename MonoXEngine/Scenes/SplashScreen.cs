@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using MonoXEngine.EntityComponents;
 using System;
 
@@ -6,12 +7,19 @@ namespace MonoXEngine.Scenes
 {
     public class SplashScreen : Scene
     {
+        Entity entity1;
+        Entity entity2;
+
         public override void Initialise()
         {
-            Entity entity = new Entity();
-            entity.AddComponent<Drawable>().LoadTexture("Test");
+            entity1 = new Entity(entity => {
+                entity.AddComponent<Drawable>().LoadTexture("Test");
+            });
 
-            MonoXEngineGame.Instance.SpriteBatchLayers["Main"].Entities.Add(entity);
+            entity2 = new Entity(entity => {
+                entity.AddComponent<Drawable>().LoadTexture("Test");
+                entity.Position = new Point(40, 40);
+            });
         }
 
         public override void Update(GameTime gameTime)

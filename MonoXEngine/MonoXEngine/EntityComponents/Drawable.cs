@@ -20,16 +20,19 @@ namespace MonoXEngine.EntityComponents
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(
-                this.Texture2D,
-                this.Texture2D.Bounds,
-                this.Texture2D.Bounds,
-                Color.White,
-                0f,
-                Vector2.Zero,
-                SpriteEffects.None,
-                0
-            );
+            if(this.Texture2D != null)
+            {
+                spriteBatch.Draw(
+                    this.Texture2D,
+                    new Rectangle(this.entity.Position, new Point(this.Texture2D.Width, this.Texture2D.Height)),
+                    this.Texture2D.Bounds,
+                    Color.White,
+                    0f,
+                    Vector2.Zero,
+                    SpriteEffects.None,
+                    0
+                );
+            }
         }
     }
 }

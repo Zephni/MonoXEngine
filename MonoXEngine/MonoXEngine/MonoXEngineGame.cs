@@ -82,9 +82,9 @@ namespace MonoXEngine
         {
             this.SceneManager = new SceneManager();
 
-            int XResolution = this.GetSetting<int>("Resolution", "X");
-            int YResolution = this.GetSetting<int>("Resolution", "Y");
-            this.RenderViewportTexture = new RenderViewportTexture(GraphicsDevice, XResolution, YResolution);
+            this.RenderViewportTexture = new RenderViewportTexture(GraphicsDevice,
+                this.GetSetting<int>("Resolution", "X"),
+                this.GetSetting<int>("Resolution", "Y"));
 
             base.Initialize();
         }
@@ -107,6 +107,8 @@ namespace MonoXEngine
 
         protected override void Update(GameTime gameTime)
         {
+            this.SceneManager.CurrentScene.Update(gameTime);
+
             base.Update(gameTime);
         }
 
