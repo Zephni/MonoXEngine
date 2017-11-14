@@ -17,7 +17,7 @@ namespace MonoXEngine.Scenes
 
         public override void Update(GameTime gameTime)
         {
-            
+            entity1.Rotation -= 0.1f;
         }
     }
 }

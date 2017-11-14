@@ -28,8 +28,8 @@ namespace MonoXEngine.EntityComponents
                     new Rectangle(this.entity.Position.ToPoint(), this.entity.Size.ToPoint()),
                     this.Texture2D.Bounds,
                     Color.White,
-                    0f,
-                    Vector2.Zero,
+                    this.entity.Rotation,
+                    this.entity.Position + (this.entity.Size / 2),
                     SpriteEffects.None,
                     0
                 );

@@ -10,20 +10,14 @@ namespace MonoXEngine
     {
         private List<EntityComponent> EntityComponents;
 
-        private Vector2 position;
-        public Vector2 Position
-        {
-            get { return this.position - (this.Size * this.Origin); }
-            set { this.position = value + (this.Size * this.Origin); }
-        }
-
+        public Vector2 Position;
         public Vector2 Origin;
         public Vector2 Scale;
         public Vector2 TextureSize;
+        public float Rotation;
 
         public Vector2 Size { get { return this.TextureSize * this.Scale; } }
-
-
+        
         private string layerName;
         public string LayerName
         {
