@@ -8,9 +8,6 @@ namespace MonoXEngine.EntityComponents
 {
     public class Sprite : Drawable
     {
-        public Sprite()
-        {
-
-        }
+        
     }
 }

@@ -42,7 +42,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="MonoXEngine\Camera.cs" />
-    <Compile Include="MonoXEngine\DrawableRectangle.cs" />
+    <Compile Include="MonoXEngine\EntityComponents\DrawableRectangle.cs" />
     <Compile Include="MonoXEngine\Entity.cs" />
     <Compile Include="MonoXEngine\EntityComponent.cs" />
     <Compile Include="MonoXEngine\EntityComponents\Drawable.cs" />
@@ -54,7 +54,7 @@
     <Compile Include="MonoXEngine\SpriteBatchLayer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scenes\SplashScreen.cs" />
+    <Compile Include="Scenes\DebugScene.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

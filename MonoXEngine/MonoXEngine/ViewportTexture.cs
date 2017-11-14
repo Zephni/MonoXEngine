@@ -108,7 +108,7 @@ namespace MonoXEngine
         private void RenderToViewport(MonoXEngineGame gameInstance)
         {
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,
-               SamplerState.LinearClamp, DepthStencilState.Default,
+               SamplerState.PointClamp, DepthStencilState.Default,
                RasterizerState.CullNone);
 
             spriteBatch.Draw(this.RenderTarget, this.TextureRect, Color.White);

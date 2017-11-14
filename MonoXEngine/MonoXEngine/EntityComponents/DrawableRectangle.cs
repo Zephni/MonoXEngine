@@ -25,7 +25,7 @@ namespace MonoXEngine
             set { this.color = value; this.BuildTexture(); }
         }
 
-        public DrawableRectangle Build(Rectangle _rectangle, Color _color)
+        public DrawableRectangle Initialise(Rectangle _rectangle, Color _color)
         {
             this.rectangle = _rectangle;
             this.color = _color;
@@ -42,7 +42,9 @@ namespace MonoXEngine
                 colors[I] = this.Color;
 
             this.Texture2D.SetData<Color>(colors);
-            this.entity.TextureSize = new Vector2(this.rectangle.Width, this.rectangle.Height);
+
+            this.entity.TextureSize = new Vector2(this.Texture2D.Width, this.Texture2D.Height);
+            this.SourceRectangle = this.Texture2D.Bounds;
         }
     }
 }

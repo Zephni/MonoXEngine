@@ -14,7 +14,7 @@
   </Resolution>
   
   <Initiation>
-    <StartupScene>SplashScreen</StartupScene>
+    <StartupScene>DebugScene</StartupScene>
   </Initiation>
 
   <Defaults>
@@ -24,7 +24,7 @@
   <Layers>
     <Background></Background>
     <Main>Matrix: Camera;</Main>
-    <Fader></Fader>
+    <Fade></Fade>
   </Layers>
 
 </MainSettings>
