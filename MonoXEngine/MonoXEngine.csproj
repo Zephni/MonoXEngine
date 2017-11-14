@@ -42,12 +42,17 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="MonoXEngine\Camera.cs" />
+    <Compile Include="MonoXEngine\CoroutineHelper.cs" />
+    <Compile Include="MonoXEngine\CoRoutines.cs" />
+    <Compile Include="MonoXEngine\Delegates.cs" />
     <Compile Include="MonoXEngine\EntityComponents\DrawableRectangle.cs" />
     <Compile Include="MonoXEngine\Entity.cs" />
     <Compile Include="MonoXEngine\EntityComponent.cs" />
     <Compile Include="MonoXEngine\EntityComponents\Drawable.cs" />
     <Compile Include="MonoXEngine\EntityComponents\Sprite.cs" />
+    <Compile Include="MonoXEngine\Global.cs" />
     <Compile Include="MonoXEngine\MonoXEngineGame.cs" />
+    <Compile Include="MonoXEngine\Structs\Animation.cs" />
     <Compile Include="MonoXEngine\ViewportTexture.cs" />
     <Compile Include="MonoXEngine\Scene.cs" />
     <Compile Include="MonoXEngine\SceneManager.cs" />

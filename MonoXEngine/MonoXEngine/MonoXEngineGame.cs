@@ -109,8 +109,9 @@ namespace MonoXEngine
 
         protected override void Update(GameTime gameTime)
         {
+            Global.DeltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            Coroutines.Update();
             this.SceneManager.CurrentScene.Update(gameTime);
-
             base.Update(gameTime);
         }
 
