@@ -6,12 +6,7 @@ namespace MonoXEngine.EntityComponents
 {
     public class Drawable : EntityComponent
     {
-        private Texture2D Texture2D;
-
-        public Drawable()
-        {
-
-        }
+        protected Texture2D Texture2D;
 
         public void LoadTexture(string file)
         {
@@ -27,7 +22,7 @@ namespace MonoXEngine.EntityComponents
                     this.Texture2D,
                     new Rectangle(this.entity.Position.ToPoint(), this.entity.Size.ToPoint()),
                     this.Texture2D.Bounds,
-                    Color.White,
+                    Color.White * this.entity.Opacity,
                     this.entity.Rotation,
                     this.entity.Position + (this.entity.Size / 2),
                     SpriteEffects.None,

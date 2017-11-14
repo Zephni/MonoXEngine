@@ -23,8 +23,8 @@
 
   <Layers>
     <Background></Background>
-    <Main></Main>
-    <Foreground></Foreground>
+    <Main>Matrix: Camera;</Main>
+    <Fader></Fader>
   </Layers>
 
 </MainSettings>

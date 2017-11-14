@@ -94,7 +94,8 @@ namespace MonoXEngine
         {
             foreach(KeyValuePair<string, object> Layer in this.MainSettings["Layers"])
             {
-                this.SpriteBatchLayers.Add(Layer.Key, new SpriteBatchLayer(GraphicsDevice));
+                SpriteBatchLayer spriteBatchLayer = new SpriteBatchLayer(GraphicsDevice, Layer.Value.ToString());
+                this.SpriteBatchLayers.Add(Layer.Key, spriteBatchLayer);
             }
             
             this.SceneManager.LoadScene(this.GetSetting<string>("Initiation", "StartupScene"));
@@ -120,7 +121,7 @@ namespace MonoXEngine
             this.RenderViewportTexture.CaptureAndRender(this, () => {
                 GraphicsDevice.Clear(Color.White);
                 foreach (KeyValuePair<string, SpriteBatchLayer> SpriteBatchLayer in SpriteBatchLayers)
-                    SpriteBatchLayer.Value.Draw(gameTime, this.RenderViewportTexture.Resolution);
+                    SpriteBatchLayer.Value.Draw(gameTime);
             });
 
             base.Draw(gameTime);
