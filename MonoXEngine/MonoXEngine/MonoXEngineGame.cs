@@ -31,9 +31,9 @@ namespace MonoXEngine
         public SceneManager SceneManager;
 
         /// <summary>
-        /// RenderViewportTexture
+        /// ViewportTexture
         /// </summary>
-        public RenderViewportTexture RenderViewportTexture;
+        public ViewportTexture RenderViewportTexture;
 
         /// <summary>
         /// SpriteBatchLayers
@@ -82,9 +82,10 @@ namespace MonoXEngine
         {
             this.SceneManager = new SceneManager();
 
-            this.RenderViewportTexture = new RenderViewportTexture(GraphicsDevice,
+            this.RenderViewportTexture = new ViewportTexture(GraphicsDevice, new Point(
                 this.GetSetting<int>("Resolution", "X"),
-                this.GetSetting<int>("Resolution", "Y"));
+                this.GetSetting<int>("Resolution", "Y")
+            ), this.GetSetting<string>("Resolution", "ViewportArea"));
 
             base.Initialize();
         }
@@ -113,8 +114,11 @@ namespace MonoXEngine
         }
 
         protected override void Draw(GameTime gameTime)
-        {            
+        {
+            GraphicsDevice.Clear(Color.Black);
+
             this.RenderViewportTexture.CaptureAndRender(GraphicsDevice, this.SpriteBatchLayers, () => {
+                GraphicsDevice.Clear(Color.White);
                 foreach (KeyValuePair<string, SpriteBatchLayer> SpriteBatchLayer in SpriteBatchLayers)
                     SpriteBatchLayer.Value.Draw(gameTime);
             });

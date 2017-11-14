@@ -46,7 +46,7 @@
     <Compile Include="MonoXEngine\EntityComponents\Drawable.cs" />
     <Compile Include="MonoXEngine\EntityComponents\Sprite.cs" />
     <Compile Include="MonoXEngine\MonoXEngineGame.cs" />
-    <Compile Include="MonoXEngine\RenderViewportTexture.cs" />
+    <Compile Include="MonoXEngine\ViewportTexture.cs" />
     <Compile Include="MonoXEngine\Scene.cs" />
     <Compile Include="MonoXEngine\SceneManager.cs" />
     <Compile Include="MonoXEngine\SpriteBatchLayer.cs" />

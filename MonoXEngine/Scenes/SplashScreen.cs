@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoXEngine.EntityComponents;
-using System;
 
 namespace MonoXEngine.Scenes
 {
@@ -18,7 +17,7 @@ namespace MonoXEngine.Scenes
 
             entity2 = new Entity(entity => {
                 entity.AddComponent<Drawable>().LoadTexture("Test");
-                entity.Position = new Point(40, 40);
+                entity.Position = new Vector2(40, 40);
             });
         }
 

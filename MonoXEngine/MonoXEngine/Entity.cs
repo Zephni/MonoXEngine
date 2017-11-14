@@ -10,7 +10,9 @@ namespace MonoXEngine
     {
         private List<EntityComponent> EntityComponents;
 
-        public Point Position;
+        public Vector2 Position;
+        public Vector2 Size;
+        public Vector2 Scale;
 
         private string layerName;
         public string LayerName
@@ -21,7 +23,7 @@ namespace MonoXEngine
 
         public Entity(Action<Entity> action = null)
         {
-            this.Position = Point.Zero;
+            this.Position = Vector2.Zero;
 
             this.EntityComponents = new List<EntityComponent>();
 
@@ -34,7 +36,7 @@ namespace MonoXEngine
 
         public T AddComponent<T>()
         {
-            T newComponent = (T)Activator.CreateInstance(Type.GetType("MonoXEngine.EntityComponents.Drawable"));
+            T newComponent = (T)Activator.CreateInstance(typeof(T));
             this.EntityComponents.Add((EntityComponent)(object)newComponent);
             this.EntityComponents[this.EntityComponents.Count-1].entity = this;
             return (T)Convert.ChangeType(this.EntityComponents[this.EntityComponents.Count - 1], typeof(T));

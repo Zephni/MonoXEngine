@@ -24,7 +24,7 @@ namespace MonoXEngine.EntityComponents
             {
                 spriteBatch.Draw(
                     this.Texture2D,
-                    new Rectangle(this.entity.Position, new Point(this.Texture2D.Width, this.Texture2D.Height)),
+                    new Rectangle(this.entity.Position.ToPoint(), new Point(this.Texture2D.Width, this.Texture2D.Height)),
                     this.Texture2D.Bounds,
                     Color.White,
                     0f,

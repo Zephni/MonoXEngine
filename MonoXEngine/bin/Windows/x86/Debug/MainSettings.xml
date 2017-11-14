@@ -10,6 +10,7 @@
   <Resolution>
     <X>640</X>
     <Y>480</Y>
+    <ViewportArea>FIT_BEST</ViewportArea>
   </Resolution>
   
   <Initiation>
