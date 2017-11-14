@@ -12,9 +12,9 @@ namespace MonoXEngine
 
         private SpriteBatch spriteBatch;
 
-        private Point WindowSize;
-        private Point Resolution;
-        private Rectangle TextureRect;
+        public Point WindowSize;
+        public Point Resolution;
+        public Rectangle TextureRect;
 
         public ViewportTexture(GraphicsDevice graphicsDevice, Point resolution, string viewportArea = "FIT_Y")
         {
@@ -94,18 +94,18 @@ namespace MonoXEngine
             return this.GetRect(graphicsDevice, "FIT_BEST");
         }
 
-        private void BeginCapture(GraphicsDevice graphicsDevice)
+        private void BeginCapture(MonoXEngineGame gameInstance)
         {
-            graphicsDevice.SetRenderTarget(this.RenderTarget);
-            graphicsDevice.DepthStencilState = new DepthStencilState() { DepthBufferEnable = true };
+            gameInstance.GraphicsDevice.SetRenderTarget(this.RenderTarget);
+            gameInstance.GraphicsDevice.DepthStencilState = new DepthStencilState() { DepthBufferEnable = true };
         }
 
-        private void EndCapture(GraphicsDevice graphicsDevice)
+        private void EndCapture(MonoXEngineGame gameInstance)
         {
-            graphicsDevice.SetRenderTarget(null);
+            gameInstance.GraphicsDevice.SetRenderTarget(null);
         }
 
-        private void RenderToViewport(GraphicsDevice graphicsDevice)
+        private void RenderToViewport(MonoXEngineGame gameInstance)
         {
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,
                SamplerState.LinearClamp, DepthStencilState.Default,
@@ -116,12 +116,12 @@ namespace MonoXEngine
             spriteBatch.End();
         }
 
-        public void CaptureAndRender(GraphicsDevice graphicsDevice, Dictionary<string, SpriteBatchLayer> SpriteBatchLayers, Action drawCalls)
+        public void CaptureAndRender(MonoXEngineGame gameInstance, Action drawCalls)
         {
-            this.BeginCapture(graphicsDevice);
+            this.BeginCapture(gameInstance);
             drawCalls();
-            this.EndCapture(graphicsDevice);
-            this.RenderToViewport(graphicsDevice);
+            this.EndCapture(gameInstance);
+            this.RenderToViewport(gameInstance);
         }
     }
 }

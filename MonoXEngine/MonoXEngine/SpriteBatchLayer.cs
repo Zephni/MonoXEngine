@@ -25,9 +25,17 @@ namespace MonoXEngine
             this.Entities = new List<Entity>();
         }
 
-        public void Draw(GameTime gameTime)
+        public void Draw(GameTime gameTime, Point resolution)
         {
-            this.SpriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, null);
+            this.SpriteBatch.Begin(
+                SpriteSortMode.Deferred,
+                null,
+                SamplerState.PointClamp,
+                null,
+                null,
+                null,
+                Camera.Main.GetTransformation(resolution)
+            );
 
             foreach (Entity entity in Entities)
                 entity.Draw(gameTime, this.SpriteBatch);

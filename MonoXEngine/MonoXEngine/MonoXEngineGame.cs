@@ -117,10 +117,10 @@ namespace MonoXEngine
         {
             GraphicsDevice.Clear(Color.Black);
 
-            this.RenderViewportTexture.CaptureAndRender(GraphicsDevice, this.SpriteBatchLayers, () => {
+            this.RenderViewportTexture.CaptureAndRender(this, () => {
                 GraphicsDevice.Clear(Color.White);
                 foreach (KeyValuePair<string, SpriteBatchLayer> SpriteBatchLayer in SpriteBatchLayers)
-                    SpriteBatchLayer.Value.Draw(gameTime);
+                    SpriteBatchLayer.Value.Draw(gameTime, this.RenderViewportTexture.Resolution);
             });
 
             base.Draw(gameTime);

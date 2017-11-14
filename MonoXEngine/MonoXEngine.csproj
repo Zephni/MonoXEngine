@@ -41,6 +41,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="MonoXEngine\Camera.cs" />
     <Compile Include="MonoXEngine\Entity.cs" />
     <Compile Include="MonoXEngine\EntityComponent.cs" />
     <Compile Include="MonoXEngine\EntityComponents\Drawable.cs" />

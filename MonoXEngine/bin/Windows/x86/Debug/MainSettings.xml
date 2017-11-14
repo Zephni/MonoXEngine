@@ -8,8 +8,8 @@
   </Directories>
 
   <Resolution>
-    <X>640</X>
-    <Y>480</Y>
+    <X>256</X>
+    <Y>240</Y>
     <ViewportArea>FIT_BEST</ViewportArea>
   </Resolution>
   

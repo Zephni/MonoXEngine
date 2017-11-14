@@ -10,9 +10,19 @@ namespace MonoXEngine
     {
         private List<EntityComponent> EntityComponents;
 
-        public Vector2 Position;
-        public Vector2 Size;
+        private Vector2 position;
+        public Vector2 Position
+        {
+            get { return this.position - (this.Size * this.Origin); }
+            set { this.position = value + (this.Size * this.Origin); }
+        }
+
+        public Vector2 Origin;
         public Vector2 Scale;
+        public Vector2 TextureSize;
+
+        public Vector2 Size { get { return this.TextureSize * this.Scale; } }
+
 
         private string layerName;
         public string LayerName
@@ -24,7 +34,8 @@ namespace MonoXEngine
         public Entity(Action<Entity> action = null)
         {
             this.Position = Vector2.Zero;
-
+            this.Origin = new Vector2(0.5f, 0.5f);
+            this.Scale = new Vector2(1, 1);
             this.EntityComponents = new List<EntityComponent>();
 
             if(action != null)
