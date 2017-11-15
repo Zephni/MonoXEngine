@@ -11,7 +11,7 @@
     <ResolutionX>256</ResolutionX>
     <ResolutionY>240</ResolutionY>
     <ViewportArea>FIT_BEST</ViewportArea>
-    <AllowResizing>true</AllowResizing>
+    <AllowResizing>True</AllowResizing>
   </Viewport>
   
   <Initiation>

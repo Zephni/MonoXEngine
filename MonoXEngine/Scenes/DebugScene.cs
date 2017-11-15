@@ -1,7 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MonoXEngine.EntityComponents;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace MonoXEngine.Scenes
 {
@@ -12,19 +14,11 @@ namespace MonoXEngine.Scenes
             new Entity(entity => {
                 Sprite sprite = entity.AddComponent<Sprite>();
                 sprite.LoadTexture("Test");
-                sprite.AddAnimation(new Animation(
-                    "Test Animation",
-                    new List<Rectangle>(){
-                        new Rectangle(32 * 0, 0, 32, 32),
-                        new Rectangle(32 * 1, 0, 32, 32),
-                        new Rectangle(32 * 2, 0, 32, 32),
-                        new Rectangle(32 * 3, 0, 32, 32),
-                        new Rectangle(32 * 1, 32, 42, 42)
-                    },
-                    0.5f
-                ));
-
-                sprite.RunAnimation("Test Animation");
+                sprite.AddAnimation(new Animation("Test", 0.07f, new Point(180, 245), new Point[] {
+                    new Point(0, 0), new Point(1, 0), new Point(2, 0), new Point(3, 0), new Point(4, 0),
+                    new Point(0, 1), new Point(1, 1), new Point(2, 1), new Point(3, 1), new Point(4, 1)
+                }));
+                sprite.RunAnimation("Test");
             });
         }
 

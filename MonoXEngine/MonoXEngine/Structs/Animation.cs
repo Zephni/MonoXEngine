@@ -26,11 +26,26 @@ namespace MonoXEngine
         /// <param name="name"></param>
         /// <param name="sourceRectangles"></param>
         /// <param name="frameInterval"></param>
-        public Animation(string name, List<Rectangle> sourceRectangles, float frameInterval)
+        public Animation(string name, float frameInterval, List<Rectangle> sourceRectangles)
         {
             this.Name = name;
             this.SourceRectangles = sourceRectangles;
             this.FrameInterval = frameInterval;
+        }
+
+        public Animation(string name, float frameInterval, Point frameSize, params Point[] frames)
+        {
+            this.Name = name;
+            this.FrameInterval = frameInterval;
+            this.SourceRectangles = new List<Rectangle>();
+            foreach (Point point in frames)
+                this.SourceRectangles.Add(new Rectangle(
+                    point.X * frameSize.X,
+                    point.Y * frameSize.Y,
+                    frameSize.X,
+                    frameSize.Y
+                )
+            );
         }
     }
 }
