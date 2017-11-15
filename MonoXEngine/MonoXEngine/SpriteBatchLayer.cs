@@ -34,7 +34,7 @@ namespace MonoXEngine
         public void ApplyOptions(string layerOptions)
         {
             // Default transformMatrix to snapshot of camera transformation before it has any changes applied
-            this.transformMatrix = Camera.Main.GetTransformation(MonoXEngineGame.Instance.RenderViewportTexture.Resolution);
+            this.transformMatrix = Camera.Main.GetTransformation(MonoXEngineGame.Instance.ViewportTexture.Resolution);
 
             if (layerOptions.Trim().Length == 0)
                 return;
@@ -54,7 +54,7 @@ namespace MonoXEngine
                     if(value == "camera")
                     {
                         this.MatrixUpdater = delegate() {
-                            return Camera.Main.GetTransformation(MonoXEngineGame.Instance.RenderViewportTexture.Resolution);
+                            return Camera.Main.GetTransformation(MonoXEngineGame.Instance.ViewportTexture.Resolution);
                         };
                     }
                 }

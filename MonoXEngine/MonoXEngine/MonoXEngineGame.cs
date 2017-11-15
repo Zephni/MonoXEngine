@@ -33,7 +33,7 @@ namespace MonoXEngine
         /// <summary>
         /// ViewportTexture
         /// </summary>
-        public ViewportTexture RenderViewportTexture;
+        public ViewportTexture ViewportTexture;
 
         /// <summary>
         /// SpriteBatchLayers
@@ -74,18 +74,25 @@ namespace MonoXEngine
             // Content RootDirectory
             Content.RootDirectory = this.GetSetting<string>("Directories", "Content");
 
-            // SpriteBatchLayers
-            this.SpriteBatchLayers = new Dictionary<string, SpriteBatchLayer>();
+            // Window resizing
+            if(this.GetSetting<string>("Viewport", "AllowResizing").ToLower() == "true")
+            {
+                Window.AllowUserResizing = true;
+                Window.ClientSizeChanged += delegate {
+                    this.ViewportTexture.WindowSizeUpdate(GraphicsDevice);
+                };
+            }
         }
 
         protected override void Initialize()
         {
+            this.SpriteBatchLayers = new Dictionary<string, SpriteBatchLayer>();
             this.SceneManager = new SceneManager();
 
-            this.RenderViewportTexture = new ViewportTexture(GraphicsDevice, new Point(
-                this.GetSetting<int>("Resolution", "X"),
-                this.GetSetting<int>("Resolution", "Y")
-            ), this.GetSetting<string>("Resolution", "ViewportArea"));
+            this.ViewportTexture = new ViewportTexture(GraphicsDevice, new Point(
+                this.GetSetting<int>("Viewport", "ResolutionX"),
+                this.GetSetting<int>("Viewport", "ResolutionY")
+            ), this.GetSetting<string>("Viewport", "ViewportArea"));
 
             base.Initialize();
         }
@@ -119,7 +126,7 @@ namespace MonoXEngine
         {
             GraphicsDevice.Clear(Color.Black);
 
-            this.RenderViewportTexture.CaptureAndRender(this, () => {
+            this.ViewportTexture.CaptureAndRender(this, () => {
                 GraphicsDevice.Clear(Color.White);
                 foreach (KeyValuePair<string, SpriteBatchLayer> SpriteBatchLayer in SpriteBatchLayers)
                     SpriteBatchLayer.Value.Draw(gameTime);

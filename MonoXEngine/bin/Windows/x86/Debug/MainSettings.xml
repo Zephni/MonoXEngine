@@ -7,11 +7,12 @@
     <Scenes>Scenes</Scenes>
   </Directories>
 
-  <Resolution>
-    <X>256</X>
-    <Y>240</Y>
+  <Viewport>
+    <ResolutionX>256</ResolutionX>
+    <ResolutionY>240</ResolutionY>
     <ViewportArea>FIT_BEST</ViewportArea>
-  </Resolution>
+    <AllowResizing>true</AllowResizing>
+  </Viewport>
   
   <Initiation>
     <StartupScene>DebugScene</StartupScene>

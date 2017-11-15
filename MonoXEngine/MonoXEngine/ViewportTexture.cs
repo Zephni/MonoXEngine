@@ -9,18 +9,19 @@ namespace MonoXEngine
     public class ViewportTexture
     {
         public RenderTarget2D RenderTarget;
-
-        private SpriteBatch spriteBatch;
-
         public Point WindowSize;
         public Point Resolution;
         public Rectangle TextureRect;
 
+        private SpriteBatch spriteBatch;
+        private string viewportArea;
+
         public ViewportTexture(GraphicsDevice graphicsDevice, Point resolution, string viewportArea = "FIT_Y")
         {
+            this.viewportArea = viewportArea;
             this.Resolution = resolution;
-            this.WindowSize = new Point(graphicsDevice.PresentationParameters.BackBufferWidth, graphicsDevice.PresentationParameters.BackBufferHeight);
-            this.TextureRect = this.GetRect(graphicsDevice, viewportArea);
+
+            this.WindowSizeUpdate(graphicsDevice);
 
             this.RenderTarget = new RenderTarget2D(
                graphicsDevice,
@@ -34,9 +35,18 @@ namespace MonoXEngine
             this.spriteBatch = new SpriteBatch(graphicsDevice);
         }
 
-        private Rectangle GetRect(GraphicsDevice graphicsDevice, string fitType)
+        public void WindowSizeUpdate(GraphicsDevice graphicsDevice)
         {
-            if (fitType == "FIT_Y")
+            this.WindowSize = new Point(graphicsDevice.PresentationParameters.BackBufferWidth, graphicsDevice.PresentationParameters.BackBufferHeight);
+            this.TextureRect = this.GetRect(graphicsDevice);
+        }
+
+        private Rectangle GetRect(GraphicsDevice graphicsDevice, string newViewportArea = null)
+        {
+            if (newViewportArea != null)
+                this.viewportArea = newViewportArea;
+
+            if (this.viewportArea == "FIT_Y")
             {
                 float otherRatio = (this.WindowSize.Y - this.Resolution.Y) / (float)this.Resolution.Y;
                 Point size = new Point(this.Resolution.X + (int)(this.Resolution.X * otherRatio), this.Resolution.Y + (int)(this.Resolution.Y * otherRatio));
@@ -48,7 +58,7 @@ namespace MonoXEngine
                     size.Y
                 );
             }
-            else if (fitType == "FIT_X")
+            else if (this.viewportArea == "FIT_X")
             {
                 float otherRatio = (this.WindowSize.X - this.Resolution.X) / (float)this.Resolution.X;
                 Point size = new Point(this.Resolution.X + (int)(this.Resolution.X * otherRatio), this.Resolution.Y + (int)(this.Resolution.Y * otherRatio));
@@ -60,11 +70,11 @@ namespace MonoXEngine
                     size.Y
                 );
             }
-            else if (fitType == "STRETCH")
+            else if (this.viewportArea == "STRETCH")
             {
                 return new Rectangle(0, 0, this.WindowSize.X, this.WindowSize.Y);
             }
-            else if (fitType == "FIT_BEST")
+            else if (this.viewportArea == "FIT_BEST")
             {
                 float scale = Math.Min((float)this.WindowSize.X / (float)this.Resolution.X, (float)this.WindowSize.Y / (float)this.Resolution.Y);
 
@@ -78,10 +88,10 @@ namespace MonoXEngine
                 );
 
             }
-            else if (fitType.Substring(0, 7) == "CUSTOM ")
+            else if (this.viewportArea.Substring(0, 7) == "CUSTOM ")
             {
                 string[] parts = new string[4];
-                parts = fitType.Substring(7).Split(' ');
+                parts = this.viewportArea.Substring(7).Split(' ');
 
                 int[] rectParts = new int[4];
 
@@ -91,7 +101,7 @@ namespace MonoXEngine
                 return new Rectangle(rectParts[0], rectParts[1], rectParts[2], rectParts[3]);
             }
 
-            return this.GetRect(graphicsDevice, "FIT_BEST");
+            return this.GetRect(graphicsDevice);
         }
 
         private void BeginCapture(MonoXEngineGame gameInstance)
