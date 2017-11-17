@@ -16,32 +16,32 @@ namespace MonoXEngine
         private SpriteBatch spriteBatch;
         private string viewportArea;
 
-        public ViewportTexture(GraphicsDevice graphicsDevice, Point resolution, string viewportArea = "FIT_Y")
+        public ViewportTexture(Point resolution, string viewportArea = "FIT_Y")
         {
             this.viewportArea = viewportArea;
             this.Resolution = resolution;
 
-            this.WindowSizeUpdate(graphicsDevice);
+            this.WindowSizeUpdate();
 
             this.RenderTarget = new RenderTarget2D(
-               graphicsDevice,
+               Global.GraphicsDevice,
                this.Resolution.X,
                this.Resolution.Y,
                false,
-               graphicsDevice.PresentationParameters.BackBufferFormat,
+               Global.GraphicsDevice.PresentationParameters.BackBufferFormat,
                DepthFormat.Depth24
             );
 
-            this.spriteBatch = new SpriteBatch(graphicsDevice);
+            this.spriteBatch = new SpriteBatch(Global.GraphicsDevice);
         }
 
-        public void WindowSizeUpdate(GraphicsDevice graphicsDevice)
+        public void WindowSizeUpdate()
         {
-            this.WindowSize = new Point(graphicsDevice.PresentationParameters.BackBufferWidth, graphicsDevice.PresentationParameters.BackBufferHeight);
-            this.TextureRect = this.GetRect(graphicsDevice);
+            this.WindowSize = new Point(Global.GraphicsDevice.PresentationParameters.BackBufferWidth, Global.GraphicsDevice.PresentationParameters.BackBufferHeight);
+            this.TextureRect = this.GetRect();
         }
 
-        private Rectangle GetRect(GraphicsDevice graphicsDevice, string newViewportArea = null)
+        private Rectangle GetRect(string newViewportArea = null)
         {
             if (newViewportArea != null)
                 this.viewportArea = newViewportArea;
@@ -101,21 +101,21 @@ namespace MonoXEngine
                 return new Rectangle(rectParts[0], rectParts[1], rectParts[2], rectParts[3]);
             }
 
-            return this.GetRect(graphicsDevice);
+            return this.GetRect();
         }
 
-        private void BeginCapture(MonoXEngineGame gameInstance)
+        private void BeginCapture()
         {
-            gameInstance.GraphicsDevice.SetRenderTarget(this.RenderTarget);
-            gameInstance.GraphicsDevice.DepthStencilState = new DepthStencilState() { DepthBufferEnable = true };
+            Global.GraphicsDevice.SetRenderTarget(this.RenderTarget);
+            Global.GraphicsDevice.DepthStencilState = new DepthStencilState() { DepthBufferEnable = true };
         }
 
-        private void EndCapture(MonoXEngineGame gameInstance)
+        private void EndCapture()
         {
-            gameInstance.GraphicsDevice.SetRenderTarget(null);
+            Global.GraphicsDevice.SetRenderTarget(null);
         }
 
-        private void RenderToViewport(MonoXEngineGame gameInstance)
+        private void RenderToViewport()
         {
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,
                SamplerState.PointClamp, DepthStencilState.Default,
@@ -128,10 +128,10 @@ namespace MonoXEngine
 
         public void CaptureAndRender(MonoXEngineGame gameInstance, Action drawCalls)
         {
-            this.BeginCapture(gameInstance);
+            this.BeginCapture();
             drawCalls();
-            this.EndCapture(gameInstance);
-            this.RenderToViewport(gameInstance);
+            this.EndCapture();
+            this.RenderToViewport();
         }
     }
 }

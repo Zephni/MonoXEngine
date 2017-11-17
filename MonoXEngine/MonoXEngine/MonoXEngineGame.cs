@@ -79,7 +79,7 @@ namespace MonoXEngine
             {
                 Window.AllowUserResizing = true;
                 Window.ClientSizeChanged += delegate {
-                    this.ViewportTexture.WindowSizeUpdate(GraphicsDevice);
+                    this.ViewportTexture.WindowSizeUpdate();
                 };
             }
         }
@@ -88,11 +88,12 @@ namespace MonoXEngine
         {
             this.SpriteBatchLayers = new Dictionary<string, SpriteBatchLayer>();
             this.SceneManager = new SceneManager();
-
-            this.ViewportTexture = new ViewportTexture(GraphicsDevice, new Point(
+            Global.Resolution = new Point(
                 this.GetSetting<int>("Viewport", "ResolutionX"),
                 this.GetSetting<int>("Viewport", "ResolutionY")
-            ), this.GetSetting<string>("Viewport", "ViewportArea"));
+            );
+
+            this.ViewportTexture = new ViewportTexture(Global.Resolution, this.GetSetting<string>("Viewport", "ViewportArea"));
 
             base.Initialize();
         }
@@ -101,7 +102,7 @@ namespace MonoXEngine
         {
             foreach(KeyValuePair<string, object> Layer in this.MainSettings["Layers"])
             {
-                SpriteBatchLayer spriteBatchLayer = new SpriteBatchLayer(GraphicsDevice, Layer.Value.ToString());
+                SpriteBatchLayer spriteBatchLayer = new SpriteBatchLayer(Layer.Value.ToString());
                 this.SpriteBatchLayers.Add(Layer.Key, spriteBatchLayer);
             }
             
@@ -116,7 +117,8 @@ namespace MonoXEngine
 
         protected override void Update(GameTime gameTime)
         {
-            Global.DeltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            Global.GameTime = gameTime;
+            Global.DeltaTime = (float)Global.GameTime.ElapsedGameTime.TotalSeconds;
             Coroutines.Update();
             this.SceneManager.CurrentScene.Update(gameTime);
             base.Update(gameTime);

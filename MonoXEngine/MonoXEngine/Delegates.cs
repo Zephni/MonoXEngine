@@ -1,19 +1,9 @@
 ﻿namespace MonoXEngine
 {
     /// <summary>
-    /// MethodAction
-    /// </summary>
-    public delegate void MethodAction();
-
-    /// <summary>
     /// BooleanAction
     /// </summary>
     public delegate bool BooleanAction();
-
-    /// <summary>
-    /// MatrixAction
-    /// </summary>
-    public delegate Microsoft.Xna.Framework.Matrix MatrixAction();
 
     /// <summary>
     /// Single parameter T Method

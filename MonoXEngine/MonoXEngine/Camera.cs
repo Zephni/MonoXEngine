@@ -53,13 +53,13 @@ namespace MonoXEngine
             _pos = Vector2.Zero;
         }
 
-        public Matrix GetTransformation(Point resolution)
+        public Matrix GetTransformation()
         {
             _transform =       // Thanks to o KB o for this solution
               Matrix.CreateTranslation(new Vector3(-_pos.X, -_pos.Y, 0)) *
                                          Matrix.CreateRotationZ(Rotation) *
                                          Matrix.CreateScale(new Vector3(Zoom, Zoom, 1)) *
-                                         Matrix.CreateTranslation(new Vector3(resolution.X * 0.5f, resolution.Y * 0.5f, 0));
+                                         Matrix.CreateTranslation(new Vector3(Global.Resolution.X * 0.5f, Global.Resolution.Y * 0.5f, 0));
             return _transform;
         }
     }

@@ -53,6 +53,15 @@ namespace MonoXEngine
             this.EntityComponents[this.EntityComponents.Count-1].entity = this;
             return (T)Convert.ChangeType(this.EntityComponents[this.EntityComponents.Count - 1], typeof(T));
         }
+
+        public T GetComponent<T>()
+        {
+            foreach(EntityComponent component in this.EntityComponents)
+                if (component.GetType() == typeof(T))
+                    return (T)Convert.ChangeType(component, typeof(T));
+
+            return default(T);
+        }
         
         public virtual void Update(GameTime gameTime)
         {
