@@ -68,6 +68,9 @@ namespace MonoXEngine
                     this.MainSettings[node.Name].Add(node2.Name, node2.InnerText);
             }
 
+            // Set Global.Game
+            Global.Game = this;
+
             // GraphicsDeviceManager
             this.Graphics = new GraphicsDeviceManager(this);
 

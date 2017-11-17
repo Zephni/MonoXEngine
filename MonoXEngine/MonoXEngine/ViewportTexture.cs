@@ -117,7 +117,7 @@ namespace MonoXEngine
 
         private void RenderToViewport()
         {
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.NonPremultiplied,
                SamplerState.PointClamp, DepthStencilState.Default,
                RasterizerState.CullNone);
 

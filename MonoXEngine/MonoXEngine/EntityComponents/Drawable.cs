@@ -36,7 +36,14 @@ namespace MonoXEngine.EntityComponents
             this.SourceRectangle = this.Texture2D.Bounds;
         }
 
-        public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public void LoadTexture(Texture2D texture)
+        {
+            this.Texture2D = texture;
+            this.entity.TextureSize = new Vector2(this.Texture2D.Width, this.Texture2D.Height);
+            this.SourceRectangle = this.Texture2D.Bounds;
+        }
+
+        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if(this.Texture2D != null)
             {
@@ -46,7 +53,7 @@ namespace MonoXEngine.EntityComponents
                     this.SourceRectangle,
                     Color.White * this.entity.Opacity,
                     this.entity.Rotation,
-                    this.entity.Size / 2,
+                    this.entity.Origin * this.entity.Size,
                     SpriteEffects.None,
                     0
                 );

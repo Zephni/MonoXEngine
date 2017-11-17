@@ -2,6 +2,16 @@
 {
     public class EntityComponent
     {
-        public Entity entity;
+        private Entity _entity;
+        public Entity entity
+        {
+            get { return _entity; }
+            set { _entity = value; this.Start(); }
+        }
+
+        public virtual void Start()
+        {
+
+        }
     }
 }

@@ -12,10 +12,13 @@ namespace MonoXEngine.Scenes
         public override void Initialise()
         {
             new Entity(entity => {
-                Sprite sprite = entity.AddComponent<Sprite>();
-                sprite.LoadTexture("Test");
-                sprite.AddAnimation(new Animation("Test", 0.07f, new Point(48, 60), Global.Str2Points("0,1,2,3,4,5", "0")));
-                sprite.RunAnimation("Test");
+                Text text = entity.AddComponent<Text>();
+                string Str = "This is an eventual string";
+
+                CoroutineHelper.Every(0.1f, () => {
+                    if (text.text != Str)
+                        text.text = Str.Substring(0, text.text.Length+1);
+                });
             });
         }
 

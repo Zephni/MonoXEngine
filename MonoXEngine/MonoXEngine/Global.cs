@@ -1,15 +1,23 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MonoXEngine
 {
     public static class Global
     {
+        /// <summary>
+        /// Game
+        /// </summary>
+        public static Game Game;
+
+        public static ContentManager Content
+        {
+            get { return Global.Game.Content; }
+        }
+
         /// <summary>
         /// GameTime
         /// </summary>
