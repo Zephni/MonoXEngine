@@ -16,8 +16,10 @@ namespace MonoXEngine
         private SpriteBatch SpriteBatch;
         public List<Entity> Entities;
 
+        public SamplerState SamplerState;
+
         public Func<Matrix> MatrixUpdater;
-        private Matrix transformMatrix;
+        private Matrix TransformMatrix;
 
         public static SpriteBatchLayer Get(string Key)
         {
@@ -33,8 +35,9 @@ namespace MonoXEngine
 
         public void ApplyOptions(string layerOptions)
         {
-            // Default transformMatrix to snapshot of camera transformation before it has any changes applied
-            this.transformMatrix = Camera.Main.GetTransformation();
+            // Defaults
+            this.TransformMatrix = Global.Camera.GetTransformation();
+            this.SamplerState = SamplerState.PointClamp;
 
             if (layerOptions.Trim().Length == 0)
                 return;
@@ -54,8 +57,15 @@ namespace MonoXEngine
                     if(value == "camera")
                     {
                         this.MatrixUpdater = delegate() {
-                            return Camera.Main.GetTransformation();
+                            return Global.Camera.GetTransformation();
                         };
+                    }
+                }
+                else if(key == "samplerstate")
+                {
+                    if(value == "linearwrap")
+                    {
+                        this.SamplerState = SamplerState.LinearWrap;
                     }
                 }
             }
@@ -64,16 +74,16 @@ namespace MonoXEngine
         public void Draw(GameTime gameTime)
         {
             if(this.MatrixUpdater != null)
-                this.transformMatrix = this.MatrixUpdater();
+                this.TransformMatrix = this.MatrixUpdater();
 
             this.SpriteBatch.Begin(
                 SpriteSortMode.Deferred,
                 BlendState.NonPremultiplied,
-                SamplerState.PointClamp,
+                this.SamplerState,
                 null,
                 null,
                 null,
-                this.transformMatrix
+                this.TransformMatrix
             );
 
             foreach (Entity entity in Entities)

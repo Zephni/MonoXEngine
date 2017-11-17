@@ -45,7 +45,6 @@
     <Compile Include="MonoXEngine\CoroutineHelper.cs" />
     <Compile Include="MonoXEngine\CoRoutines.cs" />
     <Compile Include="MonoXEngine\Delegates.cs" />
-    <Compile Include="MonoXEngine\EntityComponents\DrawableRectangle.cs" />
     <Compile Include="MonoXEngine\Entity.cs" />
     <Compile Include="MonoXEngine\EntityComponent.cs" />
     <Compile Include="MonoXEngine\EntityComponents\Drawable.cs" />

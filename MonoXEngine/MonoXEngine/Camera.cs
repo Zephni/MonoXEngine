@@ -4,18 +4,6 @@ namespace MonoXEngine
 {
     public class Camera
     {
-        private static Camera main;
-        public static Camera Main
-        {
-            get
-            {
-                if(Camera.main == null)
-                    Camera.main = new Camera();
-
-                return Camera.main;
-            }
-        }
-
         protected float _zoom;
         private Matrix _transform;
         private Vector2 _pos;

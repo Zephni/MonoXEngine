@@ -13,6 +13,9 @@ namespace MonoXEngine
         /// </summary>
         public static Game Game;
 
+        /// <summary>
+        /// Content
+        /// </summary>
         public static ContentManager Content
         {
             get { return Global.Game.Content; }
@@ -34,12 +37,30 @@ namespace MonoXEngine
         public static Point Resolution;
 
         /// <summary>
+        /// ScreenBounds
+        /// </summary>
+        public static Rectangle ScreenBounds
+        {
+            get { return new Rectangle(new Point(-Global.Resolution.X / 2, -Global.Resolution.Y / 2), Global.Resolution); }
+        }
+
+        /// <summary>
         /// GraphicsDevice
         /// </summary>
         public static GraphicsDevice GraphicsDevice
         {
             get { return MonoXEngineGame.Instance.GraphicsDevice; }
         }
+
+        /// <summary>
+        /// Cameras
+        /// </summary>
+        public static List<Camera> Cameras;
+
+        /// <summary>
+        /// Camera
+        /// </summary>
+        public static Camera Camera;
 
         /// <summary>
         /// String to point array. Use "1,0|2,0|.."

@@ -23,8 +23,9 @@
   </Defaults>
 
   <Layers>
-    <Background></Background>
+    <Background>SamplerState: LinearWrap;</Background>
     <Main>Matrix: Camera;</Main>
+    <UI></UI>
     <Fade></Fade>
   </Layers>
 

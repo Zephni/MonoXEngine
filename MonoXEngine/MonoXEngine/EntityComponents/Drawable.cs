@@ -43,6 +43,20 @@ namespace MonoXEngine.EntityComponents
             this.SourceRectangle = this.Texture2D.Bounds;
         }
 
+        public void BuildRectangle(Rectangle rectangle, Color color)
+        {
+            this.Texture2D = new Texture2D(MonoXEngineGame.Instance.GraphicsDevice, rectangle.Width, rectangle.Height, false, SurfaceFormat.Color);
+
+            Color[] colors = new Color[rectangle.Width * rectangle.Height];
+            for (int I = 0; I < rectangle.Width * rectangle.Height; I++)
+                colors[I] = color;
+
+            this.Texture2D.SetData<Color>(colors);
+
+            this.entity.TextureSize = new Vector2(this.Texture2D.Width, this.Texture2D.Height);
+            this.SourceRectangle = this.Texture2D.Bounds;
+        }
+
         public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             if(this.Texture2D != null)

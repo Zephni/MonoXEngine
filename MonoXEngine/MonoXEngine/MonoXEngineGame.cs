@@ -89,13 +89,15 @@ namespace MonoXEngine
 
         protected override void Initialize()
         {
-            this.SpriteBatchLayers = new Dictionary<string, SpriteBatchLayer>();
-            this.SceneManager = new SceneManager();
+            Global.Cameras = new List<Camera>(){new Camera()};
+            Global.Camera = Global.Cameras[0];
             Global.Resolution = new Point(
                 this.GetSetting<int>("Viewport", "ResolutionX"),
                 this.GetSetting<int>("Viewport", "ResolutionY")
             );
 
+            this.SpriteBatchLayers = new Dictionary<string, SpriteBatchLayer>();
+            this.SceneManager = new SceneManager();
             this.ViewportTexture = new ViewportTexture(Global.Resolution, this.GetSetting<string>("Viewport", "ViewportArea"));
 
             base.Initialize();
