@@ -41,24 +41,26 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="MonoXEngine\Camera.cs" />
-    <Compile Include="MonoXEngine\CoroutineHelper.cs" />
-    <Compile Include="MonoXEngine\CoRoutines.cs" />
-    <Compile Include="MonoXEngine\Delegates.cs" />
-    <Compile Include="MonoXEngine\Entity.cs" />
-    <Compile Include="MonoXEngine\EntityComponent.cs" />
+    <Compile Include="MonoXEngine\Fundamentals\Camera.cs" />
+    <Compile Include="MonoXEngine\Fundamentals\CoroutineHelper.cs" />
+    <Compile Include="MonoXEngine\Fundamentals\CoRoutines.cs" />
+    <Compile Include="MonoXEngine\Fundamentals\Delegates.cs" />
+    <Compile Include="MonoXEngine\Fundamentals\Entity.cs" />
+    <Compile Include="MonoXEngine\Fundamentals\EntityComponent.cs" />
     <Compile Include="MonoXEngine\EntityComponents\BoxCollider.cs" />
     <Compile Include="MonoXEngine\EntityComponents\Drawable.cs" />
     <Compile Include="MonoXEngine\EntityComponents\Sprite.cs" />
     <Compile Include="MonoXEngine\EntityComponents\Text.cs" />
     <Compile Include="MonoXEngine\EntityComponents\CameraOffsetTexture.cs" />
-    <Compile Include="MonoXEngine\Global.cs" />
-    <Compile Include="MonoXEngine\MonoXEngineGame.cs" />
+    <Compile Include="MonoXEngine\Fundamentals\Global.cs" />
+    <Compile Include="MonoXEngine\Fundamentals\MonoXEngineGame.cs" />
     <Compile Include="MonoXEngine\Structs\Animation.cs" />
-    <Compile Include="MonoXEngine\ViewportTexture.cs" />
-    <Compile Include="MonoXEngine\Scene.cs" />
-    <Compile Include="MonoXEngine\SceneManager.cs" />
-    <Compile Include="MonoXEngine\SpriteBatchLayer.cs" />
+    <Compile Include="MonoXEngine\Fundamentals\ViewportTexture.cs" />
+    <Compile Include="MonoXEngine\Fundamentals\Scene.cs" />
+    <Compile Include="MonoXEngine\Fundamentals\SceneManager.cs" />
+    <Compile Include="MonoXEngine\Fundamentals\SpriteBatchLayer.cs" />
+    <Compile Include="MonoXEngine\Structs\Tile.cs" />
+    <Compile Include="MonoXEngine\TileMap.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenes\DebugScene.cs" />

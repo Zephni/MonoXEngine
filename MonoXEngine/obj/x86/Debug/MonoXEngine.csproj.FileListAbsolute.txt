@@ -51,3 +51,4 @@ C:\Users\Zephni\Documents\Visual Studio 2017\Projects\MonoXEngine\MonoXEngine\ob
 C:\Users\craig.dennis\Documents\Visual Studio 2015\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\Content\Fonts\Arial-12.xnb
 C:\Users\craig.dennis\Documents\Visual Studio 2015\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\Content\StarBackground.xnb
 C:\Users\craig.dennis\Documents\Visual Studio 2015\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\Content\Buildings.xnb
+C:\Users\craig.dennis\Documents\Visual Studio 2015\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\Content\Tileset.xnb

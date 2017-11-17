@@ -31,12 +31,12 @@ namespace MonoXEngine.EntityComponents
 
         public void LoadTexture(string file)
         {
-            this.Texture2D = MonoXEngineGame.Instance.Content.Load<Texture2D>(file);
+            this.Texture2D = Global.Content.Load<Texture2D>(file);
             this.entity.TextureSize = new Vector2(this.Texture2D.Width, this.Texture2D.Height);
             this.SourceRectangle = this.Texture2D.Bounds;
         }
 
-        public void LoadTexture(Texture2D texture)
+        public void SetTexture(Texture2D texture)
         {
             this.Texture2D = texture;
             this.entity.TextureSize = new Vector2(this.Texture2D.Width, this.Texture2D.Height);

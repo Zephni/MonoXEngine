@@ -11,11 +11,12 @@ namespace MonoXEngine.Scenes
     {
         public override void Initialise()
         {
+            // Background
             new Entity(entity => {
                 entity.LayerName = "Background";
                 entity.AddComponent<CameraOffsetTexture>(component => {
                     component.LoadTexture("StarBackground");
-                    component.Coefficient = new Vector2(0.3f, 1);
+                    component.Coefficient.X = 0.3f;
                 });
             });
 
@@ -23,31 +24,28 @@ namespace MonoXEngine.Scenes
                 entity.LayerName = "Background";
                 entity.AddComponent<CameraOffsetTexture>(component => {
                     component.LoadTexture("Buildings");
-                    component.Coefficient = new Vector2(0.6f, 1);
+                    component.Coefficient.X = 0.5f;
                 });
             });
 
-            Entity blueBox = new Entity(entity => {
-                entity.Position = new Vector2(64, 0);
-                entity.AddComponent<Sprite>().BuildRectangle(new Point(32, 32), Color.Blue);
-                entity.AddComponent<BoxCollider>();
-            });
+            // Build TileMap
+            TileMap tileMap = new TileMap(new Point(32, 32));
+            tileMap.LoadTileset("Tileset");
 
-                new Entity(entity => {
-                entity.Position = new Vector2(-32, 0);
-                entity.AddComponent<Sprite>().BuildRectangle(new Point(32, 32), Color.White);
-                BoxCollider bc = entity.AddComponent<BoxCollider>();
+            List<Tile> tempTiles = new List<Tile>();
+            for (int X = 0; X < 32; X++)
+                tempTiles.Add(new Tile(new Point(0, 0), new Point(X, 3)));
+            for (int X = 0; X < 32; X++)
+                for (int Y = 0; Y < 3; Y++)
+                    tempTiles.Add(new Tile(new Point(0, 1), new Point(X, Y+4)));
 
-                CoroutineHelper.Always(() => {
-                    if (!bc.CollidingWith(blueBox.GetComponent<BoxCollider>()))
-                        entity.Position.X += 1;
-                });
-            });
+            tileMap.LoadTiles(tempTiles);
+            tileMap.BuildEntities();
         }
 
         public override void Update()
         {
-            //Global.Camera.Position += new Vector2(1f, 0);
+            Global.Camera.Position += new Vector2(1f, 0);
         }
     }
 }
