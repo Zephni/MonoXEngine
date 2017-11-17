@@ -64,6 +64,15 @@ namespace MonoXEngine
 
             return default(T);
         }
+
+        public bool HasComponent<T>()
+        {
+            foreach (EntityComponent component in this.EntityComponents)
+                if (component.GetType() == typeof(T))
+                    return true;
+
+            return false;
+        }
         
         public virtual void Update()
         {
@@ -75,7 +84,8 @@ namespace MonoXEngine
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            foreach(Drawable drawable in this.EntityComponents)
+            foreach(Drawable drawable in this.EntityComponents.FindAll(
+                e => e.GetType().IsSubclassOf(typeof(Drawable)) || e.GetType() == typeof(Drawable)))
             {
                 drawable.Draw(spriteBatch);
             }

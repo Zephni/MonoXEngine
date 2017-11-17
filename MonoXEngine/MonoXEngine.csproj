@@ -47,10 +47,11 @@
     <Compile Include="MonoXEngine\Delegates.cs" />
     <Compile Include="MonoXEngine\Entity.cs" />
     <Compile Include="MonoXEngine\EntityComponent.cs" />
+    <Compile Include="MonoXEngine\EntityComponents\BoxCollider.cs" />
     <Compile Include="MonoXEngine\EntityComponents\Drawable.cs" />
     <Compile Include="MonoXEngine\EntityComponents\Sprite.cs" />
     <Compile Include="MonoXEngine\EntityComponents\Text.cs" />
-    <Compile Include="MonoXEngine\EntityComponents\CameraWrapperSprite.cs" />
+    <Compile Include="MonoXEngine\EntityComponents\CameraOffsetTexture.cs" />
     <Compile Include="MonoXEngine\Global.cs" />
     <Compile Include="MonoXEngine\MonoXEngineGame.cs" />
     <Compile Include="MonoXEngine\Structs\Animation.cs" />
