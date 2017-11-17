@@ -11,6 +11,6 @@ namespace MonoXEngine
 
         public virtual void Initialise() { }
 
-        public virtual void Update(GameTime gameTime) { }
+        public virtual void Update() { }
     }
 }

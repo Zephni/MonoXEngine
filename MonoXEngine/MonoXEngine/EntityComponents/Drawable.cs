@@ -57,7 +57,7 @@ namespace MonoXEngine.EntityComponents
             this.SourceRectangle = this.Texture2D.Bounds;
         }
 
-        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             if(this.Texture2D != null)
             {

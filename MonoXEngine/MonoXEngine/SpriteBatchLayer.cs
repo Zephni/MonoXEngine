@@ -71,7 +71,13 @@ namespace MonoXEngine
             }
         }
 
-        public void Draw(GameTime gameTime)
+        public void Update()
+        {
+            foreach (Entity entity in Entities)
+                entity.Update();
+        }
+
+        public void Draw()
         {
             if(this.MatrixUpdater != null)
                 this.TransformMatrix = this.MatrixUpdater();
@@ -87,7 +93,7 @@ namespace MonoXEngine
             );
 
             foreach (Entity entity in Entities)
-                entity.Draw(gameTime, this.SpriteBatch);
+                entity.Draw(this.SpriteBatch);
 
             this.SpriteBatch.End();
         }

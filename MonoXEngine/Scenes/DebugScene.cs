@@ -13,26 +13,24 @@ namespace MonoXEngine.Scenes
         {
             new Entity(entity => {
                 entity.LayerName = "Background";
-                entity.AddComponent<Drawable>().LoadTexture("Test");
-
-                int X = 0;
-                CoroutineHelper.Always(() => {
-                    X++;
-                    entity.GetComponent<Drawable>().SourceRectangle = new Rectangle(X, 0, 1000, 1000);
+                entity.AddComponent<CameraWrapperSprite>(component => {
+                    component.LoadTexture("StarBackground");
+                    component.Coefficient = new Vector2(0.3f, 1);
                 });
             });
 
             new Entity(entity => {
-                entity.AddComponent<Drawable>().BuildRectangle(new Rectangle(100, 100, 100, 100), Color.Black);
+                entity.LayerName = "Background";
+                entity.AddComponent<CameraWrapperSprite>(component => {
+                    component.LoadTexture("Buildings");
+                    component.Coefficient = new Vector2(0.6f, 1);
+                });
             });
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
-               Global.Camera.Position += new Vector2(-1f, 0);
-            if (Keyboard.GetState().IsKeyDown(Keys.D))
-                Global.Camera.Position += new Vector2(1f, 0);
+            Global.Camera.Position += new Vector2(1f, 0);
         }
     }
 }

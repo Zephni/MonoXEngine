@@ -125,7 +125,11 @@ namespace MonoXEngine
             Global.GameTime = gameTime;
             Global.DeltaTime = (float)Global.GameTime.ElapsedGameTime.TotalSeconds;
             Coroutines.Update();
-            this.SceneManager.CurrentScene.Update(gameTime);
+
+            foreach (KeyValuePair<string, SpriteBatchLayer> SpriteBatchLayer in SpriteBatchLayers)
+                SpriteBatchLayer.Value.Update();
+
+            this.SceneManager.CurrentScene.Update();
             base.Update(gameTime);
         }
 
@@ -136,7 +140,7 @@ namespace MonoXEngine
             this.ViewportTexture.CaptureAndRender(this, () => {
                 GraphicsDevice.Clear(Color.White);
                 foreach (KeyValuePair<string, SpriteBatchLayer> SpriteBatchLayer in SpriteBatchLayers)
-                    SpriteBatchLayer.Value.Draw(gameTime);
+                    SpriteBatchLayer.Value.Draw();
             });
 
             base.Draw(gameTime);

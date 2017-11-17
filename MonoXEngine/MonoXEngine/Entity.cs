@@ -46,12 +46,14 @@ namespace MonoXEngine
                 this.LayerName = MonoXEngineGame.Instance.GetSetting<string>("Defaults", "Layer");
         }
 
-        public T AddComponent<T>()
+        public T AddComponent<T>(Action<T> action = null)
         {
             T newComponent = (T)Activator.CreateInstance(typeof(T));
             this.EntityComponents.Add((EntityComponent)(object)newComponent);
-            this.EntityComponents[this.EntityComponents.Count-1].entity = this;
-            return (T)Convert.ChangeType(this.EntityComponents[this.EntityComponents.Count - 1], typeof(T));
+            this.EntityComponents[this.EntityComponents.Count - 1].entity = this;
+            T component = (T)Convert.ChangeType(this.EntityComponents[this.EntityComponents.Count - 1], typeof(T));
+            if (action != null) action(component);
+            return component;
         }
 
         public T GetComponent<T>()
@@ -63,16 +65,19 @@ namespace MonoXEngine
             return default(T);
         }
         
-        public virtual void Update(GameTime gameTime)
+        public virtual void Update()
         {
-
+            foreach (EntityComponent component in this.EntityComponents)
+            {
+                component.Update();
+            }
         }
 
-        public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             foreach(Drawable drawable in this.EntityComponents)
             {
-                drawable.Draw(gameTime, spriteBatch);
+                drawable.Draw(spriteBatch);
             }
         }
 

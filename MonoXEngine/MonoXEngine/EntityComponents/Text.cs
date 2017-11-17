@@ -40,7 +40,7 @@ namespace MonoXEngine.EntityComponents
             this.entity.Origin = Vector2.Zero;
         }
 
-        public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+        public override void Draw(SpriteBatch spriteBatch)
         {
             if (this.SpriteFont != null)
             {
