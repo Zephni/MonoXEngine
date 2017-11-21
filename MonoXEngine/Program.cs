@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MonoXEngine
+namespace MyGame
 {
 #if WINDOWS || LINUX
     /// <summary>

@@ -44,7 +44,11 @@ namespace MonoXEngine
 
             if (this.LayerName == null)
                 this.LayerName = MonoXEngineGame.Instance.GetSetting<string>("Defaults", "Layer");
+
+            this.Start();
         }
+
+        public virtual void Start() { }
 
         public T AddComponent<T>(Action<T> action = null)
         {

@@ -41,7 +41,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="MonoXEngine\Entities\Platformer.cs" />
+    <Compile Include="MonoXEngine\EntityComponents\BaseCollider.cs" />
+    <Compile Include="MonoXEngine\EntityComponents\Physics.cs" />
+    <Compile Include="MonoXEngine\EntityComponents\TileMapCollider.cs" />
     <Compile Include="MonoXEngine\Fundamentals\Camera.cs" />
     <Compile Include="MonoXEngine\Fundamentals\CoroutineHelper.cs" />
     <Compile Include="MonoXEngine\Fundamentals\CoRoutines.cs" />
@@ -55,6 +57,7 @@
     <Compile Include="MonoXEngine\EntityComponents\CameraOffsetTexture.cs" />
     <Compile Include="MonoXEngine\Fundamentals\Global.cs" />
     <Compile Include="MonoXEngine\Fundamentals\MonoXEngineGame.cs" />
+    <Compile Include="MonoXEngine\EntityComponents\PlatformerController.cs" />
     <Compile Include="MonoXEngine\Structs\Animation.cs" />
     <Compile Include="MonoXEngine\Fundamentals\ViewportTexture.cs" />
     <Compile Include="MonoXEngine\Fundamentals\Scene.cs" />
@@ -87,7 +90,9 @@
     </MonoGameContentReference>
     <None Include="app.manifest" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Entities\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
