@@ -31,7 +31,7 @@ namespace MonoXEngine
         public bool CollidingWith(BoxCollider collider)
         {
             this.Update();
-            return this.Rect.Intersects(collider.Rect);
+           return this.Rect.Intersects(collider.Rect);
         }
 
         public bool CollidingWith(List<BoxCollider> colliders)
