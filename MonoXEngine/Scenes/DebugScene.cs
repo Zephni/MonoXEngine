@@ -12,6 +12,20 @@ namespace MonoXEngine.Scenes
         public override void Initialise()
         {
             new Entity(entity => {
+                entity.LayerName = "Fade";
+                entity.AddComponent(new Drawable()).Run<Drawable>(component => {
+                    component.BuildRectangle(new Point(256, 240), Color.Black);
+                });
+
+                CoroutineHelper.RunFor(2, p => {
+                    entity.Opacity = 1 - p;
+                }, () => {
+                    // Need to add entity management and destroying
+                    SpriteBatchLayer.Get("Fade").Entities.Remove(entity);
+                });
+            });
+
+            new Entity(entity => {
                 entity.LayerName = "Background";
                 entity.AddComponent(new CameraOffsetTexture { Coefficient = new Vector2(0.3f, 0) }).Run<CameraOffsetTexture>(component => {
                     component.LoadTexture("StarBackground");
@@ -30,7 +44,7 @@ namespace MonoXEngine.Scenes
             tempTiles.Add(new Tile(new Point(0, 0), new Point(5, 0)));
             for (int x = 0; x < 15; x++)
                 tempTiles.Add(new Tile(new Point(0, 0), new Point(x, 1)));
-            for (int x = 0; x < 15; x++)
+            for (int x = 0; x < 19; x++)
                 for (int y = 0; y < 5; y++)
                     tempTiles.Add(new Tile(new Point(0, 1), new Point(x, y+2)));
 
@@ -39,10 +53,10 @@ namespace MonoXEngine.Scenes
 
             // Build player
             player = new Entity(entity => {
-                entity.Position = new Vector2(64, -100);
+                entity.Position = new Vector2(128, 16);
 
                 entity.AddComponent(new Sprite()).Run<Sprite>(component => {
-                    component.BuildRectangle(new Point(16, 16), Color.Blue);
+                    component.BuildRectangle(new Point(16, 16), Color.White);
                 });
 
                 entity.AddComponent(new PlatformerController(tileMap) {
