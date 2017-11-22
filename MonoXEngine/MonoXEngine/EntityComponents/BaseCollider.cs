@@ -1,17 +1,28 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoXEngine.EntityComponents
 {
-    public class BaseCollider : EntityComponent
+    public abstract class BaseCollider : EntityComponent
     {
+        public virtual bool CollidingRect(Rectangle rectOffset)
+        {
+            return false;
+        }
+
         public override void Start()
         {
 
         }
 
-        public virtual bool CollidingRect(Rectangle rectOffset)
+        public override void Update()
         {
-            return false;
+            
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            
         }
     }
 }

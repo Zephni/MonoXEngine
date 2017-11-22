@@ -4,9 +4,9 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/craig.dennis/Documents/Visual Studio 2015/Projects/MonoXEngine/MonoXEngine/Content/Fonts/Arial-12.spritefont</File>
-    <File>C:/Users/craig.dennis/Documents/Visual Studio 2015/Projects/MonoXEngine/MonoXEngine/Content/StarBackground.png</File>
-    <File>C:/Users/craig.dennis/Documents/Visual Studio 2015/Projects/MonoXEngine/MonoXEngine/Content/Buildings.png</File>
-    <File>C:/Users/craig.dennis/Documents/Visual Studio 2015/Projects/MonoXEngine/MonoXEngine/Content/Tileset.png</File>
+    <File>C:/Users/Zephni/Documents/Visual Studio 2017/Projects/MonoXEngine/MonoXEngine/Content/Fonts/Arial-12.spritefont</File>
+    <File>C:/Users/Zephni/Documents/Visual Studio 2017/Projects/MonoXEngine/MonoXEngine/Content/StarBackground.png</File>
+    <File>C:/Users/Zephni/Documents/Visual Studio 2017/Projects/MonoXEngine/MonoXEngine/Content/Buildings.png</File>
+    <File>C:/Users/Zephni/Documents/Visual Studio 2017/Projects/MonoXEngine/MonoXEngine/Content/Tileset.png</File>
   </SourceFiles>
 </SourceFileCollection>

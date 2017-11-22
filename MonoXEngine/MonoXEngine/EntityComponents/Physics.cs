@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoXEngine.EntityComponents
 {
@@ -18,10 +19,8 @@ namespace MonoXEngine.EntityComponents
         public bool IsGrounded;
         public BaseCollider Collider;
 
-        public override void Start()
+        public Physics()
         {
-            base.Start();
-
             this.Kinetic = false;
             this.Gravity = 0.3f;
             this.MaxX = 3;
@@ -31,10 +30,18 @@ namespace MonoXEngine.EntityComponents
             this.IsGrounded = false;
         }
 
+        public override void Start()
+        {
+
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            
+        }
+
         public override void Update()
         {
-            base.Update();
-
             if (Collider == null)
                 return;
             
@@ -51,26 +58,26 @@ namespace MonoXEngine.EntityComponents
                 // X move
                 for (int X = 0; X < Math.Abs(this.MoveX); X++)
                 {
-                    if (Collider.CollidingRect(new Rectangle(new Point(0, 0), new Point(0, 0))))
+                    if (Collider.CollidingRect(new Rectangle(new Point((MoveX > 0) ? 1 : -1, 0), new Point(1, 1))))
                         this.MoveX = 0;
 
                     if (this.MoveX != 0)
-                        this.entity.Position.X += (this.MoveX > 0) ? 1 : -1;
+                        this.Entity.Position.X += (this.MoveX > 0) ? 1 : -1;
                 }
 
                 // Y move
                 for (int Y = 0; Y < Math.Abs(this.MoveY); Y++)
                 {
-                    if (Collider.CollidingRect(new Rectangle(new Point(0, (MoveY > 0) ? 1 : -1), new Point(0, 0))))
+                    if (Collider.CollidingRect(new Rectangle(new Point(0, (MoveY > 0) ? 1 : -1), new Point(1, 1))))
                         this.MoveY = 0;
 
                     if (this.MoveY != 0)
-                        this.entity.Position.Y += (this.MoveY > 0) ? 1 : -1;
+                        this.Entity.Position.Y += (this.MoveY > 0) ? 1 : -1;
                 }
 
                 // Check if grounded or too deep in ground
                 this.IsGrounded = false;
-                if (Collider.CollidingRect(new Rectangle(new Point(0, 1), new Point(0, 0))))
+                if (Collider.CollidingRect(new Rectangle(new Point(0, 1), new Point(1, 1))))
                     this.IsGrounded = true;
             }
         }

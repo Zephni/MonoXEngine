@@ -17,10 +17,10 @@ namespace MonoXEngine.EntityComponents
     class Text : Drawable
     {
         public string _text = "";
-        public string text
+        public string String
         {
             get { return _text; }
-            set { _text = value; this.entity.TextureSize = this.SpriteFont.MeasureString(_text); }
+            set { _text = value; this.Entity.TextureSize = this.SpriteFont.MeasureString(_text); }
         }
 
         public Color Color = Color.Black;
@@ -33,11 +33,11 @@ namespace MonoXEngine.EntityComponents
             return this;
         }
 
-        public override void Start()
+        public Text()
         {
             this.SetSpriteFont();
-            this.entity.TextureSize = this.SpriteFont.MeasureString(_text);
-            this.entity.Origin = Vector2.Zero;
+            this.Entity.TextureSize = this.SpriteFont.MeasureString(_text);
+            this.Entity.Origin = Vector2.Zero;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -46,12 +46,12 @@ namespace MonoXEngine.EntityComponents
             {
                 spriteBatch.DrawString(
                     this.SpriteFont,
-                    this.text,
-                    this.entity.Position,
+                    this.String,
+                    this.Entity.Position,
                     this.Color,
-                    this.entity.Rotation,
-                    this.entity.Origin * this.entity.Size,
-                    this.entity.Scale,
+                    this.Entity.Rotation,
+                    this.Entity.Origin * this.Entity.Size,
+                    this.Entity.Scale,
                     SpriteEffects.None,
                     0
                 );

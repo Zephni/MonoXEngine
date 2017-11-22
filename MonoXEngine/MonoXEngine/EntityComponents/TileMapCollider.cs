@@ -9,19 +9,21 @@ namespace MonoXEngine.EntityComponents
 {
     public class TileMapCollider : BaseCollider 
     {
-        public override void Start()
+        public TileMap tileMap;
+
+        public TileMapCollider(TileMap _tileMap)
         {
-            base.Start();
+            tileMap = _tileMap;
         }
 
         public override bool CollidingRect(Rectangle rectOffset)
         {
-            Rectangle CheckArea = new Rectangle(
-                this.entity.Position.ToPoint() + rectOffset.Location,
-                rectOffset.Size
+            Rectangle checkArea = new Rectangle(
+                (this.Entity.Position.ToPoint() - (this.Entity.Size/2).ToPoint()) + rectOffset.Location,
+                this.Entity.Size.ToPoint()
             );
 
-            if (CheckArea.Bottom > 0)
+            if (tileMap.IsRectOverlappingPixels(checkArea))
                 return true;
 
             return false;

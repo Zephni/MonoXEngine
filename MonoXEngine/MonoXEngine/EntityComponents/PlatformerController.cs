@@ -16,13 +16,21 @@ namespace MonoXEngine.EntityComponents
         public int CurrentJump = 0;
         public int MaxJumps = 2;
 
-        public override void Start()
-        {
-            base.Start();
+        private TileMap _tileMap;
 
+        public PlatformerController(TileMap tileMap)
+        {
             Acceleration = 0.1f;
             Deceleration = 0.1f;
             JumpStrength = 8f;
+            _tileMap = tileMap;
+        }
+
+        public override void Start()
+        {
+            TileMapCollider tmc = new TileMapCollider(_tileMap);
+            this.Entity.AddComponent(tmc);
+            this.Collider = tmc;
         }
 
         public override void Update()

@@ -39,8 +39,7 @@ namespace MonoXEngine
             this.Scale = new Vector2(1, 1);
             this.EntityComponents = new List<EntityComponent>();
 
-            if(action != null)
-                action(this);
+            action?.Invoke(this);
 
             if (this.LayerName == null)
                 this.LayerName = MonoXEngineGame.Instance.GetSetting<string>("Defaults", "Layer");
@@ -50,14 +49,11 @@ namespace MonoXEngine
 
         public virtual void Start() { }
 
-        public T AddComponent<T>(Action<T> action = null)
+        public EntityComponent AddComponent(EntityComponent entityComponent)
         {
-            T newComponent = (T)Activator.CreateInstance(typeof(T));
-            this.EntityComponents.Add((EntityComponent)(object)newComponent);
-            this.EntityComponents[this.EntityComponents.Count - 1].entity = this;
-            T component = (T)Convert.ChangeType(this.EntityComponents[this.EntityComponents.Count - 1], typeof(T));
-            if (action != null) action(component);
-            return component;
+            this.EntityComponents.Add(entityComponent);
+            entityComponent.Initialise(this);
+            return entityComponent;
         }
 
         public T GetComponent<T>()

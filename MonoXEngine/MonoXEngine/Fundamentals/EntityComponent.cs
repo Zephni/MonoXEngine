@@ -1,40 +1,29 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections;
 
 namespace MonoXEngine
 {
-    public class EntityComponent
+    public abstract class EntityComponent
     {
-        private Action<EntityComponent> CallBack;
+        public Entity Entity;
 
-        private Entity _entity;
-        public Entity entity
+        public void Initialise(Entity entity)
         {
-            get { return _entity; }
-            set {
-                _entity = value;
-                this.Start();
-                if(this.CallBack != null)
-                {
-                    this.CallBack(this);
-                    this.CallBack = null;
-                }
-            }
+            this.Entity = entity;
+            this.Start();
         }
 
-        public EntityComponent(Action<EntityComponent> callBack = null)
+        public abstract void Start();
+
+        public abstract void Update();
+
+        public abstract void Draw(SpriteBatch spriteBatch);
+
+        public virtual void Run<T>(Action<T> action)
         {
-            this.CallBack = callBack;
-        }
-
-        public virtual void Start()
-        {
-
-        }
-
-        public virtual void Update()
-        {
-
+            T component = (T)Convert.ChangeType(this, typeof(T));
+            action(component);
         }
     }
 }

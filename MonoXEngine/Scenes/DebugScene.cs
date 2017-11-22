@@ -7,37 +7,54 @@ namespace MonoXEngine.Scenes
 {
     public class DebugScene : Scene
     {
-        Entity p;
+        Entity player;
 
         public override void Initialise()
         {
+            new Entity(entity => {
+                entity.LayerName = "Background";
+                entity.AddComponent(new CameraOffsetTexture { Coefficient = new Vector2(0.3f, 0) }).Run<CameraOffsetTexture>(component => {
+                    component.LoadTexture("StarBackground");
+                });
+            });
+
+            new Entity(entity => {
+                entity.LayerName = "Background";
+                entity.AddComponent(new CameraOffsetTexture { Coefficient = new Vector2(0.6f, 0) }).Run<CameraOffsetTexture>(component => {
+                    component.LoadTexture("Buildings");
+                });
+            });
+
             // Build TileMap
             List<Tile> tempTiles = new List<Tile>();
-            for (int x = 0; x < 10; x++)
-                tempTiles.Add(new Tile(new Point(0, 0), new Point(x, 0)));
-            for (int x = 0; x < 10; x++)
-                tempTiles.Add(new Tile(new Point(0, 1), new Point(x, 1)));
+            tempTiles.Add(new Tile(new Point(0, 0), new Point(5, 0)));
+            for (int x = 0; x < 15; x++)
+                tempTiles.Add(new Tile(new Point(0, 0), new Point(x, 1)));
+            for (int x = 0; x < 15; x++)
+                for (int y = 0; y < 5; y++)
+                    tempTiles.Add(new Tile(new Point(0, 1), new Point(x, y+2)));
 
             TileMap tileMap = new TileMap(new Point(32, 32), "Tileset", tempTiles);
-            //tileMap.Build(new Point(32, 32));
+            tileMap.Build(new Point(10, 10));
 
-            // Build p
-            p = new Entity(entity => {
-                entity.AddComponent<Sprite>(component => {
-                    component.BuildRectangle(new Point(16, 16), Color.Black);
+            // Build player
+            player = new Entity(entity => {
+                entity.Position = new Vector2(64, -100);
+
+                entity.AddComponent(new Sprite()).Run<Sprite>(component => {
+                    component.BuildRectangle(new Point(16, 16), Color.Blue);
                 });
-                
-                entity.AddComponent<PlatformerController>(component => {
-                    component.Collider = entity.AddComponent<TileMapCollider>();
+
+                entity.AddComponent(new PlatformerController(tileMap) {
+                    JumpStrength = 5
                 });
             });
         }
-
+        
         public override void Update()
         {
-            if(Keyboard.GetState().IsKeyDown(Keys.Space))
-                p.Position = new Vector2(0, -100);
-            //Global.Camera.Position += new Vector2(1f, 0);
+            Vector2 newPos = new Vector2(player.Position.X, -20);
+            Global.Camera.Position = newPos;
         }
     }
 }

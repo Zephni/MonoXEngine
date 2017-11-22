@@ -22,7 +22,6 @@ c:\users\craig.dennis\documents\visual studio 2015\Projects\MonoXEngine\MonoXEng
 c:\users\craig.dennis\documents\visual studio 2015\Projects\MonoXEngine\MonoXEngine\obj\x86\Debug\MonoXEngine.exe
 c:\users\craig.dennis\documents\visual studio 2015\Projects\MonoXEngine\MonoXEngine\obj\x86\Debug\MonoXEngine.pdb
 c:\users\craig.dennis\documents\visual studio 2015\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\MainSettings.xml
-C:\Users\Zephni\Documents\Visual Studio 2017\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\Content\Test.xnb
 C:\Users\Zephni\Documents\Visual Studio 2017\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\MainSettings.xml
 C:\Users\Zephni\Documents\Visual Studio 2017\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\MonoXEngine.exe
 C:\Users\Zephni\Documents\Visual Studio 2017\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\MonoXEngine.pdb
@@ -52,3 +51,7 @@ C:\Users\craig.dennis\Documents\Visual Studio 2015\Projects\MonoXEngine\MonoXEng
 C:\Users\craig.dennis\Documents\Visual Studio 2015\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\Content\StarBackground.xnb
 C:\Users\craig.dennis\Documents\Visual Studio 2015\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\Content\Buildings.xnb
 C:\Users\craig.dennis\Documents\Visual Studio 2015\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\Content\Tileset.xnb
+C:\Users\Zephni\Documents\Visual Studio 2017\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\Content\Buildings.xnb
+C:\Users\Zephni\Documents\Visual Studio 2017\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\Content\StarBackground.xnb
+C:\Users\Zephni\Documents\Visual Studio 2017\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\Content\Tileset.xnb
+C:\Users\Zephni\Documents\Visual Studio 2017\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\Content\Fonts\Arial-12.xnb

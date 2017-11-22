@@ -15,8 +15,13 @@ namespace MonoXEngine.EntityComponents
             set
             {
                 this.sourceRectangle = value;
-                this.entity.TextureSize = this.sourceRectangle.Size.ToVector2();
+                this.Entity.TextureSize = this.sourceRectangle.Size.ToVector2();
             }
+        }
+
+        public override void Start()
+        {
+
         }
 
         public void MoveSourceRectangle(Rectangle moveRect)
@@ -32,14 +37,14 @@ namespace MonoXEngine.EntityComponents
         public void LoadTexture(string file)
         {
             this.Texture2D = Global.Content.Load<Texture2D>(file);
-            this.entity.TextureSize = new Vector2(this.Texture2D.Width, this.Texture2D.Height);
+            this.Entity.TextureSize = new Vector2(this.Texture2D.Width, this.Texture2D.Height);
             this.SourceRectangle = this.Texture2D.Bounds;
         }
 
         public void SetTexture(Texture2D texture)
         {
             this.Texture2D = texture;
-            this.entity.TextureSize = new Vector2(this.Texture2D.Width, this.Texture2D.Height);
+            this.Entity.TextureSize = new Vector2(this.Texture2D.Width, this.Texture2D.Height);
             this.SourceRectangle = this.Texture2D.Bounds;
         }
 
@@ -53,21 +58,26 @@ namespace MonoXEngine.EntityComponents
 
             this.Texture2D.SetData<Color>(colors);
 
-            this.entity.TextureSize = new Vector2(this.Texture2D.Width, this.Texture2D.Height);
+            this.Entity.TextureSize = new Vector2(this.Texture2D.Width, this.Texture2D.Height);
             this.SourceRectangle = this.Texture2D.Bounds;
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public override void Update()
+        {
+            
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
         {
             if(this.Texture2D != null)
             {
                 spriteBatch.Draw(
                     this.Texture2D,
-                    new Rectangle(this.entity.Position.ToPoint(), this.entity.Size.ToPoint()),
+                    new Rectangle(this.Entity.Position.ToPoint(), this.Entity.Size.ToPoint()),
                     this.SourceRectangle,
-                    Color.White * this.entity.Opacity,
-                    this.entity.Rotation,
-                    this.entity.Origin * this.entity.Size,
+                    Color.White * this.Entity.Opacity,
+                    this.Entity.Rotation,
+                    this.Entity.Origin * this.Entity.Size,
                     SpriteEffects.None,
                     0
                 );

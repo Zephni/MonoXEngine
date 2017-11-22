@@ -11,7 +11,7 @@ namespace MonoXEngine.EntityComponents
 
         public override void Update()
         {
-            this.SourceRectangle = new Rectangle((Global.Camera.Position * this.Coefficient).ToPoint(), this.entity.TextureSize.ToPoint());
+            this.SourceRectangle = new Rectangle((Global.Camera.Position * this.Coefficient).ToPoint(), this.Entity.TextureSize.ToPoint());
         }
     }
 }
