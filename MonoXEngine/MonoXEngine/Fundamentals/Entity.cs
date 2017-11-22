@@ -24,7 +24,7 @@ namespace MonoXEngine
         }
 
         public Vector2 Size { get { return this.TextureSize * this.Scale; } }
-        
+
         private string layerName;
         public string LayerName
         {
@@ -58,7 +58,7 @@ namespace MonoXEngine
 
         public T GetComponent<T>()
         {
-            foreach(EntityComponent component in this.EntityComponents)
+            foreach (EntityComponent component in this.EntityComponents)
                 if (component.GetType() == typeof(T))
                     return (T)Convert.ChangeType(component, typeof(T));
 
@@ -72,6 +72,11 @@ namespace MonoXEngine
                     return true;
 
             return false;
+        }
+
+        public void Destroy()
+        {
+            SpriteBatchLayer.Get(this.LayerName).Entities.Remove(this);
         }
         
         public virtual void Update()
@@ -91,7 +96,7 @@ namespace MonoXEngine
             }
         }
 
-        public void MoveToLayer(string newLayerName)
+        private void MoveToLayer(string newLayerName)
         {
             if(this.LayerName != null)
                 SpriteBatchLayer.Get(this.LayerName).Entities.Remove(this);

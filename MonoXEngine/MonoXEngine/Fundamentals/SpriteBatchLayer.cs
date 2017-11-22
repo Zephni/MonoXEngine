@@ -4,13 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MonoXEngine
 {
-    
-
     public class SpriteBatchLayer
     {
         private SpriteBatch SpriteBatch;
@@ -50,11 +49,11 @@ namespace MonoXEngine
                     continue;
 
                 string key = optionKV[0].Trim().ToLower();
-                string value = optionKV[1].Trim().ToLower();
+                string value = optionKV[1].Trim();
 
                 if(key == "matrix")
                 {
-                    if(value == "camera")
+                    if(value.ToLower() == "camera")
                     {
                         this.MatrixUpdater = delegate() {
                             return Global.Camera.GetTransformation();
@@ -63,10 +62,9 @@ namespace MonoXEngine
                 }
                 else if(key == "samplerstate")
                 {
-                    if(value == "linearwrap")
-                    {
-                        this.SamplerState = SamplerState.LinearWrap;
-                    }
+                    var field = typeof(SamplerState).GetField(value, BindingFlags.Public | BindingFlags.Static);
+                    var samplerstate = (SamplerState)field.GetValue(null);
+                    this.SamplerState = samplerstate;
                 }
             }
         }

@@ -20,8 +20,7 @@ namespace MonoXEngine.Scenes
                 CoroutineHelper.RunFor(2, p => {
                     entity.Opacity = 1 - p;
                 }, () => {
-                    // Need to add entity management and destroying
-                    SpriteBatchLayer.Get("Fade").Entities.Remove(entity);
+                    entity.Destroy();
                 });
             });
 
@@ -61,6 +60,17 @@ namespace MonoXEngine.Scenes
 
                 entity.AddComponent(new PlatformerController(tileMap) {
                     JumpStrength = 5
+                });
+            });
+
+            // Debug
+            new Entity(entity => {
+                entity.LayerName = "UI";
+                entity.Position = -(Global.Resolution.ToVector2() / 2);
+                entity.AddComponent(new Text()).Run<Text>(component => {
+                    component.SetSpriteFont("Retro1-12");
+                    component.String = "Debug string";
+                    component.Color = Color.Yellow;
                 });
             });
         }

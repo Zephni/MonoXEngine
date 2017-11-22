@@ -58,7 +58,7 @@ namespace MonoXEngine.EntityComponents
                 // X move
                 for (int X = 0; X < Math.Abs(this.MoveX); X++)
                 {
-                    if (Collider.CollidingRect(new Rectangle(new Point((MoveX > 0) ? 1 : -1, 0), new Point(1, 1))))
+                    if (Collider.Colliding(new Point((MoveX > 0) ? 1 : -1, 0)))
                         this.MoveX = 0;
 
                     if (this.MoveX != 0)
@@ -68,7 +68,7 @@ namespace MonoXEngine.EntityComponents
                 // Y move
                 for (int Y = 0; Y < Math.Abs(this.MoveY); Y++)
                 {
-                    if (Collider.CollidingRect(new Rectangle(new Point(0, (MoveY > 0) ? 1 : -1), new Point(1, 1))))
+                    if (Collider.Colliding(new Point(0, (MoveY > 0) ? 1 : -1)))
                         this.MoveY = 0;
 
                     if (this.MoveY != 0)
@@ -77,7 +77,7 @@ namespace MonoXEngine.EntityComponents
 
                 // Check if grounded or too deep in ground
                 this.IsGrounded = false;
-                if (Collider.CollidingRect(new Rectangle(new Point(0, 1), new Point(1, 1))))
+                if (Collider.Colliding(new Point(0, 1)))
                     this.IsGrounded = true;
             }
         }

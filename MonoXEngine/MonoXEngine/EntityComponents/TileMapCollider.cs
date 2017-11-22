@@ -16,10 +16,10 @@ namespace MonoXEngine.EntityComponents
             tileMap = _tileMap;
         }
 
-        public override bool CollidingRect(Rectangle rectOffset)
+        public override bool Colliding(Point offset)
         {
             Rectangle checkArea = new Rectangle(
-                (this.Entity.Position.ToPoint() - (this.Entity.Size/2).ToPoint()) + rectOffset.Location,
+                (this.Entity.Position.ToPoint() - (this.Entity.Size/2).ToPoint()) + offset,
                 this.Entity.Size.ToPoint()
             );
 

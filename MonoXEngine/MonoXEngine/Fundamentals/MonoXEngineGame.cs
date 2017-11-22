@@ -85,6 +85,10 @@ namespace MonoXEngine
                     this.ViewportTexture.WindowSizeUpdate();
                 };
             }
+
+            // Full screen
+            if (this.GetSetting<string>("Viewport", "FullScreen").ToLower() == "true")
+                Graphics.IsFullScreen = true;
         }
 
         protected override void Initialize()

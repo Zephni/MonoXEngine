@@ -25,7 +25,7 @@ namespace MonoXEngine.EntityComponents
 
         public Color Color = Color.Black;
         public float Opacity = 1;
-        public SpriteFont SpriteFont = null;
+        private SpriteFont SpriteFont = null;
 
         public Text SetSpriteFont(string FontAlias = "Arial-12")
         {
@@ -36,12 +36,12 @@ namespace MonoXEngine.EntityComponents
         public Text()
         {
             this.SetSpriteFont();
-            this.Entity.TextureSize = this.SpriteFont.MeasureString(_text);
-            this.Entity.Origin = Vector2.Zero;
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            this.Entity.Origin = Vector2.Zero;
+
             if (this.SpriteFont != null)
             {
                 spriteBatch.DrawString(

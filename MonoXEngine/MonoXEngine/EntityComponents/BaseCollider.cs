@@ -5,10 +5,7 @@ namespace MonoXEngine.EntityComponents
 {
     public abstract class BaseCollider : EntityComponent
     {
-        public virtual bool CollidingRect(Rectangle rectOffset)
-        {
-            return false;
-        }
+        public abstract bool Colliding(Point offset);
 
         public override void Start()
         {
