@@ -159,7 +159,8 @@ namespace MonoXEngine
                 for (int y = 0; y < totalChunks.Y; y++)
                 {
                     Rectangle chunkRect = new Rectangle(new Point(x * chunkSize.X, y * chunkSize.Y), chunkSize);
-                    Rectangle.Intersect(ref rect, ref chunkRect, out Rectangle intersectRect);
+                    Rectangle intersectRect;
+                    Rectangle.Intersect(ref rect, ref chunkRect, out intersectRect);
                     
                     if (intersectRect.Width > 0 && intersectRect.Height > 0)
                     {

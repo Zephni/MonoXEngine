@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace MonoXEngine
 {
@@ -21,9 +22,9 @@ namespace MonoXEngine
         private GraphicsDeviceManager Graphics;
 
         /// <summary>
-        /// Two level string dictionary that represents MainSettings.xml data
+        /// MainSettings is a DataSet pulling from MainSettings.xml data
         /// </summary>
-        public Dictionary<string, Dictionary<string, object>> MainSettings { get; private set; }
+        public DataSet MainSettings = new DataSet();
 
         /// <summary>
         /// SceneManager
@@ -40,11 +41,6 @@ namespace MonoXEngine
         /// </summary>
         public Dictionary<string, SpriteBatchLayer> SpriteBatchLayers;
 
-        public T GetSetting<T>(string Key, string Key2)
-        {
-            return (T)Convert.ChangeType(this.MainSettings[Key][Key2], typeof(T));
-        }
-
         /// <summary>
         /// MonoXEngine constructor
         /// </summary>
@@ -55,18 +51,8 @@ namespace MonoXEngine
             MonoXEngineGame.Instance = this;
 
             // Pass MainSettings
-            this.MainSettings = new Dictionary<string, Dictionary<string, object>>();
-
-            XmlDocument mainSettingsDocument = new XmlDocument();
-            mainSettingsDocument.Load(@"MainSettings.xml");
-
-            foreach(XmlNode node in mainSettingsDocument.SelectSingleNode("MainSettings").ChildNodes)
-            {
-                this.MainSettings.Add(node.Name, new Dictionary<string, object>());
-
-                foreach(XmlNode node2 in node.ChildNodes)
-                    this.MainSettings[node.Name].Add(node2.Name, node2.InnerText);
-            }
+            this.MainSettings = new DataSet();
+            this.MainSettings.FromXML(XDocument.Load(@"MainSettings.xml"));
 
             // Set Global.Game
             Global.Game = this;
@@ -75,10 +61,10 @@ namespace MonoXEngine
             this.Graphics = new GraphicsDeviceManager(this);
 
             // Content RootDirectory
-            Content.RootDirectory = this.GetSetting<string>("Directories", "Content");
+            Content.RootDirectory = this.MainSettings.Get<string>(new string[] { "Directories", "Content" });
 
             // Window resizing
-            if(this.GetSetting<string>("Viewport", "AllowResizing").ToLower() == "true")
+            if(this.MainSettings.Get<string>(new string[] { "Viewport", "AllowResizing" }).ToLower() == "true")
             {
                 Window.AllowUserResizing = true;
                 Window.ClientSizeChanged += delegate {
@@ -87,7 +73,7 @@ namespace MonoXEngine
             }
 
             // Full screen
-            if (this.GetSetting<string>("Viewport", "FullScreen").ToLower() == "true")
+            if (this.MainSettings.Get<string>(new string[] { "Viewport", "FullScreen" }).ToLower() == "true")
                 Graphics.IsFullScreen = true;
         }
 
@@ -96,26 +82,27 @@ namespace MonoXEngine
             Global.Cameras = new List<Camera>(){new Camera()};
             Global.Camera = Global.Cameras[0];
             Global.Resolution = new Point(
-                this.GetSetting<int>("Viewport", "ResolutionX"),
-                this.GetSetting<int>("Viewport", "ResolutionY")
+                this.MainSettings.Get<int>(new string[] { "Viewport", "ResolutionX" }),
+                this.MainSettings.Get<int>(new string[] { "Viewport", "ResolutionY" })
             );
 
             this.SpriteBatchLayers = new Dictionary<string, SpriteBatchLayer>();
             this.SceneManager = new SceneManager();
-            this.ViewportTexture = new ViewportTexture(Global.Resolution, this.GetSetting<string>("Viewport", "ViewportArea"));
+            this.ViewportTexture = new ViewportTexture(Global.Resolution, this.MainSettings.Get<string>(new string[] { "Viewport", "ViewportArea" }));
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            foreach(KeyValuePair<string, object> Layer in this.MainSettings["Layers"])
+            foreach(string layerName in this.MainSettings.Get<string>(new string[] { "LayerNames" }).Split(','))
             {
-                SpriteBatchLayer spriteBatchLayer = new SpriteBatchLayer(Layer.Value.ToString());
-                this.SpriteBatchLayers.Add(Layer.Key, spriteBatchLayer);
+                SpriteBatchLayer spriteBatchLayer = new SpriteBatchLayer(this.MainSettings.Get<string>(new string[] { "Layers", layerName.Trim() }));
+                this.SpriteBatchLayers.Add(layerName.Trim(), spriteBatchLayer);
             }
-            
-            this.SceneManager.LoadScene(this.GetSetting<string>("Initiation", "StartupScene"));
+
+            this.SceneManager.LoadScene(this.MainSettings.Get<string>(new string[] { "Initiation", "StartupScene" }));
+
             base.LoadContent();
         }
 

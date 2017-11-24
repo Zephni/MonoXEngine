@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Zephni/Documents/Visual Studio 2017/Projects/MonoXEngine/MonoXEngine/Content/Buildings.png</SourceFile>
-  <SourceTime>2017-11-22T10:15:26.3860331+00:00</SourceTime>
-  <DestFile>C:/Users/Zephni/Documents/Visual Studio 2017/Projects/MonoXEngine/MonoXEngine/Content/bin/Windows/Buildings.xnb</DestFile>
-  <DestTime>2017-11-22T10:46:56.2624474+00:00</DestTime>
+  <SourceFile>C:/Users/craig.dennis/documents/visual studio 2015/Projects/MonoXEngine/MonoXEngine/Content/Buildings.png</SourceFile>
+  <SourceTime>2017-11-17T14:37:24.3556169+00:00</SourceTime>
+  <DestFile>C:/Users/craig.dennis/documents/visual studio 2015/Projects/MonoXEngine/MonoXEngine/Content/bin/Windows/Buildings.xnb</DestFile>
+  <DestTime>2017-11-24T17:37:07.6091758+00:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T15:05:36+00:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

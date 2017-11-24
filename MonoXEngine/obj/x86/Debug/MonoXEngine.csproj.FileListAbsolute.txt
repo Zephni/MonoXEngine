@@ -56,3 +56,6 @@ C:\Users\Zephni\Documents\Visual Studio 2017\Projects\MonoXEngine\MonoXEngine\bi
 C:\Users\Zephni\Documents\Visual Studio 2017\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\Content\Tileset.xnb
 C:\Users\Zephni\Documents\Visual Studio 2017\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\Content\Fonts\Arial-12.xnb
 C:\Users\Zephni\Documents\Visual Studio 2017\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\Content\Fonts\Retro1-12.xnb
+C:\Users\craig.dennis\documents\visual studio 2015\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\Content\Fonts\Retro1-12.xnb
+C:\Users\craig.dennis\documents\visual studio 2015\Projects\MonoXEngine\MonoXEngine\obj\x86\Debug\Interop.MSXML2.dll
+C:\Users\craig.dennis\documents\visual studio 2015\Projects\MonoXEngine\MonoXEngine\obj\x86\Debug\MonoXEngine.csproj.ResolveComReference.cache

@@ -42,7 +42,7 @@ namespace MonoXEngine
             action?.Invoke(this);
 
             if (this.LayerName == null)
-                this.LayerName = MonoXEngineGame.Instance.GetSetting<string>("Defaults", "Layer");
+                this.LayerName = MonoXEngineGame.Instance.MainSettings.Get<string>(new string[] { "Defaults", "Layer" });
 
             this.Start();
         }

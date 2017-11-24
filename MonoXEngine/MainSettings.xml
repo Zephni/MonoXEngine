@@ -12,7 +12,7 @@
     <ResolutionY>240</ResolutionY>
     <ViewportArea>FIT_BEST</ViewportArea>
     <AllowResizing>True</AllowResizing>
-    <FullScreen>True</FullScreen>
+    <FullScreen>False</FullScreen>
   </Viewport>
   
   <Initiation>
@@ -23,6 +23,8 @@
     <Layer>Main</Layer>
   </Defaults>
 
+  <LayerNames>Background, Main, UI, Fade</LayerNames>
+    
   <Layers>
     <Background>SamplerState: PointWrap;</Background>
     <Main>Matrix: Camera;</Main>
