@@ -6,6 +6,7 @@ using System;
 
 namespace MonoXEngine
 {
+    [Serializable]
     public class Entity
     {
         private List<EntityComponent> EntityComponents;
@@ -87,16 +88,19 @@ namespace MonoXEngine
 
         public Entity BuildPrefab(string layerName = null)
         {
+
+            Entity newEntity = Cloner.Copy(this);
+            
             if (layerName == null)
-                this.LayerName = MonoXEngineGame.Instance.MainSettings.Get<string>(new string[] { "Defaults", "Layer" });
+                newEntity.LayerName = MonoXEngineGame.Instance.MainSettings.Get<string>(new string[] { "Defaults", "Layer" });
             else
-                this.LayerName = layerName;
+                newEntity.LayerName = layerName;
 
             if (this.prefabAction != null)
-                this.prefabAction(this);
+                this.prefabAction(newEntity);
 
-            this.Start();
-            return this;
+            newEntity.Start();
+            return newEntity;
         }
 
         public virtual void Start() { }

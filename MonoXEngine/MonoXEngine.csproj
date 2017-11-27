@@ -58,6 +58,7 @@
     <Compile Include="MonoXEngine\Fundamentals\Global.cs" />
     <Compile Include="MonoXEngine\Fundamentals\MonoXEngineGame.cs" />
     <Compile Include="MonoXEngine\EntityComponents\PlatformerController.cs" />
+    <Compile Include="MonoXEngine\Cloner.cs" />
     <Compile Include="MonoXEngine\Structs\Animation.cs" />
     <Compile Include="MonoXEngine\Fundamentals\ViewportTexture.cs" />
     <Compile Include="MonoXEngine\Fundamentals\Scene.cs" />

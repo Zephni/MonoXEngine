@@ -18,10 +18,14 @@ namespace MonoXEngine.Scenes
                     component.BuildRectangle(new Point(256, 240), Color.Black);
                 });
 
-                CoroutineHelper.RunFor(2, p => {
-                    entity.Opacity = 1 - p;
-                }, () => {
-                    entity.Destroy();
+                CoroutineHelper.WaitRun(1, () => {
+                    CoroutineHelper.RunFor(2, p =>
+                    {
+                        entity.Opacity = 1 - p;
+                    }, () =>
+                    {
+                        entity.Destroy();
+                    });
                 });
             });
 
@@ -55,15 +59,20 @@ namespace MonoXEngine.Scenes
                 };
             });
 
-            // Collectable
-            new Entity(entity => {
+            // Collectable prefab
+            Entity collectable = new Entity(true, entity => {
                 entity.Trigger = true;
                 entity.Name = "Collectable";
-                entity.Position = new Vector2(150, 16);
                 entity.AddComponent(new Drawable()).Run<Drawable>(component => {
                     component.BuildRectangle(new Point(8, 8), Color.Blue);
                 });
             });
+
+            for(int X = 0; X < 5; X++)
+            {
+                Entity newCollectable = collectable.BuildPrefab();
+                newCollectable.Position = new Vector2(150 + (X * 16), 0);
+            }
 
             // Build TileMap
             List<Tile> tempTiles = new List<Tile>();
