@@ -58,7 +58,8 @@ namespace MonoXEngine
             if (this.LayerName == null)
                 this.LayerName = MonoXEngineGame.Instance.MainSettings.Get<string>(new string[] { "Defaults", "Layer" });
 
-            action?.Invoke(this);
+            if(action != null)
+                action.Invoke(this);
 
             this.Start();
         }
@@ -74,7 +75,8 @@ namespace MonoXEngine
             if (!prefab)
             {
                 this.LayerName = MonoXEngineGame.Instance.MainSettings.Get<string>(new string[] { "Defaults", "Layer" });
-                action?.Invoke(this);
+                if(action != null)
+                    action.Invoke(this);
                 this.Start();
             }
             else

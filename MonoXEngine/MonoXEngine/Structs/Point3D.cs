@@ -7,8 +7,6 @@ using System.Threading.Tasks;
 
 namespace MonoXEngine.Structs
 {
-#pragma warning disable CS0660 // Type defines operator == or operator != but does not override Object.Equals(object o)
-#pragma warning disable CS0661 // Type defines operator == or operator != but does not override Object.GetHashCode()
     public struct Point3D
     {
         public int X;
@@ -20,6 +18,20 @@ namespace MonoXEngine.Structs
             this.X = x;
             this.Y = y;
             this.Z = z;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+
+            Point p = (Point)obj;
+            return (X == p.X) && (Y == p.Y);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.GetHashCode();
         }
 
         public Point ToPoint()
