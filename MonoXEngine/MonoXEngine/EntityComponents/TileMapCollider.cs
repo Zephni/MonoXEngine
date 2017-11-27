@@ -23,7 +23,7 @@ namespace MonoXEngine.EntityComponents
                 this.Entity.Size.ToPoint()
             );
 
-            if (tileMap.IsRectOverlappingPixels(checkArea))
+            if (tileMap.IsRectOverlappingPixels(checkArea, this.Entity.SortingLayer))
                 return true;
 
             return false;

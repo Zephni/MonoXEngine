@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoXEngine.EntityComponents;
 using System.Diagnostics;
+using MonoXEngine.Structs;
 
 namespace MonoXEngine
 {
@@ -13,10 +14,11 @@ namespace MonoXEngine
         private Texture2D[,] tileset;
         private Point tileSize;
         private List<Tile> tiles;
-        private Texture2D[,] chunks;
+        private Texture2D[,,] chunks;
         private Point totalMapSize;
-        private Point totalChunks;
+        private Point3D totalChunks;
         private Point chunkSize;
+        List<int> chunkLayers;
 
         /// <summary>
         /// TileMap construct
@@ -115,45 +117,64 @@ namespace MonoXEngine
         /// <param name="perChunkTileAmount">Number of tiles per chunk</param>
         public void Build(Point perChunkTileAmount)
         {
+            chunkLayers = new List<int>();
+            foreach (Tile tile in this.tiles)
+                if (!chunkLayers.Contains(tile.Position3D.Z))
+                    chunkLayers.Add(tile.Position3D.Z);
+            chunkLayers.Sort((t1, t2) => { return t1 - t2; });
+
             totalMapSize = this.TotalMapSize();
-            totalChunks = new Point(
+            totalChunks = new Point3D(
                 Math.Max((int)Math.Ceiling((double)totalMapSize.X / (perChunkTileAmount.X * this.tileSize.X)), 1),
-                Math.Max((int)Math.Ceiling((double)totalMapSize.Y / (perChunkTileAmount.Y * this.tileSize.Y)), 1)
+                Math.Max((int)Math.Ceiling((double)totalMapSize.Y / (perChunkTileAmount.Y * this.tileSize.Y)), 1),
+                chunkLayers.Count
             );
             chunkSize = perChunkTileAmount * this.tileSize;
-            chunks = new Texture2D[totalChunks.X, totalChunks.Y];            
+            chunks = new Texture2D[totalChunks.X, totalChunks.Y, totalChunks.Z];            
 
             foreach (Tile tile in this.tiles)
             {
-                Point chunkIndex = (tile.Position * tileSize) / chunkSize;
-                Rectangle chunkRect = new Rectangle(chunkIndex * chunkSize, chunkSize);
+                Point3D chunkIndex = Point3D.FromPoint((tile.Position * tileSize) / chunkSize);
+                chunkIndex.Z = chunkLayers.FindIndex(x => x == tile.Position3D.Z);
+                Rectangle chunkRect = new Rectangle((chunkIndex * chunkSize).ToPoint(), chunkSize);
                 Color[] tileColors = new Color[this.tileSize.X * this.tileSize.Y];
                 this.tileset[tile.SourcePosition.X, tile.SourcePosition.Y].GetData<Color>(tileColors, 0, tileColors.Length);
 
-                if (chunks[chunkIndex.X, chunkIndex.Y] == null)
-                    chunks[chunkIndex.X, chunkIndex.Y] = new Texture2D(Global.GraphicsDevice, chunkSize.X, chunkSize.Y);
-
+                if (chunks[chunkIndex.X, chunkIndex.Y, chunkIndex.Z] == null)
+                    chunks[chunkIndex.X, chunkIndex.Y, chunkIndex.Z] = new Texture2D(Global.GraphicsDevice, chunkSize.X, chunkSize.Y);
+                
                 Rectangle relativeTileRect = new Rectangle((tile.Position * this.tileSize) - chunkRect.Location, this.tileSize);
-                chunks[chunkIndex.X, chunkIndex.Y].SetData<Color>(0, relativeTileRect, tileColors, 0, this.tileSize.X * this.tileSize.Y);
+                chunks[chunkIndex.X, chunkIndex.Y, chunkIndex.Z].SetData<Color>(0, relativeTileRect, tileColors, 0, this.tileSize.X * this.tileSize.Y);
             }
 
             for (int x = 0; x < totalChunks.X; x++)
             {
                 for (int y = 0; y < totalChunks.Y; y++)
                 {
-                    new Entity(entity => {
-                        entity.Origin = Vector2.Zero;
-                        entity.Position = new Vector2(x * chunkSize.X, y * chunkSize.Y);
-                        entity.AddComponent(new Drawable()).Run<Drawable>(component => {
-                            component.SetTexture(chunks[x, y]);
+                    for (int z = 0; z < totalChunks.Z; z++)
+                    {
+                        if (chunks[x, y, z] == null)
+                            continue;
+
+                        new Entity(entity => {
+                            entity.Origin = Vector2.Zero;
+                            entity.Position = new Vector2(0 * chunkSize.X, 0 * chunkSize.Y);
+                            entity.SortingLayer = chunkLayers[z];
+                            Debug.WriteLine("sl = "+ z + ", "+chunkLayers[z]);
+                            entity.AddComponent(new Drawable()).Run<Drawable>(component => {
+                                component.SetTexture(chunks[x, y, z]);
+                            });
                         });
-                    });
+                    }
                 }
             }
         }
 
-        public bool IsRectOverlappingPixels(Rectangle rect)
+        public bool IsRectOverlappingPixels(Rectangle rect, int sortingLayer)
         {
+            if (chunkLayers.IndexOf(sortingLayer) == -1)
+                return false;
+
             for (int x = 0; x < totalChunks.X; x++)
             {
                 for (int y = 0; y < totalChunks.Y; y++)
@@ -161,13 +182,13 @@ namespace MonoXEngine
                     Rectangle chunkRect = new Rectangle(new Point(x * chunkSize.X, y * chunkSize.Y), chunkSize);
                     Rectangle intersectRect;
                     Rectangle.Intersect(ref rect, ref chunkRect, out intersectRect);
-                    
+
                     if (intersectRect.Width > 0 && intersectRect.Height > 0)
                     {
                         intersectRect.Location -= chunkRect.Location;
                         int totalPixels = intersectRect.Width * intersectRect.Height;
                         Color[] colors = new Color[totalPixels];
-                        chunks[x, y].GetData(0, intersectRect, colors, 0, totalPixels);
+                        chunks[x, y, chunkLayers.IndexOf(sortingLayer)].GetData(0, intersectRect, colors, 0, totalPixels);
 
                         for (int I = 0; I < colors.Length; I++)
                             if (colors[I].A != byte.MinValue)

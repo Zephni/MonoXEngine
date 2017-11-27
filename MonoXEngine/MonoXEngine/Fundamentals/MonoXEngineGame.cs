@@ -37,11 +37,6 @@ namespace MonoXEngine
         public ViewportTexture ViewportTexture;
 
         /// <summary>
-        /// SpriteBatchLayers
-        /// </summary>
-        public Dictionary<string, SpriteBatchLayer> SpriteBatchLayers;
-
-        /// <summary>
         /// MonoXEngine constructor
         /// </summary>
         /// <param name="MainSettingsFile"></param>
@@ -81,12 +76,12 @@ namespace MonoXEngine
         {
             Global.Cameras = new List<Camera>(){new Camera()};
             Global.Camera = Global.Cameras[0];
+            Global.SpriteBatchLayers = new Dictionary<string, SpriteBatchLayer>();
             Global.Resolution = new Point(
                 this.MainSettings.Get<int>(new string[] { "Viewport", "ResolutionX" }),
                 this.MainSettings.Get<int>(new string[] { "Viewport", "ResolutionY" })
             );
-
-            this.SpriteBatchLayers = new Dictionary<string, SpriteBatchLayer>();
+            
             this.SceneManager = new SceneManager();
             this.ViewportTexture = new ViewportTexture(Global.Resolution, this.MainSettings.Get<string>(new string[] { "Viewport", "ViewportArea" }));
 
@@ -98,7 +93,7 @@ namespace MonoXEngine
             foreach(string layerName in this.MainSettings.Get<string>(new string[] { "LayerNames" }).Split(','))
             {
                 SpriteBatchLayer spriteBatchLayer = new SpriteBatchLayer(this.MainSettings.Get<string>(new string[] { "Layers", layerName.Trim() }));
-                this.SpriteBatchLayers.Add(layerName.Trim(), spriteBatchLayer);
+                Global.SpriteBatchLayers.Add(layerName.Trim(), spriteBatchLayer);
             }
 
             this.SceneManager.LoadScene(this.MainSettings.Get<string>(new string[] { "Initiation", "StartupScene" }));
@@ -117,7 +112,7 @@ namespace MonoXEngine
             Global.DeltaTime = (float)Global.GameTime.ElapsedGameTime.TotalSeconds;
             Coroutines.Update();
 
-            foreach (KeyValuePair<string, SpriteBatchLayer> SpriteBatchLayer in SpriteBatchLayers)
+            foreach (KeyValuePair<string, SpriteBatchLayer> SpriteBatchLayer in Global.SpriteBatchLayers)
                 SpriteBatchLayer.Value.Update();
 
             this.SceneManager.CurrentScene.Update();
@@ -130,7 +125,7 @@ namespace MonoXEngine
 
             this.ViewportTexture.CaptureAndRender(this, () => {
                 GraphicsDevice.Clear(Color.White);
-                foreach (KeyValuePair<string, SpriteBatchLayer> SpriteBatchLayer in SpriteBatchLayers)
+                foreach (KeyValuePair<string, SpriteBatchLayer> SpriteBatchLayer in Global.SpriteBatchLayers)
                     SpriteBatchLayer.Value.Draw();
             });
 

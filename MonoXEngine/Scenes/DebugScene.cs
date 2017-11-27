@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using MonoXEngine.EntityComponents;
 using System.Collections.Generic;
+using MonoXEngine.Structs;
 
 namespace MonoXEngine.Scenes
 {
@@ -40,12 +41,12 @@ namespace MonoXEngine.Scenes
 
             // Build TileMap
             List<Tile> tempTiles = new List<Tile>();
-            tempTiles.Add(new Tile(new Point(0, 0), new Point(5, 0)));
+            tempTiles.Add(new Tile(new Point(0, 0), new Point3D(5, 0, 2)));
             for (int x = 0; x < 15; x++)
-                tempTiles.Add(new Tile(new Point(0, 0), new Point(x, 1)));
+                tempTiles.Add(new Tile(new Point(0, 0), new Point3D(x, 1, 0)));
             for (int x = 0; x < 19; x++)
                 for (int y = 0; y < 5; y++)
-                    tempTiles.Add(new Tile(new Point(0, 1), new Point(x, y+2)));
+                    tempTiles.Add(new Tile(new Point(0, 1), new Point3D(x, y+2, 0)));
 
             TileMap tileMap = new TileMap(new Point(32, 32), "Tileset", tempTiles);
             tileMap.Build(new Point(10, 10));
@@ -65,6 +66,7 @@ namespace MonoXEngine.Scenes
 
             // Debug
             new Entity(entity => {
+                entity.SortingLayer = 1;
                 entity.LayerName = "UI";
                 entity.Position = -(Global.Resolution.ToVector2() / 2);
                 entity.AddComponent(new Text()).Run<Text>(component => {

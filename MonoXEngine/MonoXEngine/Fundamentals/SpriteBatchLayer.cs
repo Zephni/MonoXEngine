@@ -22,7 +22,7 @@ namespace MonoXEngine
 
         public static SpriteBatchLayer Get(string Key)
         {
-            return MonoXEngineGame.Instance.SpriteBatchLayers[Key];
+            return Global.SpriteBatchLayers[Key];
         }
 
         public SpriteBatchLayer(string layerOptions)
@@ -30,6 +30,11 @@ namespace MonoXEngine
             this.SpriteBatch = new SpriteBatch(Global.GraphicsDevice);
             this.Entities = new List<Entity>();
             this.ApplyOptions(layerOptions);
+        }
+
+        public void SortEntities()
+        {
+            this.Entities.Sort((v1, v2) => { return v1.SortingLayer - v2.SortingLayer; });
         }
 
         public void ApplyOptions(string layerOptions)

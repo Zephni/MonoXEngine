@@ -16,6 +16,13 @@ namespace MonoXEngine
         public Vector2 TextureSize;
         public float Rotation;
 
+        private int sortingLayer;
+        public int SortingLayer
+        {
+            get { return this.sortingLayer; }
+            set { this.sortingLayer = value; Global.SpriteBatchLayers[this.LayerName].SortEntities(); }
+        }
+
         private float opacity = 1;
         public float Opacity
         {
@@ -39,10 +46,10 @@ namespace MonoXEngine
             this.Scale = new Vector2(1, 1);
             this.EntityComponents = new List<EntityComponent>();
 
-            action?.Invoke(this);
-
             if (this.LayerName == null)
                 this.LayerName = MonoXEngineGame.Instance.MainSettings.Get<string>(new string[] { "Defaults", "Layer" });
+
+            action?.Invoke(this);
 
             this.Start();
         }

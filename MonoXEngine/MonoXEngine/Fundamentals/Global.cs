@@ -63,6 +63,11 @@ namespace MonoXEngine
         public static Camera Camera;
 
         /// <summary>
+        /// SpriteBatchLayers
+        /// </summary>
+        public static Dictionary<string, SpriteBatchLayer> SpriteBatchLayers;
+
+        /// <summary>
         /// String to point array. Use "1,0|2,0|.."
         /// </summary>
         /// <param name="pointListStr"></param>
