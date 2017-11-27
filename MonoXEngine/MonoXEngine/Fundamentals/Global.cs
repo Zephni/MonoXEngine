@@ -109,5 +109,23 @@ namespace MonoXEngine
 
             return pointList.ToArray();
         }
+
+        private static Dictionary<string, int[]> XIfTracker = new Dictionary<string, int[]>();
+        public static bool XIf(string alias, int x, bool condition)
+        {
+            if(!XIfTracker.ContainsKey(alias))
+                XIfTracker.Add(alias, new int[2] { 0, x });
+
+            if (XIfTracker[alias][0] >= XIfTracker[alias][1] || condition == false)
+                return false;
+
+            XIfTracker[alias][0] += 1;
+            return true;
+        }
+
+        public static bool RunOnce(string alias, bool condition)
+        {
+            return XIf(alias, 1, condition);
+        }
     }
 }

@@ -10,17 +10,26 @@ namespace MonoXEngine
     {
         private List<EntityComponent> EntityComponents;
 
+        public string Name;
         public Vector2 Position;
         public Vector2 Origin;
         public Vector2 Scale;
         public Vector2 TextureSize;
         public float Rotation;
 
+        public bool Trigger = false;
+        public Action<Entity> CollidedWithTrigger;
+
         private int sortingLayer;
         public int SortingLayer
         {
             get { return this.sortingLayer; }
             set { this.sortingLayer = value; Global.SpriteBatchLayers[this.LayerName].SortEntities(); }
+        }
+
+        public Rectangle BoundingBox
+        {
+            get { return new Rectangle(this.Position.ToPoint() + (this.Origin * this.Size).ToPoint(), this.Size.ToPoint()); }
         }
 
         private float opacity = 1;
@@ -54,6 +63,40 @@ namespace MonoXEngine
             this.Start();
         }
 
+        private Action<Entity> prefabAction = null;
+        public Entity(bool prefab, Action<Entity> action = null)
+        {
+            this.Position = Vector2.Zero;
+            this.Origin = new Vector2(0.5f, 0.5f);
+            this.Scale = new Vector2(1, 1);
+            this.EntityComponents = new List<EntityComponent>();
+
+            if (!prefab)
+            {
+                this.LayerName = MonoXEngineGame.Instance.MainSettings.Get<string>(new string[] { "Defaults", "Layer" });
+                action?.Invoke(this);
+                this.Start();
+            }
+            else
+            {
+                prefabAction = action;
+            }
+        }
+
+        public Entity BuildPrefab(string layerName = null)
+        {
+            if (layerName == null)
+                this.LayerName = MonoXEngineGame.Instance.MainSettings.Get<string>(new string[] { "Defaults", "Layer" });
+            else
+                this.LayerName = layerName;
+
+            if (this.prefabAction != null)
+                this.prefabAction(this);
+
+            this.Start();
+            return this;
+        }
+
         public virtual void Start() { }
 
         public EntityComponent AddComponent(EntityComponent entityComponent)
@@ -85,9 +128,13 @@ namespace MonoXEngine
         {
             SpriteBatchLayer.Get(this.LayerName).Entities.Remove(this);
         }
-        
+
+        public Action<Entity> UpdateAction;
         public virtual void Update()
         {
+            if(this.UpdateAction != null)
+                this.UpdateAction(this);
+
             foreach (EntityComponent component in this.EntityComponents)
             {
                 component.Update();

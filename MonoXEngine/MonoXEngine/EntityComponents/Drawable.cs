@@ -6,7 +6,12 @@ namespace MonoXEngine.EntityComponents
 {
     public class Drawable : EntityComponent
     {
-        protected Texture2D Texture2D;
+        private Texture2D texture2D;
+        public Texture2D Texture2D
+        {
+            get { return texture2D; }
+            private set { texture2D = value; }
+        }
 
         private Rectangle sourceRectangle;
         public Rectangle SourceRectangle

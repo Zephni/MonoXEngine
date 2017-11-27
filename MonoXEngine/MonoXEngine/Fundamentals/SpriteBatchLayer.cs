@@ -76,8 +76,9 @@ namespace MonoXEngine
 
         public void Update()
         {
-            foreach (Entity entity in Entities)
-                entity.Update();
+            for(int I = 0; I < Entities.Count; I++)
+                if(Entities[I] != null)
+                    Entities[I].Update();
         }
 
         public void Draw()

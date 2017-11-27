@@ -18,7 +18,7 @@ namespace MonoXEngine
         private Point totalMapSize;
         private Point3D totalChunks;
         private Point chunkSize;
-        List<int> chunkLayers;
+        private List<int> chunkLayers;
 
         /// <summary>
         /// TileMap construct
@@ -26,11 +26,15 @@ namespace MonoXEngine
         /// <param name="_tileSize"></param>
         /// <param name="tilesetName"></param>
         /// <param name="tiles"></param>
-        public TileMap(Point _tileSize, string tilesetName, List<Tile> tiles)
+        public TileMap(Point _tileSize, string tilesetName = null, List<Tile> tiles = null)
         {
             this.tileSize = _tileSize;
-            this.LoadTileset(tilesetName);
-            this.SetTiles(tiles);
+
+            if(tilesetName != null)
+                this.LoadTileset(tilesetName);
+
+            if(tiles != null)
+                this.SetTiles(tiles);
         }
 
         /// <summary>
@@ -160,7 +164,6 @@ namespace MonoXEngine
                             entity.Origin = Vector2.Zero;
                             entity.Position = new Vector2(0 * chunkSize.X, 0 * chunkSize.Y);
                             entity.SortingLayer = chunkLayers[z];
-                            Debug.WriteLine("sl = "+ z + ", "+chunkLayers[z]);
                             entity.AddComponent(new Drawable()).Run<Drawable>(component => {
                                 component.SetTexture(chunks[x, y, z]);
                             });
@@ -168,36 +171,6 @@ namespace MonoXEngine
                     }
                 }
             }
-        }
-
-        public bool IsRectOverlappingPixels(Rectangle rect, int sortingLayer)
-        {
-            if (chunkLayers.IndexOf(sortingLayer) == -1)
-                return false;
-
-            for (int x = 0; x < totalChunks.X; x++)
-            {
-                for (int y = 0; y < totalChunks.Y; y++)
-                {
-                    Rectangle chunkRect = new Rectangle(new Point(x * chunkSize.X, y * chunkSize.Y), chunkSize);
-                    Rectangle intersectRect;
-                    Rectangle.Intersect(ref rect, ref chunkRect, out intersectRect);
-
-                    if (intersectRect.Width > 0 && intersectRect.Height > 0)
-                    {
-                        intersectRect.Location -= chunkRect.Location;
-                        int totalPixels = intersectRect.Width * intersectRect.Height;
-                        Color[] colors = new Color[totalPixels];
-                        chunks[x, y, chunkLayers.IndexOf(sortingLayer)].GetData(0, intersectRect, colors, 0, totalPixels);
-
-                        for (int I = 0; I < colors.Length; I++)
-                            if (colors[I].A != byte.MinValue)
-                                return true;
-                    }
-                }
-            }
-
-            return false;
         }
     }
 }

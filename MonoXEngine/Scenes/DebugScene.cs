@@ -39,6 +39,32 @@ namespace MonoXEngine.Scenes
                 });
             });
 
+            // Player
+            player = new Entity(entity => {
+                entity.Position = new Vector2(128, 16);
+
+                entity.AddComponent(new Sprite()).Run<Sprite>(component => {
+                    component.BuildRectangle(new Point(16, 16), Color.White);
+                });
+
+                entity.AddComponent(new PlatformerController(new PixelCollider()));
+
+                entity.CollidedWithTrigger += other => {
+                    if (other.Name == "Collectable")
+                        other.Destroy();
+                };
+            });
+
+            // Collectable
+            new Entity(entity => {
+                entity.Trigger = true;
+                entity.Name = "Collectable";
+                entity.Position = new Vector2(150, 16);
+                entity.AddComponent(new Drawable()).Run<Drawable>(component => {
+                    component.BuildRectangle(new Point(8, 8), Color.Blue);
+                });
+            });
+
             // Build TileMap
             List<Tile> tempTiles = new List<Tile>();
             tempTiles.Add(new Tile(new Point(0, 0), new Point3D(5, 0, 2)));
@@ -51,19 +77,6 @@ namespace MonoXEngine.Scenes
             TileMap tileMap = new TileMap(new Point(32, 32), "Tileset", tempTiles);
             tileMap.Build(new Point(10, 10));
 
-            // Build player
-            player = new Entity(entity => {
-                entity.Position = new Vector2(128, 16);
-
-                entity.AddComponent(new Sprite()).Run<Sprite>(component => {
-                    component.BuildRectangle(new Point(16, 16), Color.White);
-                });
-
-                entity.AddComponent(new PlatformerController(tileMap) {
-                    JumpStrength = 5
-                });
-            });
-
             // Debug
             new Entity(entity => {
                 entity.SortingLayer = 1;
@@ -71,8 +84,11 @@ namespace MonoXEngine.Scenes
                 entity.Position = -(Global.Resolution.ToVector2() / 2);
                 entity.AddComponent(new Text()).Run<Text>(component => {
                     component.SetSpriteFont("Retro1-12");
-                    component.String = "Debug string";
                     component.Color = Color.Yellow;
+
+                    entity.UpdateAction = e => {
+                        component.String = player.Position.X + ", " + player.Position.Y;
+                    };
                 });
             });
         }

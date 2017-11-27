@@ -44,7 +44,7 @@
     <Compile Include="MonoXEngine\DataController.cs" />
     <Compile Include="MonoXEngine\EntityComponents\BaseCollider.cs" />
     <Compile Include="MonoXEngine\EntityComponents\Physics.cs" />
-    <Compile Include="MonoXEngine\EntityComponents\TileMapCollider.cs" />
+    <Compile Include="MonoXEngine\EntityComponents\PixelCollider.cs" />
     <Compile Include="MonoXEngine\Fundamentals\Camera.cs" />
     <Compile Include="MonoXEngine\Fundamentals\CoroutineHelper.cs" />
     <Compile Include="MonoXEngine\Fundamentals\CoRoutines.cs" />
