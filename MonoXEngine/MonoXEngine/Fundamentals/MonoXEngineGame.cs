@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Xml;
 using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace MonoXEngine
 {
@@ -20,11 +21,6 @@ namespace MonoXEngine
         /// GraphicsDeviceManager must be defined in construct
         /// </summary>
         private GraphicsDeviceManager Graphics;
-
-        /// <summary>
-        /// MainSettings is a DataSet pulling from MainSettings.xml data
-        /// </summary>
-        public DataSet MainSettings = new DataSet();
 
         /// <summary>
         /// SceneManager
@@ -46,8 +42,8 @@ namespace MonoXEngine
             MonoXEngineGame.Instance = this;
 
             // Pass MainSettings
-            this.MainSettings = new DataSet();
-            this.MainSettings.FromXML(XDocument.Load(@"MainSettings.xml"));
+            Global.MainSettings = new DataSet();
+            Global.MainSettings.FromXML(XDocument.Load(@"MainSettings.xml"));
 
             // Set Global.Game
             Global.Game = this;
@@ -56,10 +52,10 @@ namespace MonoXEngine
             this.Graphics = new GraphicsDeviceManager(this);
 
             // Content RootDirectory
-            Content.RootDirectory = this.MainSettings.Get<string>(new string[] { "Directories", "Content" });
+            Content.RootDirectory = Global.MainSettings.Get<string>(new string[] { "Directories", "Content" });
 
             // Window resizing
-            if(this.MainSettings.Get<string>(new string[] { "Viewport", "AllowResizing" }).ToLower() == "true")
+            if (Global.MainSettings.Get<string>("Viewport", "AllowResizing").ToLower() == "true")
             {
                 Window.AllowUserResizing = true;
                 Window.ClientSizeChanged += delegate {
@@ -68,7 +64,7 @@ namespace MonoXEngine
             }
 
             // Full screen
-            if (this.MainSettings.Get<string>(new string[] { "Viewport", "FullScreen" }).ToLower() == "true")
+            if (Global.MainSettings.Get<string>("Viewport", "FullScreen").ToLower() == "true")
                 Graphics.IsFullScreen = true;
         }
 
@@ -78,25 +74,25 @@ namespace MonoXEngine
             Global.Camera = Global.Cameras[0];
             Global.SpriteBatchLayers = new Dictionary<string, SpriteBatchLayer>();
             Global.Resolution = new Point(
-                this.MainSettings.Get<int>(new string[] { "Viewport", "ResolutionX" }),
-                this.MainSettings.Get<int>(new string[] { "Viewport", "ResolutionY" })
+                Global.MainSettings.Get<int>(new string[] { "Viewport", "ResolutionX" }),
+                Global.MainSettings.Get<int>(new string[] { "Viewport", "ResolutionY" })
             );
             
             this.SceneManager = new SceneManager();
-            this.ViewportTexture = new ViewportTexture(Global.Resolution, this.MainSettings.Get<string>(new string[] { "Viewport", "ViewportArea" }));
+            this.ViewportTexture = new ViewportTexture(Global.Resolution, Global.MainSettings.Get<string>(new string[] { "Viewport", "ViewportArea" }));
 
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            foreach(string layerName in this.MainSettings.Get<string>(new string[] { "LayerNames" }).Split(','))
+            foreach(KeyValuePair<string, object> layer in Global.MainSettings.GetGroup("Layers"))
             {
-                SpriteBatchLayer spriteBatchLayer = new SpriteBatchLayer(this.MainSettings.Get<string>(new string[] { "Layers", layerName.Trim() }));
-                Global.SpriteBatchLayers.Add(layerName.Trim(), spriteBatchLayer);
+                SpriteBatchLayer spriteBatchLayer = new SpriteBatchLayer(Global.MainSettings.GetGroup("Layers/" + layer.Key));
+                Global.SpriteBatchLayers.Add(layer.Key, spriteBatchLayer);
             }
 
-            this.SceneManager.LoadScene(this.MainSettings.Get<string>(new string[] { "Initiation", "StartupScene" }));
+            this.SceneManager.LoadScene(Global.MainSettings.Get<string>(new string[] { "Initiation", "StartupScene" }));
 
             base.LoadContent();
         }

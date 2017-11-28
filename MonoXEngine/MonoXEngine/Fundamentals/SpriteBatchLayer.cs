@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace MonoXEngine
 {
@@ -25,7 +26,7 @@ namespace MonoXEngine
             return Global.SpriteBatchLayers[Key];
         }
 
-        public SpriteBatchLayer(string layerOptions)
+        public SpriteBatchLayer(Dictionary<string, object> layerOptions)
         {
             this.SpriteBatch = new SpriteBatch(Global.GraphicsDevice);
             this.Entities = new List<Entity>();
@@ -37,35 +38,28 @@ namespace MonoXEngine
             this.Entities.Sort((v1, v2) => { return v1.SortingLayer - v2.SortingLayer; });
         }
 
-        public void ApplyOptions(string layerOptions)
+        public void ApplyOptions(Dictionary<string, object> layerOptions)
         {
             // Defaults
             this.TransformMatrix = Global.Camera.GetTransformation();
             this.SamplerState = SamplerState.PointClamp;
 
-            if (layerOptions.Trim().Length == 0)
-                return;
-
-            foreach (string option in layerOptions.Split(';'))
+            foreach (KeyValuePair<string, object> option in layerOptions)
             {
-                string[] optionKV = option.Split(':');
+                string key = option.Key.ToString().Trim().ToLower();
+                string value = option.Value.ToString().Trim();
 
-                if (optionKV.Length != 2)
-                    continue;
-
-                string key = optionKV[0].Trim().ToLower();
-                string value = optionKV[1].Trim();
-
-                if(key == "matrix")
+                if (key == "matrix")
                 {
-                    if(value.ToLower() == "camera")
+                    if (value.ToLower() == "camera")
                     {
-                        this.MatrixUpdater = delegate() {
+                        this.MatrixUpdater = delegate()
+                        {
                             return Global.Camera.GetTransformation();
                         };
                     }
                 }
-                else if(key == "samplerstate")
+                else if (key == "samplerstate")
                 {
                     var field = typeof(SamplerState).GetField(value, BindingFlags.Public | BindingFlags.Static);
                     var samplerstate = (SamplerState)field.GetValue(null);

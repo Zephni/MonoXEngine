@@ -22,12 +22,14 @@
   <Defaults>
     <Layer>Main</Layer>
   </Defaults>
-
-  <LayerNames>Background, Main, UI, Fade</LayerNames>
     
   <Layers>
-    <Background>SamplerState: PointWrap;</Background>
-    <Main>Matrix: Camera;</Main>
+    <Background>
+      <SamplerState>PointWrap</SamplerState>
+    </Background>
+    <Main>
+      <Matrix>Camera</Matrix>
+    </Main>
     <UI></UI>
     <Fade></Fade>
   </Layers>

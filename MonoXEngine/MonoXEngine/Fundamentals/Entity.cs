@@ -30,7 +30,7 @@ namespace MonoXEngine
 
         public Rectangle BoundingBox
         {
-            get { return new Rectangle(this.Position.ToPoint() + (this.Origin * this.Size).ToPoint(), this.Size.ToPoint()); }
+            get { return new Rectangle(this.Position.ToPoint(), this.Size.ToPoint()); }
         }
 
         private float opacity = 1;
@@ -57,7 +57,7 @@ namespace MonoXEngine
             this.EntityComponents = new List<EntityComponent>();
 
             if (this.LayerName == null)
-                this.LayerName = MonoXEngineGame.Instance.MainSettings.Get<string>(new string[] { "Defaults", "Layer" });
+                this.LayerName = Global.MainSettings.Get<string>(new string[] { "Defaults", "Layer" });
 
             if(action != null)
                 action.Invoke(this);
@@ -75,7 +75,7 @@ namespace MonoXEngine
 
             if (!prefab)
             {
-                this.LayerName = MonoXEngineGame.Instance.MainSettings.Get<string>(new string[] { "Defaults", "Layer" });
+                this.LayerName = Global.MainSettings.Get<string>(new string[] { "Defaults", "Layer" });
                 if(action != null)
                     action.Invoke(this);
                 this.Start();
@@ -88,11 +88,10 @@ namespace MonoXEngine
 
         public Entity BuildPrefab(string layerName = null)
         {
-
             Entity newEntity = Cloner.Copy(this);
             
             if (layerName == null)
-                newEntity.LayerName = MonoXEngineGame.Instance.MainSettings.Get<string>(new string[] { "Defaults", "Layer" });
+                newEntity.LayerName = Global.MainSettings.Get<string>(new string[] { "Defaults", "Layer" });
             else
                 newEntity.LayerName = layerName;
 

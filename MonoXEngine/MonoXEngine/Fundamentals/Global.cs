@@ -16,6 +16,11 @@ namespace MonoXEngine
         public static Game Game;
 
         /// <summary>
+        /// MainSettings
+        /// </summary>
+        public static DataSet MainSettings;
+
+        /// <summary>
         /// Content
         /// </summary>
         public static ContentManager Content

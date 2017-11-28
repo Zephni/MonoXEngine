@@ -19,11 +19,9 @@ namespace MonoXEngine.Scenes
                 });
 
                 CoroutineHelper.WaitRun(1, () => {
-                    CoroutineHelper.RunFor(2, p =>
-                    {
+                    CoroutineHelper.RunFor(2, p => {
                         entity.Opacity = 1 - p;
-                    }, () =>
-                    {
+                    }, () => {
                         entity.Destroy();
                     });
                 });
@@ -64,27 +62,23 @@ namespace MonoXEngine.Scenes
                 entity.Trigger = true;
                 entity.Name = "Collectable";
                 entity.AddComponent(new Drawable()).Run<Drawable>(component => {
-                    component.BuildRectangle(new Point(8, 8), Color.Blue);
+                    component.BuildRectangle(new Point(8, 8), Color.Purple);
                 });
             });
 
             for(int X = 0; X < 5; X++)
             {
                 Entity newCollectable = collectable.BuildPrefab();
-                newCollectable.Position = new Vector2(150 + (X * 16), 0);
+                newCollectable.Position = new Vector2(150 + (X * 16), 32*5);
             }
 
             // Build TileMap
             List<Tile> tempTiles = new List<Tile>();
-            tempTiles.Add(new Tile(new Point(0, 0), new Point3D(5, 0, 2)));
-            for (int x = 0; x < 15; x++)
-                tempTiles.Add(new Tile(new Point(0, 0), new Point3D(x, 1, 0)));
-            for (int x = 0; x < 19; x++)
-                for (int y = 0; y < 5; y++)
-                    tempTiles.Add(new Tile(new Point(0, 1), new Point3D(x, y+2, 0)));
-
+            for (int X = 0; X < 12; X++) tempTiles.Add(new Tile(new Point(0, 0), new Point3D(X, 5, 0)));
+            for (int X = 0; X < 12; X++) for (int Y = 1; Y < 4; Y++) tempTiles.Add(new Tile(new Point(0, 0), new Point3D(X, Y+5, 0)));
+            
             TileMap tileMap = new TileMap(new Point(32, 32), "Tileset", tempTiles);
-            tileMap.Build(new Point(10, 10));
+            tileMap.Build(new Point(30, 30));
 
             // Debug
             new Entity(entity => {
@@ -104,8 +98,8 @@ namespace MonoXEngine.Scenes
         
         public override void Update()
         {
-            Vector2 newPos = new Vector2(player.Position.X, -20);
-            Global.Camera.Position = newPos;
+            Vector2 camPos = player.Position + new Vector2(0, -50);
+            Global.Camera.Position = camPos;
         }
     }
 }
