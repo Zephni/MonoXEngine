@@ -4,8 +4,8 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Xml;
 using System.Xml.Linq;
+using System.Linq;
 using System.Xml.XPath;
 
 namespace MonoXEngine
@@ -86,10 +86,11 @@ namespace MonoXEngine
 
         protected override void LoadContent()
         {
-            foreach(KeyValuePair<string, object> layer in Global.MainSettings.GetGroup("Layers"))
+            foreach (KeyValuePair<string, object> x in Global.MainSettings.NewNarrowedDataSet("Layers").Data)
             {
-                SpriteBatchLayer spriteBatchLayer = new SpriteBatchLayer(Global.MainSettings.GetGroup("Layers/" + layer.Key));
-                Global.SpriteBatchLayers.Add(layer.Key, spriteBatchLayer);
+                string[] parts = x.Key.Split('/');
+                SpriteBatchLayer spriteBatchLayer = new SpriteBatchLayer(Global.MainSettings.GetChildren("Layers/" + parts[0]));
+                Global.SpriteBatchLayers.Add(parts[0], spriteBatchLayer);
             }
 
             this.SceneManager.LoadScene(Global.MainSettings.Get<string>(new string[] { "Initiation", "StartupScene" }));

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Linq;
 
 namespace MonoXEngine
 {
@@ -26,6 +27,11 @@ namespace MonoXEngine
         public static ContentManager Content
         {
             get { return Global.Game.Content; }
+        }
+
+        public static int CountEntities()
+        {
+            return Global.SpriteBatchLayers.Sum(x => x.Value.Entities.Count);
         }
 
         /// <summary>

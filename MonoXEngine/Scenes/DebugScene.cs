@@ -62,20 +62,20 @@ namespace MonoXEngine.Scenes
                 entity.Trigger = true;
                 entity.Name = "Collectable";
                 entity.AddComponent(new Drawable()).Run<Drawable>(component => {
-                    component.BuildRectangle(new Point(8, 8), Color.Purple);
+                    component.BuildRectangle(new Point(8, 8), Color.Yellow);
                 });
             });
 
             for(int X = 0; X < 5; X++)
             {
                 Entity newCollectable = collectable.BuildPrefab();
-                newCollectable.Position = new Vector2(150 + (X * 16), 32*5);
+                newCollectable.Position = new Vector2(150 + (X * 16), 32*4.72f);
             }
 
             // Build TileMap
             List<Tile> tempTiles = new List<Tile>();
             for (int X = 0; X < 12; X++) tempTiles.Add(new Tile(new Point(0, 0), new Point3D(X, 5, 0)));
-            for (int X = 0; X < 12; X++) for (int Y = 1; Y < 4; Y++) tempTiles.Add(new Tile(new Point(0, 0), new Point3D(X, Y+5, 0)));
+            for (int X = 0; X < 12; X++) for (int Y = 1; Y < 4; Y++) tempTiles.Add(new Tile(new Point(0, 1), new Point3D(X, Y+5, 0)));
             
             TileMap tileMap = new TileMap(new Point(32, 32), "Tileset", tempTiles);
             tileMap.Build(new Point(30, 30));
@@ -90,7 +90,7 @@ namespace MonoXEngine.Scenes
                     component.Color = Color.Yellow;
 
                     entity.UpdateAction = e => {
-                        component.String = player.Position.X + ", " + player.Position.Y;
+                        component.String = Global.CountEntities().ToString();
                     };
                 });
             });
@@ -98,7 +98,7 @@ namespace MonoXEngine.Scenes
         
         public override void Update()
         {
-            Vector2 camPos = player.Position + new Vector2(0, -50);
+            Vector2 camPos = player.Position + new Vector2(0, -30);
             Global.Camera.Position = camPos;
         }
     }

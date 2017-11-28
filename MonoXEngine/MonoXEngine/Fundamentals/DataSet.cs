@@ -17,14 +17,14 @@ namespace MonoXEngine
             this.Data = new Dictionary<string, object>();
         }
 
-        public string KeysToString(List<string> keys, string seperator = "/")
+        public string KeysToString(List<string> keys)
         {
             return string.Join("/", keys);
         }
 
-        public List<string> StringToKeys(string keys, string seperator = "/")
+        public List<string> StringToKeys(string keys)
         {
-            return keys.Split(seperator.ToCharArray()).ToList<string>();
+            return keys.Split("/".ToCharArray()).ToList<string>();
         }
 
         public void Set(List<string> keys, object value)
@@ -47,7 +47,7 @@ namespace MonoXEngine
             return Get<T>(keys.ToList());
         }
 
-        public Dictionary<string, object> GetGroup(string path)
+        public Dictionary<string, object> GetChildren(string path)
         {
             List<string> pathKeys = path.Split('/').ToList();
             Dictionary<string, object> newDict = new Dictionary<string, object>();
@@ -65,9 +65,30 @@ namespace MonoXEngine
             return newDict;
         }
 
-        public void FromXML(XDocument xDocument)
+        private void RenameKey(string fromKey, string toKey)
         {
-            foreach(XElement xEl in xDocument.Root.Descendants().Where(x => x.Descendants().Count() == 0))
+            object value = Data[fromKey];
+            Data.Remove(fromKey);
+            Data[toKey] = value;
+        }
+
+        public DataSet NewNarrowedDataSet(string path)
+        {
+            DataSet ds = new DataSet();
+            XDocument xDocument = ToXML();
+            ds.FromXML(xDocument.Root.XPathSelectElement(path).Descendants());
+
+            // Removes path
+            for (int I = 0; I < ds.Data.Count; I++)
+                ds.RenameKey(ds.Data.Keys.ElementAt<string>(I), ds.Data.Keys.ElementAt<string>(I).TrimStart((path + "/").ToCharArray()));
+
+            return ds;
+        }
+
+        public void FromXML(IEnumerable<XElement> elements)
+        {
+            Data = new Dictionary<string, object>();
+            foreach (XElement xEl in elements.Where(x => x.Descendants().Count() == 0))
             {
                 List<string> keys = new List<string>();
                 foreach (XElement a in xEl.AncestorsAndSelf().ToList())
@@ -79,14 +100,40 @@ namespace MonoXEngine
             }
         }
 
-        public XDocument ToXML()
+        public void FromXML(XElement elements)
+        {
+            FromXML(elements.Descendants());
+        }
+
+        public void FromXML(XDocument xDocument)
+        {
+            FromXML(xDocument.Root);
+        }
+
+        public XDocument ToXML(string root = "Root")
         {
             XDocument xDocument = new XDocument();
-            xDocument.Add(new XElement("Root"));
+            xDocument.Add(new XElement(root));
 
             foreach(KeyValuePair<string, object> kv in Data)
             {
+                string xPath = "/" + root;
+                string prevPath = "";
 
+                string[] keys = kv.Key.Split('/');
+                for(int I = 0; I < keys.Length; I++)
+                {
+                    prevPath = xPath;
+                    xPath += "/" + keys[I];
+
+                    if (xDocument.XPathSelectElement(xPath) == null)
+                    {
+                        if(I < keys.Length-1)
+                            xDocument.XPathSelectElement(prevPath).Add(new XElement(keys[I]));
+                        else
+                            xDocument.XPathSelectElement(prevPath).Add(new XElement(keys[I], kv.Value));
+                    }
+                }
             }
 
             return xDocument;
