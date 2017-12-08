@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Input;
 using MonoXEngine.EntityComponents;
 using System.Collections.Generic;
 using MonoXEngine.Structs;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoXEngine.Scenes
 {
@@ -27,6 +28,20 @@ namespace MonoXEngine.Scenes
                 });
             });
 
+
+            new Entity(entity =>
+            {
+                entity.LayerName = "Background";
+                entity.AddComponent(new DynamicTexture(entity, "Buildings")).Run<DynamicTexture>(component => {
+                    for (int x = 100; x < 132; x++)
+                        for (int y = 100; y < 132; y++)
+                            component.Data[x, y] = Color.Blue;
+
+                    
+                });
+            });
+
+            /*
             new Entity(entity => {
                 entity.LayerName = "Background";
                 entity.AddComponent(new CameraOffsetTexture { Coefficient = new Vector2(0.3f, 0) }).Run<CameraOffsetTexture>(component => {
@@ -40,7 +55,7 @@ namespace MonoXEngine.Scenes
                     component.LoadTexture("Buildings");
                 });
             });
-
+            
             // Player
             player = new Entity(entity => {
                 entity.Position = new Vector2(128, 16);
@@ -93,13 +108,13 @@ namespace MonoXEngine.Scenes
                         component.String = Global.CountEntities().ToString();
                     };
                 });
-            });
+            });*/
         }
         
         public override void Update()
         {
-            Vector2 camPos = player.Position + new Vector2(0, -30);
-            Global.Camera.Position = camPos;
+            //Vector2 camPos = player.Position + new Vector2(0, -30);
+            //Global.Camera.Position = camPos;
         }
     }
 }

@@ -10,7 +10,7 @@ namespace MonoXEngine.EntityComponents
         public Texture2D Texture2D
         {
             get { return texture2D; }
-            private set { texture2D = value; }
+            protected set { texture2D = value; }
         }
 
         private Rectangle sourceRectangle;
