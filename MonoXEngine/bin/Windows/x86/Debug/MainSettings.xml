@@ -25,7 +25,7 @@
     
   <Layers>
     <Background>
-      <SamplerState>PointWrap</SamplerState>
+      <SamplerState>LinearWrap</SamplerState>
     </Background>
     <Main>
       <Matrix>Camera</Matrix>

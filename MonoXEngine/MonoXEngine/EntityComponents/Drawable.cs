@@ -10,7 +10,15 @@ namespace MonoXEngine.EntityComponents
         public Texture2D Texture2D
         {
             get { return texture2D; }
-            protected set { texture2D = value; }
+            set {
+                texture2D = value;
+
+                CoroutineHelper.RunWhen(() => this.Entity != null, () => {
+                    this.Entity.TextureSize = new Vector2(this.Texture2D.Width, this.Texture2D.Height);
+                });
+
+                this.SourceRectangle = this.Texture2D.Bounds;
+            }
         }
 
         private Rectangle sourceRectangle;
@@ -20,7 +28,10 @@ namespace MonoXEngine.EntityComponents
             set
             {
                 this.sourceRectangle = value;
-                this.Entity.TextureSize = this.sourceRectangle.Size.ToVector2();
+
+                CoroutineHelper.RunWhen(() => this.Entity != null, () => {
+                    this.Entity.TextureSize = this.sourceRectangle.Size.ToVector2();
+                });
             }
         }
 
@@ -42,15 +53,6 @@ namespace MonoXEngine.EntityComponents
         public void LoadTexture(string file)
         {
             this.Texture2D = Global.Content.Load<Texture2D>(file);
-            this.Entity.TextureSize = new Vector2(this.Texture2D.Width, this.Texture2D.Height);
-            this.SourceRectangle = this.Texture2D.Bounds;
-        }
-
-        public void SetTexture(Texture2D texture)
-        {
-            this.Texture2D = texture;
-            this.Entity.TextureSize = new Vector2(this.Texture2D.Width, this.Texture2D.Height);
-            this.SourceRectangle = this.Texture2D.Bounds;
         }
 
         public void BuildRectangle(Point size, Color color)

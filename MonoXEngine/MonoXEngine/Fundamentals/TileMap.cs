@@ -165,7 +165,7 @@ namespace MonoXEngine
                             entity.Position = new Vector2(0 * chunkSize.X, 0 * chunkSize.Y);
                             entity.SortingLayer = chunkLayers[z];
                             entity.AddComponent(new Drawable()).Run<Drawable>(component => {
-                                component.SetTexture(chunks[x, y, z]);
+                                component.Texture2D = chunks[x, y, z];
                             });
                         });
                     }

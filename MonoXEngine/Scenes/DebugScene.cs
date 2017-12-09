@@ -14,30 +14,44 @@ namespace MonoXEngine.Scenes
         public override void Initialise()
         {
             new Entity(entity => {
-                entity.LayerName = "Fade";
-                entity.AddComponent(new Drawable()).Run<Drawable>(component => {
-                    component.BuildRectangle(new Point(256, 240), Color.Black);
-                });
-
-                CoroutineHelper.WaitRun(1, () => {
-                    CoroutineHelper.RunFor(2, p => {
-                        entity.Opacity = 1 - p;
-                    }, () => {
-                        entity.Destroy();
-                    });
+                entity.LayerName = "Background";
+                entity.Position += new Vector2(0, -80);
+                entity.AddComponent(new Drawable(){
+                    Texture2D = Global.Content.Load<Texture2D>("SkyTest"),
                 });
             });
 
-
-            new Entity(entity =>
-            {
+            new Entity(entity => {
                 entity.LayerName = "Background";
-                entity.AddComponent(new DynamicTexture(entity, "Buildings")).Run<DynamicTexture>(component => {
-                    for (int x = 100; x < 132; x++)
-                        for (int y = 100; y < 132; y++)
-                            component.Data[x, y] = Color.Blue;
+                entity.Position += new Vector2(0, -50);
+                entity.AddComponent(new CameraOffsetTexture(){
+                    Texture2D = Global.Content.Load<Texture2D>("MountainsTest"),
+                    Coefficient = new Vector2(0.05f, 0)
+                });
+            });
 
-                    
+            new Entity(entity => {
+                entity.LayerName = "Background";
+                entity.Position += new Vector2(0, 0);
+                entity.AddComponent(new CameraOffsetTexture(){
+                    Texture2D = Global.Content.Load<Texture2D>("BGTest"),
+                    Coefficient = new Vector2(0.05f, 0)
+                });
+            });
+
+            new Entity(entity =>{
+                entity.LayerName = "Background";
+                entity.Position += new Vector2(0, 80);
+                entity.AddComponent(new Drawable() { Texture2D = Global.Content.Load<Texture2D>("WaterTest") }).Run<Drawable>(component => {
+                    Color[,] colorArr = component.Texture2D.To2DArray();
+                    CoroutineHelper.Always(() => {
+                        component.Texture2D.ManipulatePixels(colors => {
+                            colors = colorArr.Copy2D(new Rectangle(0, 0, colorArr.GetLength(0), colorArr.GetLength(1)));
+                            for (int y = 0; y < 100; y++)
+                                colors.Shift(new Rectangle(0, 1 * y, 256, 1), new Point(-(int)(Global.Camera.Position.X * (y+1) * 0.05f), 1 * y));
+                            return colors;
+                        });
+                    });
                 });
             });
 
@@ -95,6 +109,8 @@ namespace MonoXEngine.Scenes
             TileMap tileMap = new TileMap(new Point(32, 32), "Tileset", tempTiles);
             tileMap.Build(new Point(30, 30));
 
+            
+            */
             // Debug
             new Entity(entity => {
                 entity.SortingLayer = 1;
@@ -106,15 +122,16 @@ namespace MonoXEngine.Scenes
 
                     entity.UpdateAction = e => {
                         component.String = Global.CountEntities().ToString();
+                        component.String += (Global.GameTime.IsRunningSlowly) ? " | Running slow" : "";
                     };
                 });
-            });*/
+            });
         }
         
         public override void Update()
         {
             //Vector2 camPos = player.Position + new Vector2(0, -30);
-            //Global.Camera.Position = camPos;
+            Global.Camera.Position += new Vector2(1f, 0);
         }
     }
 }
