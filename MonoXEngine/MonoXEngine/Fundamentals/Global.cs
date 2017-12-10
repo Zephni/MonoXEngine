@@ -31,11 +31,6 @@ namespace MonoXEngine
 
         public static List<Entity> Entities = new List<Entity>();
 
-        public static void SortEntities()
-        {
-            Global.Entities.Sort((v1, v2) => { return v1.SortingLayer - v2.SortingLayer; });
-        }
-
         public static int CountEntities()
         {
             return Global.Entities.Count;

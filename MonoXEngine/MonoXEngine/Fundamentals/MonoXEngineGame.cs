@@ -23,11 +23,6 @@ namespace MonoXEngine
         private GraphicsDeviceManager Graphics;
 
         /// <summary>
-        /// SceneManager
-        /// </summary>
-        public SceneManager SceneManager;
-
-        /// <summary>
         /// ViewportTexture
         /// </summary>
         public ViewportTexture ViewportTexture;
@@ -77,8 +72,8 @@ namespace MonoXEngine
                 Global.MainSettings.Get<int>(new string[] { "Viewport", "ResolutionX" }),
                 Global.MainSettings.Get<int>(new string[] { "Viewport", "ResolutionY" })
             );
-            
-            this.SceneManager = new SceneManager();
+            Global.SceneManager = new SceneManager();
+
             this.ViewportTexture = new ViewportTexture(Global.Resolution, Global.MainSettings.Get<string>(new string[] { "Viewport", "ViewportArea" }));
 
             base.Initialize();
@@ -93,7 +88,7 @@ namespace MonoXEngine
                 Global.SpriteBatchLayers.Add(parts[0], spriteBatchLayer);
             }
 
-            this.SceneManager.LoadScene(Global.MainSettings.Get<string>(new string[] { "Initiation", "StartupScene" }));
+            Global.SceneManager.LoadScene(Global.MainSettings.Get<string>(new string[] { "Initiation", "StartupScene" }));
 
             base.LoadContent();
         }
@@ -112,7 +107,7 @@ namespace MonoXEngine
             for(int I = 0; I < Global.Entities.Count; I++)
                 Global.Entities[I].Update();
 
-            this.SceneManager.CurrentScene.Update();
+            Global.SceneManager.CurrentScene.Update();
             base.Update(gameTime);
         }
 
@@ -123,7 +118,11 @@ namespace MonoXEngine
             this.ViewportTexture.CaptureAndRender(this, () => {
                 GraphicsDevice.Clear(Color.White);
                 foreach (KeyValuePair<string, SpriteBatchLayer> SpriteBatchLayer in Global.SpriteBatchLayers)
-                    SpriteBatchLayer.Value.Draw(SpriteBatchLayer.Key);
+                {
+                    List<Entity> Entities = Global.Entities.FindAll(e => e.LayerName == SpriteBatchLayer.Key);
+                    Entities.Sort((v1, v2) => { return v1.SortingLayer - v2.SortingLayer; });
+                    SpriteBatchLayer.Value.Draw(Entities);
+                }
             });
 
             base.Draw(gameTime);

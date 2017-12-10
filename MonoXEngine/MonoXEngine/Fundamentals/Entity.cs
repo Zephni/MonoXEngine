@@ -21,13 +21,8 @@ namespace MonoXEngine
 
         public bool Trigger = false;
         public Action<Entity> CollidedWithTrigger;
-
-        private int sortingLayer;
-        public int SortingLayer
-        {
-            get { return this.sortingLayer; }
-            set { this.sortingLayer = value; Global.SortEntities(); }
-        }
+        
+        public int SortingLayer;
 
         public Rectangle BoundingBox
         {

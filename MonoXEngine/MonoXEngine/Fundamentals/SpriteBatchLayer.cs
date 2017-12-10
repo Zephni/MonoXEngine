@@ -61,7 +61,7 @@ namespace MonoXEngine
             }
         }
 
-        public void Draw(string Key)
+        public void Draw(List<Entity> Entities)
         {
             if(this.MatrixUpdater != null)
                 this.TransformMatrix = this.MatrixUpdater();
@@ -75,9 +75,7 @@ namespace MonoXEngine
                 null,
                 this.TransformMatrix
             );
-
-            List<Entity> Entities = Global.Entities.FindAll(e => e.LayerName == Key);
-
+            
             foreach (Entity entity in Entities)
                 entity.Draw(this.SpriteBatch);
 

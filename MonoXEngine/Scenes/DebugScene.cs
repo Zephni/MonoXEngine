@@ -24,7 +24,9 @@ namespace MonoXEngine.Scenes
                 });
 
                 entity.AddFunction("FadeOut", e => {
-                    CoroutineHelper.RunFor(2, pcnt => { e.Opacity = pcnt; });
+                    CoroutineHelper.RunFor(2, pcnt => { e.Opacity = pcnt; }, () => {
+                        Global.SceneManager.LoadScene("DebugScene");
+                    });
                 });
             });
 
@@ -77,7 +79,7 @@ namespace MonoXEngine.Scenes
                 entity.Position = new Vector2(128, 16);
 
                 entity.AddComponent(new Sprite()).Run<Sprite>(component => {
-                    component.BuildRectangle(new Point(16, 16), Color.White);
+                    component.BuildRectangle(new Point(16, 16), Color.Green);
                 });
 
                 entity.AddComponent(new PlatformerController(new PixelCollider()));
@@ -86,7 +88,9 @@ namespace MonoXEngine.Scenes
                     if (other.Name == "Collectable")
                     {
                         other.Destroy();
-                        fader.RunFunction("FadeOut");
+
+                        if(Global.Entities.FindAll(e => e.Name == "Collectable").Count == 0)
+                            fader.RunFunction("FadeOut");
                     }
                         
                 };

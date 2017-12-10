@@ -9,7 +9,7 @@ namespace MonoXEngine
 
         public Scene()
         {
-            this.Initialise();
+            //this.Initialise();
         }
 
         public virtual void Initialise() { }
@@ -18,7 +18,7 @@ namespace MonoXEngine
 
         public void Destroy()
         {
-
+            Global.Entities.Clear();
         }
     }
 }
