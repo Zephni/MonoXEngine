@@ -70,7 +70,7 @@
     <Compile Include="MonoXEngine\Fundamentals\TileMap.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scenes\DebugScene.cs" />
+    <Compile Include="MyGame\Scenes\DebugScene.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
@@ -82,20 +82,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
-    <EmbeddedResource Include="MainSettings.xml">
+    <EmbeddedResource Include="MyGame\MainSettings.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <MonoGameContentReference Include="Content\Content.mgcb">
+    <MonoGameContentReference Include="MyGame\Content\Content.mgcb">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </MonoGameContentReference>
     <None Include="app.manifest" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Entities\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <COMReference Include="MSXML2">
       <Guid>{F5078F18-C551-11D3-89B9-0000F81FE221}</Guid>

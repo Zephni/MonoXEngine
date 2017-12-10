@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Zephni/Documents/Visual Studio 2017/Projects/MonoXEngine/MonoXEngine/Content/SkyTest.png</SourceFile>
-  <SourceTime>2017-12-09T15:22:11.3200934+00:00</SourceTime>
+  <SourceFile>C:/Users/Zephni/Documents/Visual Studio 2017/Projects/MonoXEngine/MonoXEngine/MyGame/Content/SkyTest.png</SourceFile>
+  <SourceTime>2017-12-10T15:18:42.9075725+00:00</SourceTime>
   <DestFile>C:/Users/Zephni/Documents/Visual Studio 2017/Projects/MonoXEngine/MonoXEngine/Content/bin/Windows/SkyTest.xnb</DestFile>
-  <DestTime>2017-12-09T15:22:39.875869+00:00</DestTime>
+  <DestTime>2017-12-10T15:25:55.6090163+00:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T15:05:36+00:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

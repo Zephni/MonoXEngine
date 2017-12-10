@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MyGame
+namespace MonoXEngine
 {
 #if WINDOWS || LINUX
     /// <summary>
@@ -14,7 +14,7 @@ namespace MyGame
         [STAThread]
         static void Main()
         {
-            using (var game = new MonoXEngine.MonoXEngineGame("MainSettings"))
+            using (var game = new MonoXEngineGame("MyGame/MainSettings.xml"))
                 game.Run();
         }
     }

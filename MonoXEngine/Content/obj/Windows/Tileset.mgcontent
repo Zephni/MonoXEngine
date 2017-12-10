@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/Zephni/Documents/Visual Studio 2017/Projects/MonoXEngine/MonoXEngine/Content/Tileset.png</SourceFile>
-  <SourceTime>2017-11-22T10:15:26.3860331+00:00</SourceTime>
+  <SourceFile>C:/Users/Zephni/Documents/Visual Studio 2017/Projects/MonoXEngine/MonoXEngine/MyGame/Content/Tileset.png</SourceFile>
+  <SourceTime>2017-12-10T15:18:42.9090726+00:00</SourceTime>
   <DestFile>C:/Users/Zephni/Documents/Visual Studio 2017/Projects/MonoXEngine/MonoXEngine/Content/bin/Windows/Tileset.xnb</DestFile>
-  <DestTime>2017-12-09T12:51:50.1232818+00:00</DestTime>
+  <DestTime>2017-12-10T15:25:55.5624963+00:00</DestTime>
   <Importer>TextureImporter</Importer>
   <ImporterTime>2017-03-01T15:05:36+00:00</ImporterTime>
   <Processor>TextureProcessor</Processor>

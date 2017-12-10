@@ -38,7 +38,7 @@ namespace MonoXEngine
 
             // Pass MainSettings
             Global.MainSettings = new DataSet();
-            Global.MainSettings.FromXML(XDocument.Load(@"MainSettings.xml"));
+            Global.MainSettings.FromXML(XDocument.Load(@MainSettingsFile));
 
             // Set Global.Game
             Global.Game = this;

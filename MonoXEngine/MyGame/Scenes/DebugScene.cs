@@ -127,7 +127,6 @@ namespace MonoXEngine.Scenes
                 entity.LayerName = "UI";
                 entity.Position = -(Global.Resolution.ToVector2() / 2);
                 entity.AddComponent(new Text()).Run<Text>(component => {
-                    component.SetSpriteFont("Retro1-12");
                     component.Color = Color.Yellow;
 
                     entity.UpdateAction = e => {
