@@ -13,6 +13,23 @@ namespace MonoXEngine.Scenes
 
         public override void Initialise()
         {
+            Entity fader = new Entity(entity => {
+                entity.LayerName = "Fade";
+                entity.AddComponent(new Drawable()).Run<Drawable>(component => {
+                    component.BuildRectangle(new Point(Global.ScreenBounds.Width, Global.ScreenBounds.Height), Color.Black);
+                });
+
+                entity.AddFunction("FadeIn", e => {
+                    CoroutineHelper.RunFor(2, pcnt => { e.Opacity = 1 - pcnt; });
+                });
+
+                entity.AddFunction("FadeOut", e => {
+                    CoroutineHelper.RunFor(2, pcnt => { e.Opacity = pcnt; });
+                });
+            });
+
+            fader.RunFunction("FadeIn");
+
             new Entity(entity => {
                 entity.LayerName = "Background";
                 entity.Position += new Vector2(0, -80);
@@ -43,30 +60,15 @@ namespace MonoXEngine.Scenes
                 entity.LayerName = "Background";
                 entity.Position += new Vector2(0, 80);
                 entity.AddComponent(new Drawable() { Texture2D = Global.Content.Load<Texture2D>("WaterTest") }).Run<Drawable>(component => {
-                    Color[,] colorArr = component.Texture2D.To2DArray();
+                    Color[] colorArr = component.Texture2D.To1DArray();
                     CoroutineHelper.Always(() => {
-                        component.Texture2D.ManipulatePixels(colors => {
-                            colors = colorArr.Copy2D(new Rectangle(0, 0, colorArr.GetLength(0), colorArr.GetLength(1)));
-                            for (int y = 0; y < 100; y++)
-                                colors.Shift(new Rectangle(0, 1 * y, 256, 1), new Point(-(int)(Global.Camera.Position.X * (y+1) * 0.05f), 1 * y));
+                        component.Texture2D.ManipulateColors1D(colors => {
+                            colors = (Color[])colorArr.Clone();
+                            for (int y = 0; y < 50; y++)
+                                colors.Shift(new Point(256, 100), new Rectangle(0, 2 * y, 256, 2), new Point(-(int)(Global.Camera.Position.X * (y+1) * 0.005f), 2 * y));
                             return colors;
                         });
                     });
-                });
-            });
-
-            /*
-            new Entity(entity => {
-                entity.LayerName = "Background";
-                entity.AddComponent(new CameraOffsetTexture { Coefficient = new Vector2(0.3f, 0) }).Run<CameraOffsetTexture>(component => {
-                    component.LoadTexture("StarBackground");
-                });
-            });
-
-            new Entity(entity => {
-                entity.LayerName = "Background";
-                entity.AddComponent(new CameraOffsetTexture { Coefficient = new Vector2(0.6f, 0) }).Run<CameraOffsetTexture>(component => {
-                    component.LoadTexture("Buildings");
                 });
             });
             
@@ -82,7 +84,11 @@ namespace MonoXEngine.Scenes
 
                 entity.CollidedWithTrigger += other => {
                     if (other.Name == "Collectable")
+                    {
                         other.Destroy();
+                        fader.RunFunction("FadeOut");
+                    }
+                        
                 };
             });
 
@@ -110,7 +116,7 @@ namespace MonoXEngine.Scenes
             tileMap.Build(new Point(30, 30));
 
             
-            */
+            
             // Debug
             new Entity(entity => {
                 entity.SortingLayer = 1;
@@ -130,8 +136,8 @@ namespace MonoXEngine.Scenes
         
         public override void Update()
         {
-            //Vector2 camPos = player.Position + new Vector2(0, -30);
-            Global.Camera.Position += new Vector2(1f, 0);
+            Vector2 camPos = player.Position + new Vector2(0, -30);
+            Global.Camera.Position = camPos;
         }
     }
 }

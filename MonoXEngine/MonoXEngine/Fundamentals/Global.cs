@@ -35,6 +35,11 @@ namespace MonoXEngine
         }
 
         /// <summary>
+        /// SceneManager
+        /// </summary>
+        public static SceneManager SceneManager;
+
+        /// <summary>
         /// GameTime
         /// </summary>
         public static GameTime GameTime;

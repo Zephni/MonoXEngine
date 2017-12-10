@@ -17,6 +17,7 @@ namespace MonoXEngine
         public Vector2 Scale;
         public Vector2 TextureSize;
         public float Rotation;
+        private Dictionary<string, Action<Entity>> Functions = new Dictionary<string, Action<Entity>>();
 
         public bool Trigger = false;
         public Action<Entity> CollidedWithTrigger;
@@ -144,6 +145,16 @@ namespace MonoXEngine
             {
                 component.Update();
             }
+        }
+
+        public void AddFunction(string alias, Action<Entity> action)
+        {
+            this.Functions.Add(alias, action);
+        }
+
+        public void RunFunction(string alias)
+        {
+            this.Functions[alias](this);
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
