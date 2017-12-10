@@ -29,9 +29,16 @@ namespace MonoXEngine
             get { return Global.Game.Content; }
         }
 
+        public static List<Entity> Entities = new List<Entity>();
+
+        public static void SortEntities()
+        {
+            Global.Entities.Sort((v1, v2) => { return v1.SortingLayer - v2.SortingLayer; });
+        }
+
         public static int CountEntities()
         {
-            return Global.SpriteBatchLayers.Sum(x => x.Value.Entities.Count);
+            return Global.Entities.Count;
         }
 
         /// <summary>

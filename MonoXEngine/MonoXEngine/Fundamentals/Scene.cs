@@ -18,10 +18,7 @@ namespace MonoXEngine
 
         public void Destroy()
         {
-            foreach(KeyValuePair<string, SpriteBatchLayer> sbl in Global.SpriteBatchLayers)
-            {
-                sbl.Value.Entities.Clear();
-            }
+
         }
     }
 }

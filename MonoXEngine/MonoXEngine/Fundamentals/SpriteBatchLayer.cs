@@ -14,7 +14,6 @@ namespace MonoXEngine
     public class SpriteBatchLayer
     {
         private SpriteBatch SpriteBatch;
-        public List<Entity> Entities;
 
         public SamplerState SamplerState;
 
@@ -29,13 +28,7 @@ namespace MonoXEngine
         public SpriteBatchLayer(Dictionary<string, object> layerOptions)
         {
             this.SpriteBatch = new SpriteBatch(Global.GraphicsDevice);
-            this.Entities = new List<Entity>();
             this.ApplyOptions(layerOptions);
-        }
-
-        public void SortEntities()
-        {
-            this.Entities.Sort((v1, v2) => { return v1.SortingLayer - v2.SortingLayer; });
         }
 
         public void ApplyOptions(Dictionary<string, object> layerOptions)
@@ -68,14 +61,7 @@ namespace MonoXEngine
             }
         }
 
-        public void Update()
-        {
-            for(int I = 0; I < Entities.Count; I++)
-                if(Entities[I] != null)
-                    Entities[I].Update();
-        }
-
-        public void Draw()
+        public void Draw(string Key)
         {
             if(this.MatrixUpdater != null)
                 this.TransformMatrix = this.MatrixUpdater();
@@ -89,6 +75,8 @@ namespace MonoXEngine
                 null,
                 this.TransformMatrix
             );
+
+            List<Entity> Entities = Global.Entities.FindAll(e => e.LayerName == Key);
 
             foreach (Entity entity in Entities)
                 entity.Draw(this.SpriteBatch);

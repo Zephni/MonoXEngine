@@ -26,7 +26,7 @@ namespace MonoXEngine
         public int SortingLayer
         {
             get { return this.sortingLayer; }
-            set { this.sortingLayer = value; Global.SpriteBatchLayers[this.LayerName].SortEntities(); }
+            set { this.sortingLayer = value; Global.SortEntities(); }
         }
 
         public Rectangle BoundingBox
@@ -43,12 +43,7 @@ namespace MonoXEngine
 
         public Vector2 Size { get { return this.TextureSize * this.Scale; } }
 
-        private string layerName;
-        public string LayerName
-        {
-            get { return this.layerName; }
-            set { this.MoveToLayer(value); }
-        }
+        public string LayerName;
 
         public Entity(Action<Entity> action = null)
         {
@@ -60,7 +55,9 @@ namespace MonoXEngine
             if (this.LayerName == null)
                 this.LayerName = Global.MainSettings.Get<string>(new string[] { "Defaults", "Layer" });
 
-            if(action != null)
+            Global.Entities.Add(this);
+
+            if (action != null)
                 action.Invoke(this);
 
             this.Start();
@@ -77,6 +74,7 @@ namespace MonoXEngine
             if (!prefab)
             {
                 this.LayerName = Global.MainSettings.Get<string>(new string[] { "Defaults", "Layer" });
+                Global.Entities.Add(this);
                 if(action != null)
                     action.Invoke(this);
                 this.Start();
@@ -95,6 +93,8 @@ namespace MonoXEngine
                 newEntity.LayerName = Global.MainSettings.Get<string>(new string[] { "Defaults", "Layer" });
             else
                 newEntity.LayerName = layerName;
+
+            Global.Entities.Add(newEntity);
 
             if (this.prefabAction != null)
                 this.prefabAction(newEntity);
@@ -132,7 +132,7 @@ namespace MonoXEngine
 
         public void Destroy()
         {
-            SpriteBatchLayer.Get(this.LayerName).Entities.Remove(this);
+            Global.Entities.Remove(this);
         }
 
         public Action<Entity> UpdateAction;
@@ -164,15 +164,6 @@ namespace MonoXEngine
             {
                 drawable.Draw(spriteBatch);
             }
-        }
-
-        private void MoveToLayer(string newLayerName)
-        {
-            if(this.LayerName != null)
-                SpriteBatchLayer.Get(this.LayerName).Entities.Remove(this);
-            
-            this.layerName = newLayerName;
-            SpriteBatchLayer.Get(newLayerName).Entities.Add(this);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace MonoXEngine.EntityComponents
             );
 
             List<Entity> possibleCollidingEntities = new List<Entity>();
-            foreach(Entity entity in Global.SpriteBatchLayers[Entity.LayerName].Entities)
+            foreach(Entity entity in Global.Entities.FindAll(e => e.LayerName == this.Entity.LayerName))
             {
                 if (entity.SortingLayer != Entity.SortingLayer || entity == Entity)
                     continue;
