@@ -22,9 +22,9 @@ namespace MonoXEngine.EntityComponents
         public Physics()
         {
             this.Kinetic = false;
-            this.Gravity = 0.3f;
+            this.Gravity = 10f;
             this.MaxX = 3;
-            this.MaxY = 7;
+            this.MaxY = 8;
             this.MoveX = 0;
             this.MoveY = 0;
             this.IsGrounded = false;
@@ -49,7 +49,7 @@ namespace MonoXEngine.EntityComponents
             {
                 // Apply gravity if not grounded
                 if (!this.IsGrounded)
-                    this.MoveY += this.Gravity;
+                    this.MoveY += this.Gravity * Global.DeltaTime;
 
                 // Clamp values
                 this.MoveX = Math.Min(Math.Max(this.MoveX, -this.MaxX), this.MaxX);

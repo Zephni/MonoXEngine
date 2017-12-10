@@ -113,6 +113,7 @@ namespace MonoXEngine
 
         protected override void Draw(GameTime gameTime)
         {
+            Global.FPS = ((int)(1 / Global.GameTime.ElapsedGameTime.TotalSeconds));
             GraphicsDevice.Clear(Color.Black);
 
             this.ViewportTexture.CaptureAndRender(this, () => {

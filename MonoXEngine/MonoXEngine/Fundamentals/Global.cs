@@ -88,6 +88,11 @@ namespace MonoXEngine
         public static Dictionary<string, SpriteBatchLayer> SpriteBatchLayers;
 
         /// <summary>
+        /// FPS
+        /// </summary>
+        public static int FPS;
+
+        /// <summary>
         /// String to point array. Use "1,0|2,0|.."
         /// </summary>
         /// <param name="pointListStr"></param>
@@ -130,7 +135,7 @@ namespace MonoXEngine
             return pointList.ToArray();
         }
 
-        private static Dictionary<string, int[]> XIfTracker = new Dictionary<string, int[]>();
+        public static Dictionary<string, int[]> XIfTracker = new Dictionary<string, int[]>();
         public static bool XIf(string alias, int x, bool condition)
         {
             if(!XIfTracker.ContainsKey(alias))

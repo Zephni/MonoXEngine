@@ -16,6 +16,7 @@ namespace MonoXEngine
             if(this.CurrentScene != null)
                 this.CurrentScene.Destroy();
 
+            Global.XIfTracker.Clear();
             Coroutines.routines.Clear();
 
             this.CurrentScene = scene;

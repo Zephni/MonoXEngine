@@ -26,7 +26,7 @@ namespace MonoXEngine
 
         public Rectangle BoundingBox
         {
-            get { return new Rectangle(this.Position.ToPoint(), this.Size.ToPoint()); }
+            get { return new Rectangle(this.Position.ToPoint() - (this.Origin * this.Size).ToPoint(), this.Size.ToPoint()); }
         }
 
         private float opacity = 1;

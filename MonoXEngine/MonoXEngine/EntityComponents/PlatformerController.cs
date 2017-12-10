@@ -20,9 +20,9 @@ namespace MonoXEngine.EntityComponents
 
         public PlatformerController(BaseCollider collider)
         {
-            Acceleration = 0.1f;
-            Deceleration = 0.1f;
-            JumpStrength = 5f;
+            Acceleration = 4f;
+            Deceleration = 4f;
+            JumpStrength = 4f;
             passThru = collider;
         }
 
@@ -45,18 +45,18 @@ namespace MonoXEngine.EntityComponents
                 CurrentJump = 0;                
 
             if (Keyboard.GetState().IsKeyDown(Keys.A))
-                MoveX += -Acceleration;
+                MoveX -= Acceleration * Global.DeltaTime;
             else if(MoveX < 0)
             {
-                MoveX += Deceleration;
-                if (MoveX >= -Deceleration) MoveX = 0;
+                MoveX += Deceleration * Global.DeltaTime;
+                if (MoveX >= -Deceleration * Global.DeltaTime) MoveX = 0;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.D))
-                MoveX += Acceleration;
+                MoveX += Acceleration * Global.DeltaTime;
             else if (MoveX > 0)
             {
-                MoveX -= Deceleration;
-                if (MoveX <= Deceleration) MoveX = 0;
+                MoveX -= Deceleration * Global.DeltaTime;
+                if (MoveX <= Deceleration * Global.DeltaTime) MoveX = 0;
             }
 
             base.Update();

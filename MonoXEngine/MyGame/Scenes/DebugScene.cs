@@ -45,7 +45,7 @@ namespace MonoXEngine.Scenes
                 entity.Position += new Vector2(0, -50);
                 entity.AddComponent(new CameraOffsetTexture(){
                     Texture2D = Global.Content.Load<Texture2D>("MountainsTest"),
-                    Coefficient = new Vector2(0.05f, 0)
+                    Coefficient = new Vector2(0, 0)
                 });
             });
 
@@ -54,7 +54,7 @@ namespace MonoXEngine.Scenes
                 entity.Position += new Vector2(0, 0);
                 entity.AddComponent(new CameraOffsetTexture(){
                     Texture2D = Global.Content.Load<Texture2D>("BGTest"),
-                    Coefficient = new Vector2(0.05f, 0)
+                    Coefficient = new Vector2(0, 0)
                 });
             });
 
@@ -108,7 +108,7 @@ namespace MonoXEngine.Scenes
             for(int X = 0; X < 5; X++)
             {
                 Entity newCollectable = collectable.BuildPrefab();
-                newCollectable.Position = new Vector2(150 + (X * 16), 32*4.72f);
+                newCollectable.Position = new Vector2(25 + (X * 25), 32*4.72f);
             }
 
             // Build TileMap
@@ -130,8 +130,7 @@ namespace MonoXEngine.Scenes
                     component.Color = Color.Yellow;
 
                     entity.UpdateAction = e => {
-                        component.String = Global.CountEntities().ToString();
-                        component.String += (Global.GameTime.IsRunningSlowly) ? " | Running slow" : "";
+                        component.String = Global.FPS.ToString();
                     };
                 });
             });
@@ -139,8 +138,13 @@ namespace MonoXEngine.Scenes
         
         public override void Update()
         {
-            Vector2 camPos = player.Position + new Vector2(0, -30);
+            Vector2 camPos = new Vector2(player.Position.X, 100);
             Global.Camera.Position = camPos;
+
+            if(Global.RunOnce("Restart", Keyboard.GetState().IsKeyDown(Keys.Space)))
+            {
+                Global.SceneManager.LoadScene("DebugScene");
+            }
         }
     }
 }
