@@ -4,8 +4,10 @@ using MonoXEngine.EntityComponents;
 using System.Collections.Generic;
 using MonoXEngine.Structs;
 using Microsoft.Xna.Framework.Graphics;
+using MonoXEngine;
+using StaticCoroutines;
 
-namespace MonoXEngine.Scenes
+namespace MyGame.Scenes
 {
     public class DebugScene : Scene
     {

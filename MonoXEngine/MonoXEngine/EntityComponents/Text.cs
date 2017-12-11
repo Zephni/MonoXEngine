@@ -29,7 +29,7 @@ namespace MonoXEngine.EntityComponents
 
         public Text SetSpriteFont(string FontAlias = "Arial-12")
         {
-            this.SpriteFont = Global.Content.Load<SpriteFont>("Fonts/"+FontAlias);
+            this.SpriteFont = Global.Content.Load<SpriteFont>(Global.MainSettings.Get<string>(new string[] {"Directories", "Fonts"})+FontAlias);
             return this;
         }
 

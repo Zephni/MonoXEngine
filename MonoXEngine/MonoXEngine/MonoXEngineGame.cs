@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Xml.Linq;
 using System.Linq;
 using System.Xml.XPath;
+using StaticCoroutines;
 
 namespace MonoXEngine
 {
@@ -68,8 +69,8 @@ namespace MonoXEngine
             Global.Cameras = new List<Camera>(){new Camera()};
             Global.Camera = Global.Cameras[0];
             Global.SpriteBatchLayers = new Dictionary<string, SpriteBatchLayer>();
-            Global.SceneManager = new SceneManager();
-            Global.AudioController = new AudioController("Audio", Content);
+            Global.SceneManager = new SceneManager(Global.MainSettings.Get<string>(new string[] { "Namespaces", "Scenes" }));
+            Global.AudioController = new AudioController(Global.MainSettings.Get<string>(new string[] { "Directories", "Audio" }), Content);
             Global.Resolution = new Point(
                 Global.MainSettings.Get<int>(new string[] { "Viewport", "ResolutionX" }),
                 Global.MainSettings.Get<int>(new string[] { "Viewport", "ResolutionY" })
@@ -103,7 +104,7 @@ namespace MonoXEngine
         {
             Global.GameTime = gameTime;
             Global.DeltaTime = (float)Global.GameTime.ElapsedGameTime.TotalSeconds;
-            Coroutines.Update();
+            Coroutines.Update(Global.DeltaTime);
 
             for(int I = 0; I < Global.Entities.Count; I++)
                 Global.Entities[I].Update();

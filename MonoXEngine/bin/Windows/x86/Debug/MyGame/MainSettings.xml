@@ -2,9 +2,14 @@
 
 <MainSettings>
   
+  <Namespaces>
+    <Scenes>MyGame.Scenes</Scenes>
+  </Namespaces>
+  
   <Directories>
-    <Content>Content</Content>
-    <Scenes>Scenes</Scenes>
+    <Content>Content/</Content>
+    <Audio>Audio/</Audio>
+    <Fonts>Fonts/</Fonts>
   </Directories>
 
   <Viewport>

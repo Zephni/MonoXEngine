@@ -31,7 +31,7 @@ namespace MonoXEngine
         public SoundEffectInstance Play(string filename)
         {
             if(!SoundEffects.ContainsKey(filename))
-                SoundEffects.Add(filename, Content.Load<SoundEffect>(Path + "/" + filename).CreateInstance());
+                SoundEffects.Add(filename, Content.Load<SoundEffect>(Path + filename).CreateInstance());
 
             SoundEffects[filename].Play();
 

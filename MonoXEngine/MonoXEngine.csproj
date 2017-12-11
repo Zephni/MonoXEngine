@@ -44,31 +44,28 @@
     <Compile Include="MonoXEngine\EntityComponents\BaseCollider.cs" />
     <Compile Include="MonoXEngine\EntityComponents\Physics.cs" />
     <Compile Include="MonoXEngine\EntityComponents\PixelCollider.cs" />
-    <Compile Include="MonoXEngine\Fundamentals\AudioController.cs" />
-    <Compile Include="MonoXEngine\Fundamentals\Camera.cs" />
-    <Compile Include="MonoXEngine\Fundamentals\CoroutineHelper.cs" />
-    <Compile Include="MonoXEngine\Fundamentals\CoRoutines.cs" />
-    <Compile Include="MonoXEngine\Fundamentals\DataSet.cs" />
-    <Compile Include="MonoXEngine\Fundamentals\Delegates.cs" />
-    <Compile Include="MonoXEngine\Fundamentals\Entity.cs" />
-    <Compile Include="MonoXEngine\Fundamentals\EntityComponent.cs" />
+    <Compile Include="MonoXEngine\AudioController.cs" />
+    <Compile Include="MonoXEngine\Camera.cs" />
+    <Compile Include="MonoXEngine\DataSet.cs" />
+    <Compile Include="MonoXEngine\Entity.cs" />
+    <Compile Include="MonoXEngine\EntityComponent.cs" />
     <Compile Include="MonoXEngine\EntityComponents\Drawable.cs" />
     <Compile Include="MonoXEngine\EntityComponents\Sprite.cs" />
     <Compile Include="MonoXEngine\EntityComponents\Text.cs" />
     <Compile Include="MonoXEngine\EntityComponents\CameraOffsetTexture.cs" />
-    <Compile Include="MonoXEngine\Fundamentals\Extensions.cs" />
-    <Compile Include="MonoXEngine\Fundamentals\Global.cs" />
+    <Compile Include="MonoXEngine\Extensions.cs" />
+    <Compile Include="MonoXEngine\Global.cs" />
     <Compile Include="MonoXEngine\MonoXEngineGame.cs" />
     <Compile Include="MonoXEngine\EntityComponents\PlatformerController.cs" />
-    <Compile Include="MonoXEngine\Fundamentals\Cloner.cs" />
+    <Compile Include="MonoXEngine\Cloner.cs" />
     <Compile Include="MonoXEngine\Structs\Animation.cs" />
-    <Compile Include="MonoXEngine\Fundamentals\ViewportTexture.cs" />
-    <Compile Include="MonoXEngine\Fundamentals\Scene.cs" />
-    <Compile Include="MonoXEngine\Fundamentals\SceneManager.cs" />
-    <Compile Include="MonoXEngine\Fundamentals\SpriteBatchLayer.cs" />
+    <Compile Include="MonoXEngine\ViewportTexture.cs" />
+    <Compile Include="MonoXEngine\Scene.cs" />
+    <Compile Include="MonoXEngine\SceneManager.cs" />
+    <Compile Include="MonoXEngine\SpriteBatchLayer.cs" />
     <Compile Include="MonoXEngine\Structs\Point3D.cs" />
     <Compile Include="MonoXEngine\Structs\Tile.cs" />
-    <Compile Include="MonoXEngine\Fundamentals\TileMap.cs" />
+    <Compile Include="MonoXEngine\TileMap.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MyGame\Scenes\DebugScene.cs" />
@@ -76,6 +73,9 @@
   <ItemGroup>
     <Reference Include="MonoGame.Framework">
       <HintPath>$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\Windows\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="StaticCoroutines">
+      <HintPath>..\..\StaticCoroutines\Coroutines\bin\Release\StaticCoroutines.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />

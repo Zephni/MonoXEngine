@@ -1,14 +1,16 @@
 ﻿using System;
+using StaticCoroutines;
 
 namespace MonoXEngine
 {
     public class SceneManager
     {
+        private string ScenesNamespace;
         public Scene CurrentScene { get; set; }
 
-        public SceneManager()
+        public SceneManager(string scenesNamespace)
         {
-
+            ScenesNamespace = scenesNamespace;
         }
 
         public void LoadScene(Scene scene)
@@ -19,13 +21,13 @@ namespace MonoXEngine
             Global.XIfTracker.Clear();
             Coroutines.routines.Clear();
 
-            this.CurrentScene = scene;
-            this.CurrentScene.Initialise();
+            CurrentScene = scene;
+            CurrentScene.Initialise();
         }
 
         public void LoadScene(string sceneName)
         {
-            this.LoadScene(Activator.CreateInstance(Type.GetType("MonoXEngine.Scenes." + sceneName)) as Scene);
+            LoadScene(Activator.CreateInstance(Type.GetType(ScenesNamespace + "." + sceneName)) as Scene);
         }
     }
 }
