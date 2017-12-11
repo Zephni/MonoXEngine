@@ -12,50 +12,42 @@ namespace MonoXEngine
     {
         private string Path;
         private ContentManager Content;
-        private Dictionary<string, SoundEffectInstance> SoundEffects;
 
-        private float masterVolume;
         public float MasterVolume
         {
-            get {return masterVolume;}
-            set {masterVolume = (value < 0) ? 0 : (value > 1) ? 1 : value;}
+            get {return SoundEffect.MasterVolume; }
+            set {
+                SoundEffect.MasterVolume = (value < 0) ? 0 : (value > 1) ? 1 : value;
+            }
+        }
+
+        public Dictionary<string, List<SoundEffectInstance>> SoundEffectInstances {
+            get;
+            private set;
         }
 
         public AudioController(string path, ContentManager content)
         {
             Path = path;
             Content = content;
-            SoundEffects = new Dictionary<string, SoundEffectInstance>();
+            SoundEffectInstances = new Dictionary<string, List<SoundEffectInstance>>();
         }
 
         public SoundEffectInstance Play(string filename)
         {
-            if(!SoundEffects.ContainsKey(filename))
-                SoundEffects.Add(filename, Content.Load<SoundEffect>(Path + filename).CreateInstance());
+            if(!SoundEffectInstances.ContainsKey(filename))
+                SoundEffectInstances.Add(filename, new List<SoundEffectInstance>());
 
-            SoundEffects[filename].Play();
+            SoundEffectInstance instance = Content.Load<SoundEffect>(Path + filename).CreateInstance();
+            SoundEffectInstances[filename].Add(instance);
+            instance.Play();
 
-            return SoundEffects[filename];
-        }
+            StaticCoroutines.CoroutineHelper.RunWhen(() => instance.State == SoundState.Stopped, () => {
+                SoundEffectInstances[filename].Remove(instance);
+                instance.Dispose();
+            });
 
-        public void Pause(string filename)
-        {
-            SoundEffects[filename].Pause();
-        }
-
-        public void Stop(string filename)
-        {
-            SoundEffects[filename].Stop();
-        }
-
-        public void SetVolume(string filename, float value)
-        {
-            SoundEffects[filename].Volume = value;
-        }
-
-        public float GetVolume(string filename)
-        {
-            return SoundEffects[filename].Volume;
+            return instance;
         }
     }
 }

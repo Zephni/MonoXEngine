@@ -4,12 +4,12 @@
   <Platform>Windows</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/craig.dennis/Documents/Visual Studio 2015/Projects/MonoXEngine/MonoXEngine/MyGame/Content/Fonts/Arial-12.spritefont</File>
-    <File>C:/Users/craig.dennis/Documents/Visual Studio 2015/Projects/MonoXEngine/MonoXEngine/MyGame/Content/Tileset.png</File>
-    <File>C:/Users/craig.dennis/Documents/Visual Studio 2015/Projects/MonoXEngine/MonoXEngine/MyGame/Content/WaterTest.png</File>
-    <File>C:/Users/craig.dennis/Documents/Visual Studio 2015/Projects/MonoXEngine/MonoXEngine/MyGame/Content/BGTest.png</File>
-    <File>C:/Users/craig.dennis/Documents/Visual Studio 2015/Projects/MonoXEngine/MonoXEngine/MyGame/Content/SkyTest.png</File>
-    <File>C:/Users/craig.dennis/Documents/Visual Studio 2015/Projects/MonoXEngine/MonoXEngine/MyGame/Content/MountainsTest.png</File>
-    <File>C:/Users/craig.dennis/Documents/Visual Studio 2015/Projects/MonoXEngine/MonoXEngine/MyGame/Content/Audio/SFX/Collect.wav</File>
+    <File>C:/Users/Zephni/Documents/Visual Studio 2017/Projects/MonoXEngine/MonoXEngine/MyGame/Content/Fonts/Arial-12.spritefont</File>
+    <File>C:/Users/Zephni/Documents/Visual Studio 2017/Projects/MonoXEngine/MonoXEngine/MyGame/Content/Tileset.png</File>
+    <File>C:/Users/Zephni/Documents/Visual Studio 2017/Projects/MonoXEngine/MonoXEngine/MyGame/Content/WaterTest.png</File>
+    <File>C:/Users/Zephni/Documents/Visual Studio 2017/Projects/MonoXEngine/MonoXEngine/MyGame/Content/BGTest.png</File>
+    <File>C:/Users/Zephni/Documents/Visual Studio 2017/Projects/MonoXEngine/MonoXEngine/MyGame/Content/SkyTest.png</File>
+    <File>C:/Users/Zephni/Documents/Visual Studio 2017/Projects/MonoXEngine/MonoXEngine/MyGame/Content/MountainsTest.png</File>
+    <File>C:/Users/Zephni/Documents/Visual Studio 2017/Projects/MonoXEngine/MonoXEngine/MyGame/Content/Audio/SFX/Collect.wav</File>
   </SourceFiles>
 </SourceFileCollection>

@@ -147,6 +147,11 @@ namespace MyGame.Scenes
             {
                 Global.SceneManager.LoadScene("DebugScene");
             }
+
+            if (Global.RunWhenEventLoops("Shift", Keyboard.GetState().IsKeyDown(Keys.Z)))
+            {
+                player.Position.X += 32;
+            }
         }
     }
 }

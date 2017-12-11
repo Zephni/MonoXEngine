@@ -154,5 +154,13 @@ namespace MonoXEngine
         {
             return XIf(alias, 1, condition);
         }
+
+        public static bool RunWhenEventLoops(string alias, bool condition)
+        {
+            if(!condition)
+                XIfTracker.Remove(alias);
+
+            return (XIf(alias, 1, condition));
+        }
     }
 }

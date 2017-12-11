@@ -66,3 +66,5 @@ C:\Users\craig.dennis\Documents\Visual Studio 2015\Projects\MonoXEngine\MonoXEng
 C:\Users\craig.dennis\Documents\Visual Studio 2015\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\Content\Audio\SFX\Collect.xnb
 C:\Users\craig.dennis\Documents\Visual Studio 2015\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\StaticCoroutines.dll
 C:\Users\craig.dennis\Documents\Visual Studio 2015\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\StaticCoroutines.pdb
+C:\Users\Zephni\Documents\Visual Studio 2017\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\Content\Audio\SFX\Collect.xnb
+C:\Users\Zephni\Documents\Visual Studio 2017\Projects\MonoXEngine\MonoXEngine\bin\Windows\x86\Debug\StaticCoroutines.pdb
