@@ -87,12 +87,12 @@ namespace MonoXEngine.Scenes
                 entity.CollidedWithTrigger += other => {
                     if (other.Name == "Collectable")
                     {
+                        Global.AudioController.Play("SFX/Collect");
                         other.Destroy();
 
                         if(Global.Entities.FindAll(e => e.Name == "Collectable").Count == 0)
                             fader.RunFunction("FadeOut");
                     }
-                        
                 };
             });
 
@@ -124,7 +124,7 @@ namespace MonoXEngine.Scenes
             // Debug
             new Entity(entity => {
                 entity.SortingLayer = 1;
-                entity.LayerName = "UI";
+                entity.LayerName = "Fade";
                 entity.Position = -(Global.Resolution.ToVector2() / 2);
                 entity.AddComponent(new Text()).Run<Text>(component => {
                     component.Color = Color.Yellow;

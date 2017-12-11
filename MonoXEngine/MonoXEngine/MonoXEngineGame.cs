@@ -68,11 +68,12 @@ namespace MonoXEngine
             Global.Cameras = new List<Camera>(){new Camera()};
             Global.Camera = Global.Cameras[0];
             Global.SpriteBatchLayers = new Dictionary<string, SpriteBatchLayer>();
+            Global.SceneManager = new SceneManager();
+            Global.AudioController = new AudioController("Audio", Content);
             Global.Resolution = new Point(
                 Global.MainSettings.Get<int>(new string[] { "Viewport", "ResolutionX" }),
                 Global.MainSettings.Get<int>(new string[] { "Viewport", "ResolutionY" })
             );
-            Global.SceneManager = new SceneManager();
 
             this.ViewportTexture = new ViewportTexture(Global.Resolution, Global.MainSettings.Get<string>(new string[] { "Viewport", "ViewportArea" }));
 

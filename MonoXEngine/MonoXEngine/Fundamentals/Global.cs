@@ -64,6 +64,8 @@ namespace MonoXEngine
             get { return new Rectangle(new Point(-Global.Resolution.X / 2, -Global.Resolution.Y / 2), Global.Resolution); }
         }
 
+        public static AudioController AudioController;
+
         /// <summary>
         /// GraphicsDevice
         /// </summary>

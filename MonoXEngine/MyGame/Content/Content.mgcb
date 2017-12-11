@@ -80,3 +80,9 @@
 /processorParam:TextureFormat=Color
 /build:MountainsTest.png
 
+#begin Audio/SFX/Collect.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/SFX/Collect.wav
+

@@ -44,6 +44,7 @@
     <Compile Include="MonoXEngine\EntityComponents\BaseCollider.cs" />
     <Compile Include="MonoXEngine\EntityComponents\Physics.cs" />
     <Compile Include="MonoXEngine\EntityComponents\PixelCollider.cs" />
+    <Compile Include="MonoXEngine\Fundamentals\AudioController.cs" />
     <Compile Include="MonoXEngine\Fundamentals\Camera.cs" />
     <Compile Include="MonoXEngine\Fundamentals\CoroutineHelper.cs" />
     <Compile Include="MonoXEngine\Fundamentals\CoRoutines.cs" />
@@ -57,7 +58,7 @@
     <Compile Include="MonoXEngine\EntityComponents\CameraOffsetTexture.cs" />
     <Compile Include="MonoXEngine\Fundamentals\Extensions.cs" />
     <Compile Include="MonoXEngine\Fundamentals\Global.cs" />
-    <Compile Include="MonoXEngine\Fundamentals\MonoXEngineGame.cs" />
+    <Compile Include="MonoXEngine\MonoXEngineGame.cs" />
     <Compile Include="MonoXEngine\EntityComponents\PlatformerController.cs" />
     <Compile Include="MonoXEngine\Fundamentals\Cloner.cs" />
     <Compile Include="MonoXEngine\Structs\Animation.cs" />

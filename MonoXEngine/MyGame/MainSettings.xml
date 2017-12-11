@@ -30,7 +30,6 @@
     <Main>
       <Matrix>Camera</Matrix>
     </Main>
-    <UI></UI>
     <Fade></Fade>
   </Layers>
 
