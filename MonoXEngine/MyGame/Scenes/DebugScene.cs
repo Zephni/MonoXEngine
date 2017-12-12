@@ -99,7 +99,7 @@ namespace MyGame.Scenes
             });
 
             // Collectable prefab
-            Entity collectable = new Entity(true, entity => {
+            Prefab collectable = new Prefab(entity => {
                 entity.Trigger = true;
                 entity.Name = "Collectable";
                 entity.AddComponent(new Drawable()).Run<Drawable>(component => {
@@ -109,7 +109,7 @@ namespace MyGame.Scenes
 
             for(int X = 0; X < 5; X++)
             {
-                Entity newCollectable = collectable.BuildPrefab();
+                Entity newCollectable = collectable.Build();
                 newCollectable.Position = new Vector2(25 + (X * 25), 32*4.72f);
             }
 
