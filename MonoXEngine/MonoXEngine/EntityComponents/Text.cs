@@ -27,7 +27,7 @@ namespace MonoXEngine.EntityComponents
         public float Opacity = 1;
         private SpriteFont SpriteFont = null;
 
-        public Text SetSpriteFont(string FontAlias = "Arial-12")
+        public Text SetSpriteFont(string FontAlias = "HeartbitXX")
         {
             this.SpriteFont = Global.Content.Load<SpriteFont>(Global.MainSettings.Get<string>(new string[] {"Directories", "Fonts"})+FontAlias);
             return this;
@@ -42,7 +42,7 @@ namespace MonoXEngine.EntityComponents
         {
             this.Entity.Origin = Vector2.Zero;
 
-            if (this.SpriteFont != null)
+            if (this.SpriteFont != null && Visible)
             {
                 spriteBatch.DrawString(
                     this.SpriteFont,

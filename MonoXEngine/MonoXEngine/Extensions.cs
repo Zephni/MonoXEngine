@@ -17,6 +17,13 @@ namespace MonoXEngine
         }
         #endregion
 
+        #region Vector2
+        public static Vector2 Copy(this Vector2 value, Vector2 source)
+        {
+            return new Vector2(source.X, source.Y);
+        }
+        #endregion
+
         #region Color[]
         public static Color[] Copy1D(this Color[] origional, Rectangle selectArea)
         {
@@ -76,7 +83,6 @@ namespace MonoXEngine
 
         public static void From1DArray(this Texture2D texture, Color[] colors1D)
         {
-            texture.Clear();
             texture.SetData(colors1D);
         }
 
@@ -99,8 +105,6 @@ namespace MonoXEngine
 
         public static void From2DArray(this Texture2D texture, Color[,] colors2D)
         {
-            texture.Clear();
-
             Color[] colors1D = new Color[colors2D.Length];
             for (int x = 0; x < colors2D.GetLength(0); x++)
                 for (int y = 0; y < colors2D.GetLength(1); y++)

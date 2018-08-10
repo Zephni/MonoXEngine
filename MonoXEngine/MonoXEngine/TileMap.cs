@@ -78,7 +78,7 @@ namespace MonoXEngine
         protected Texture2D[,] Split(Texture2D original, int partWidth, int partHeight)
         {
             int yCount = original.Height / partHeight + (partHeight % original.Height == 0 ? 0 : 1);//The number of textures in each horizontal row
-            int xCount = original.Height / partHeight + (partHeight % original.Height == 0 ? 0 : 1);//The number of textures in each vertical column
+            int xCount = original.Width / partWidth + (partWidth % original.Width == 0 ? 0 : 1);//The number of textures in each vertical column
             Texture2D[,] r = new Texture2D[xCount, yCount];//Number of parts = (area of original) / (area of each part).
             int dataPerPart = partWidth * partHeight;//Number of pixels in each of the split parts
 
@@ -121,6 +121,13 @@ namespace MonoXEngine
         /// <param name="perChunkTileAmount">Number of tiles per chunk</param>
         public void Build(Point perChunkTileAmount)
         {
+            bool AddedTileForChunkFix = false;
+            if(this.tiles.FindAll(e => e.Position3D.X == 0 && e.Position3D.Y == 0 && e.Position3D.Z == 0).Count == 0)
+            {
+                this.tiles.Add(new Tile(Point.Zero, new Point3D(0, 0, 0)));
+                AddedTileForChunkFix = true;
+            }
+
             chunkLayers = new List<int>();
             foreach (Tile tile in this.tiles)
                 if (!chunkLayers.Contains(tile.Position3D.Z))
@@ -134,10 +141,16 @@ namespace MonoXEngine
                 chunkLayers.Count
             );
             chunkSize = perChunkTileAmount * this.tileSize;
-            chunks = new Texture2D[totalChunks.X, totalChunks.Y, totalChunks.Z];            
+            chunks = new Texture2D[totalChunks.X, totalChunks.Y, totalChunks.Z];
 
             foreach (Tile tile in this.tiles)
             {
+                if (AddedTileForChunkFix && tile.Position3D.X == 0 && tile.Position3D.Y == 0 && tile.Position3D.Z == 0)
+                {
+                    AddedTileForChunkFix = false;
+                    continue;
+                }
+                    
                 Point3D chunkIndex = Point3D.FromPoint((tile.Position * tileSize) / chunkSize);
                 chunkIndex.Z = chunkLayers.FindIndex(x => x == tile.Position3D.Z);
                 Rectangle chunkRect = new Rectangle((chunkIndex * chunkSize).ToPoint(), chunkSize);
@@ -146,10 +159,11 @@ namespace MonoXEngine
 
                 if (chunks[chunkIndex.X, chunkIndex.Y, chunkIndex.Z] == null)
                     chunks[chunkIndex.X, chunkIndex.Y, chunkIndex.Z] = new Texture2D(Global.GraphicsDevice, chunkSize.X, chunkSize.Y);
-                
+
                 Rectangle relativeTileRect = new Rectangle((tile.Position * this.tileSize) - chunkRect.Location, this.tileSize);
                 chunks[chunkIndex.X, chunkIndex.Y, chunkIndex.Z].SetData<Color>(0, relativeTileRect, tileColors, 0, this.tileSize.X * this.tileSize.Y);
             }
+
 
             for (int x = 0; x < totalChunks.X; x++)
             {
@@ -162,7 +176,7 @@ namespace MonoXEngine
 
                         new Entity(entity => {
                             entity.Origin = Vector2.Zero;
-                            entity.Position = new Vector2(0 * chunkSize.X, 0 * chunkSize.Y);
+                            entity.Position = new Vector2(x * chunkSize.X, y * chunkSize.Y);
                             entity.SortingLayer = chunkLayers[z];
                             entity.AddComponent(new Drawable()).Run<Drawable>(component => {
                                 component.Texture2D = chunks[x, y, z];

@@ -78,6 +78,8 @@ namespace MonoXEngine
 
             this.ViewportTexture = new ViewportTexture(Global.Resolution, Global.MainSettings.Get<string>(new string[] { "Viewport", "ViewportArea" }));
 
+            Global.InputManager = new InputManager(InputManager.InputType.Keyboard);
+
             base.Initialize();
         }
 
@@ -100,14 +102,18 @@ namespace MonoXEngine
             Content.Unload();
         }
 
+        public float DeltaTimeMultiplier = 1;
         protected override void Update(GameTime gameTime)
         {
             Global.GameTime = gameTime;
-            Global.DeltaTime = (float)Global.GameTime.ElapsedGameTime.TotalSeconds;
-            Coroutines.Update(Global.DeltaTime);
+            Global.DeltaTime = (float)Global.GameTime.ElapsedGameTime.TotalSeconds * DeltaTimeMultiplier;
 
-            for(int I = 0; I < Global.Entities.Count; I++)
+            Global.InputManager.Update();
+
+            for (int I = 0; I < Global.Entities.Count; I++)
                 Global.Entities[I].Update();
+
+            Coroutines.Update(Global.DeltaTime);
 
             Global.SceneManager.CurrentScene.Update();
             base.Update(gameTime);

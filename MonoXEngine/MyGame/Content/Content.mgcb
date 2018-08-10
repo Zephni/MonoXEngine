@@ -86,3 +86,10 @@
 /processorParam:Quality=Best
 /build:Audio/SFX/Collect.wav
 
+#begin Fonts/HeartbitXX.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/HeartbitXX.spritefont
+

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Content;
 using System;
 using System.Collections.Generic;
@@ -12,12 +13,14 @@ namespace MonoXEngine
     {
         private string Path;
         private ContentManager Content;
+        private Song SongInstance;
 
         public float MasterVolume
         {
             get {return SoundEffect.MasterVolume; }
             set {
                 SoundEffect.MasterVolume = (value < 0) ? 0 : (value > 1) ? 1 : value;
+                MediaPlayer.Volume = SoundEffect.MasterVolume;
             }
         }
 
@@ -35,7 +38,7 @@ namespace MonoXEngine
 
         public SoundEffectInstance Play(string filename)
         {
-            if(!SoundEffectInstances.ContainsKey(filename))
+            if (!SoundEffectInstances.ContainsKey(filename))
                 SoundEffectInstances.Add(filename, new List<SoundEffectInstance>());
 
             SoundEffectInstance instance = Content.Load<SoundEffect>(Path + filename).CreateInstance();
@@ -48,6 +51,35 @@ namespace MonoXEngine
             });
 
             return instance;
+        }
+
+        public void PlayMusic(string filename, bool Repeat = true)
+        {
+            MediaPlayer.Stop();
+            SongInstance = Content.Load<Song>(Path + filename);
+            MediaPlayer.Play(SongInstance);
+            MediaPlayer.IsRepeating = true;
+        }
+
+        public void StopMusic()
+        {
+            MediaPlayer.Stop();
+        }
+
+        public bool MusicIsPlaying(string SongName = "")
+        {
+            if (SongName != "" && SongInstance != null)
+            {
+                Console.WriteLine(SongName);
+                Console.WriteLine(SongInstance.Name);
+
+                return SongName == SongInstance.Name;
+            }
+
+            if (SongName == "")
+                return MediaPlayer.State == MediaState.Playing;
+
+            return false;
         }
     }
 }

@@ -8,12 +8,10 @@ namespace MonoXEngine
     {
         public Entity Entity;
 
-        public EntityComponent() { }
-
         public void Initialise(Entity entity)
         {
-            Entity = entity;
-            Start();
+            this.Entity = entity;
+            this.Start();
         }
 
         public abstract void Start();
